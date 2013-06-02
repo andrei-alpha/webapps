@@ -1,0 +1,44 @@
+#info-window {
+	width: 1200px;
+	height: 800px;
+	top: 100px;
+	left: 600px;
+	background: rgba(50, 20, 20, 0.8); 
+	border-radius: 20px;
+	box-shadow: 5px 5px 40px #321414;  /*For IE9/Final CSS3 spec*/
+	-moz-box-shadow: 5px 5px 40px #321414;  /*For Firefox*/
+	-webkit-box-shadow: 5px 5px 40px #321414;  /*For Chrome/Safari*/
+	z-index: 2;
+	position: absolute;
+	display: none;
+}
+
+#info-window-title {
+	width: 100%;
+	height: 50px;
+}
+
+#info-window-title-name {
+	padding-left: 20px;
+	color: #fff;
+	font-size: 26px;
+}
+
+#info-window-close {
+	top: 10px;
+	right: 10px;
+	width: 25px;
+	height: 25px;
+	border-radius: 100px;
+	position: absolute;
+	cursor: pointer;
+}
+
+#info-window-title-close:hover {
+	background: rgba(250, 0, 0, 1);
+}
+
+#info-window-content {
+	color: #fff;
+	padding: 50px;
+}

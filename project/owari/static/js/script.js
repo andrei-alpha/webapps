@@ -1,4 +1,15 @@
+function openInfoWindow(name, data, callback) {
+	var windowTemplate = $('#infoWindowTemplate').html();
+	var template = windowTemplate.format(name);
 
+	$('#info-window').html(template);
+	$('#info-window').fadeIn(500);
+	$('#info-window-close').click(function(event) { closeInfoWindow(); });
+}
+
+function closeInfoWindow() {
+	$('#info-window').fadeOut(500);
+}
 
 $(document).ready(function() {
 });

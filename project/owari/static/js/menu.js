@@ -6,6 +6,8 @@ function menu_addItem(name, href, callback) {
 	var template = menuTemplate.format(name, href, itemId);
 
 	$('#nav-menu').append(template);
+	// Bind trigger
+	$('#menu-item-' + itemId).click( function() { openInfoWindow(name, null, callback); } );
 }
 
 function menu_addUser(name, href, callback) {
