@@ -13,14 +13,40 @@
   <body>
     <!-- World map -->
     <div id="map-canvas"></div>
-    <!-- Navigation menu -->
-    <div id="nav-menu"></div>
+    <!-- Left menu -->
+    <div id="menu">
+      <div id="nav-menu"></div>
+      <div id="user-list"></div>
+    </div>
+
     <!-- Chat -->
     <div id="chat"></div>
+    <!-- InfoWindow -->
+    <div id="info-window"></div>
   
+    <!-- Templates -->
+    <!-- Menu item template -->
+    <script type="text/template" id="menuItemTemplate">
+      <div id="menu-item-{2}" class="menu-item">
+        <a href="{1}">{0}</a>
+      </div>
+    </script>
+    <!-- User template -->
+    <script type="text/template" id="userItemTemplate">
+      <div id="user-item-{1}" class="user-item" onclick='{2}'>
+        <div id="user-item-pic-{1}" class="user-item-pic"></div>
+        <div id="user-item-name-{1}" class="user-item-name">{0}</div>
+        <div class="user-item-status">
+          <div id="user-item-status-pic-{1}" class="user-item-status-pic"></div>
+        </div>
+      </div>
+    </script>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="/static/js/map.js"></script>    
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/menu.js"></script>
     <!-- <script src="/static/js/bootstrap.min.js"></script> -->
   </body>
 </html>

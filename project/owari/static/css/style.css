@@ -1,5 +1,135 @@
-html, body, #map-canvas {
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-color: rgba(82, 75, 69, 1);
 }
+
+#map-canvas {
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	position: absolute;
+}
+
+#menu {
+	width: 220px;
+	height: 100%;
+}
+
+#nav-menu, #user-list {
+	width: 220px;
+	background-color: rgba(50, 20, 20, 0.8);
+	position: fixed;
+	box-shadow: 15px 0px 40px #321414;  /*For IE9/Final CSS3 spec*/
+	-moz-box-shadow: 15px 0px 40px #321414;  /*For Firefox*/
+	-webkit-box-shadow: 15px 0px 40px #321414;  /*For Chrome/Safari*/
+	z-index: 2;
+}
+
+#user-list {
+	border-top: 5px solid rgba(20, 10, 10, 0.7);
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	bottom: 0px;
+}
+
+
+.menu-item {
+	height: 40px;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 2px;
+	text-align: center;
+	padding-top: 10px;
+	cursor: pointer;
+}
+
+.menu-item:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item a {
+	color: rgba(255, 255, 255, 0.9); /*rgba(122, 120, 110, 0.9); */
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#info-window {
+	width: 1200px;
+	height: 800px;
+	top: 100px;
+	left: 600px;
+	background: rgba(50, 20, 20, 0.8); 
+	border-radius: 20px;
+	box-shadow: 5px 5px 40px #321414;  /*For IE9/Final CSS3 spec*/
+	-moz-box-shadow: 5px 5px 40px #321414;  /*For Firefox*/
+	-webkit-box-shadow: 5px 5px 40px #321414;  /*For Chrome/Safari*/
+	z-index: 2;
+	position: absolute;
+}
+
+.user-item {
+	height: 45px;
+	width: 210px;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 2px;
+	padding-top: 10px;
+	cursor: pointer;
+	display: table;
+}
+
+.user-item:hover {
+	background-color: rgba(50, 20, 20, 0.9);
+}
+
+.user-item-pic {
+	width: 44px;
+	display: table-cell;
+	background-image: url('../img/user-placeholder-small.png');
+}
+
+.user-item-name {
+	width: 154px;
+	display: table-cell;
+	text-align: center;
+	font-size: 14px;
+	color: #fff;
+}
+
+.user-item-status {
+	width: 15px;
+	display: table-cell;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.user-item-status-pic {
+	height: 15px;
+	background-image: url('../img/user-status.png');
+	background-size: 45px 30px;
+	background-position: -15px 0px;
+}
+
+/* Some scroolbar styling tips from http://webdesign.tutsplus.com/tutorials/
+htmlcss-tutorials/quick-tip-styling-scrollbars-to-match-your-ui-design/ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: rgba(50, 20, 20, 0.1);
+} /* the new scrollbar will have a flat appearance with the set background color */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(170, 170, 170, 0.1);
+    border-radius: 20px;
+} /* this will style the thumb, ignoring the track */
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(170, 170, 170, 0.6);
+}
+::-webkit-scrollbar-button {
+    background-color: rgba(50, 20, 20, 0.2);
+} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+::-webkit-scrollbar-corner {
+    background-color: black;
+} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also
+ needs to be styled */

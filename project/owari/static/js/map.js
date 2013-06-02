@@ -48,11 +48,13 @@ var styleArray = [
 
 function initialize() {
   var mapOptions = {
-    zoom: 4,
+    zoom: 5,
     minZoom: 4,
     maxZoom: 7,
     styles: styleArray,
     streetViewControl: false,
+    zoomControl: false,
+    panControl: false,
     center: new google.maps.LatLng(7.25834,12.346191),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
