@@ -1,8 +1,8 @@
 function makePointLight() {
       var point = new THREE.PointLight(0xffffff);
-      point.position.x = 100;
-      point.position.y = 100;
-      point.position.z = 500;
+      point.position.x = 0;
+      point.position.y = 300;
+      point.position.z = 200;
       return point;
     }
 
