@@ -7,7 +7,8 @@ function menu_addItem(name, href, callback) {
 
     $('#nav-menu').append(template);
     // Bind trigger
-    $('#menu-item-' + itemId).click( function() { openInfoWindow(name, null, callback); } );
+    var fun = callback == null ?  function() { openInfoWindow(name, null, callback); } : callback;
+    $('#menu-item-' + itemId).click(fun);
 }
 
 function chat_getUsers() {
@@ -43,7 +44,7 @@ function menu_addUser(name, id, callback) {
 $(document).ready(function() {
     menu_addItem('User Profile', '#', null);
     menu_addItem('Game History', '#', null);
-    menu_addItem('Forum', '#', null);
+    menu_addItem('Play Game', '#', function() { openGameWindow('', null, null); });
     menu_addItem('Tutorial', '#', null);
     menu_addItem('Hall of Fame', '#', null);
 

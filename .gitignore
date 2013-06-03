@@ -1,3 +1,4 @@
 doc/*
 misc/*
 *.pyc
+project/ENV/*

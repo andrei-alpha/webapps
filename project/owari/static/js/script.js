@@ -4,14 +4,26 @@ function openInfoWindow(name, data, callback) {
 
 	$('#info-window').html(template);
 	$('#info-window').fadeIn(500);
-	$('#info-window-close').click(function(event) { closeInfoWindow(); });
+  $('#info-window-close').click(function(event) { closeInfoWindow(); });
 }
 
 function closeInfoWindow() {
-	$('#info-window').fadeOut(500);
+  $('#info-window').fadeOut(500);
+}
+
+function openGameWindow(name, data, callback) {
+  $('#game-window').fadeIn(50);
+
+  init();
+  animate();
+}
+
+function closeGameWindow() {
+  $('#game-window').fadeOut(500);
 }
 
 $(document).ready(function() {
+  $('#game-window-close').click(function(event) { closeGameWindow(); });
 });
 
 //first, checks if it isn't implemented yet
