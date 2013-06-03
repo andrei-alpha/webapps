@@ -16,6 +16,7 @@ function openGameWindow(name, data, callback) {
 
   init();
   animate();
+  startGame();
 }
 
 function closeGameWindow() {

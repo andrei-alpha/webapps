@@ -1,7 +1,7 @@
 /*
-getBalls(plate);
-incBallNo(plate);
-decBallNo(plate);
+getBalls(plate_no);
+incBallNo(plate_no);
+decBallNo(plate_no);
 */
 
 var gameScore = [0, 0];
@@ -15,36 +15,62 @@ function startGame(gameMode) {
 	gameState = true;
 }
 
-function clickBowl(plate) {
+function validMove(plate_no) {
 	/* Check if is a valid move. */
-	if ( getBalls(plate) == 0)
+	if ( getBalls(plate_no) == 0 || gameState == false)
 		return false;
-	if (gameCurrPlayer == 0 && plate >= 6)
+	if (gameCurrPlayer == 0 && plate_no >= 6)
 		return false;
-	if (gameCurrPlayer == 1 && plate < 6)
+	if (gameCurrPlayer == 1 && plate_no < 6)
 		return false;
-
-	moveStones(plate);
+	return true;
 }
 
-function moveStones(plate) {
-	/* Move the actual stones. */
-	var balls = getBalls(plate);
-	console.log('now we move ' + balls + ' stones from bowl ' + plate);
+function clickBowl(plate_no) {
+	if ( !validMove(plate_no) )
+		return false;
 
-	for (var ind = plate + 1; balls != 0; --balls, ++ind) {
+	moveStones(plate_no);
+}
+
+function moveStones(plate_no) {
+	/* Move the actual stones. */
+	var balls = getBalls(plate_no);
+
+	for (var i = 0; i <= balls; ++i)
+		removeBall(plate_no);
+	for (var ind = plate_no + 1; balls != 0; --balls, ++ind) {
 		ind = ind % 12;
 
 		if (getBalls(ind) == 1) {
-			console.log('minus one ball in ' + ind);
-			//decBallNo(ind);
+			removeBall(ind);
 			gameScore[gameCurrPlayer] += 2;
 		}
 		else {
-			console.log('one more ball in ' + ind);
-			//incBallsNo(ind);
+			addBall(ind);
 		}
 	}
+
+	/* Check if this player has won */
+	if (gameScore[gameCurrPlayer] >= 24) {
+		gameState = false;
+		$('#game-window-title-name').html('<h1>Player ' + gameCurrPlayer + ' has won!</h1>');
+		return;
+	}
+
+	/* Change player's turn */
+	gameCurrPlayer = 1 - gameCurrPlayer;
+
+	/* If no valid move, change again */
+	var found = false;
+	for (var ind = 0; ind < 12; ++ind)
+		if ( validMove(ind) )
+			found = true;
+	if (!found)
+		gameCurrPlayer = 1 - gameCurrPlayer;
+
+	$('#game-window-title-name').html('Owari Game (' + gameCurrPlayer +
+	') _________ Score(0): ' + gameScore[0] + ' Score(1): ' + gameScore[1]);
 }
 
 function getScore(player) {

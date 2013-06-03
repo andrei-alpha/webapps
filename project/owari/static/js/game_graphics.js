@@ -6,7 +6,6 @@ var BALL_RADIUS = 20;
 var MAX_BALLS = 48;
 
 function makePlates() {
-  var plates = [];
   var geometry;
   var material;
   var positions = [];
@@ -43,54 +42,20 @@ function putBalls(plate, number) {
   if (number > MAX_BALLS) 
     return curr_balls; 
   for (var i = 0; i < number; i++) {
-    curr_balls = incBallsNo(plate);
-    scene.add(curr_balls[curr_balls.length-1]);
+    incBallsNo(plate);
   }
   return curr_balls;
 }
-/*
-function runTurn(plateNo) {
-  var plate = plates[plateNo];
-  var curr_balls = plate[1];
-  var curr_balls_no = curr_balls.length;
-  var pos = getPlatePosition(plateNo);
-  var plateX = pos[0];
-  var plateY = pos[1];
-  var nextPlateIndex = getNextPlate(plateNo);
-  var ball;
-  var nextPlate, nextPBalls; 
-  var result;
 
-  for (i = 0; i < curr_balls_no; i++) {
-
-    nextPlate = plates[nextPlateIndex];
-    if (nextPlate != plateNo) {
-      nextPBalls = incBallsNo(nextPlate);
-
-      result = decBallsNo(plate);
-      plate[1] = result[0];
-      curr_balls = result[0];
-
-      ball = nextPBalls[nextPBalls.length-1];
-      ball.material.color 
-        = result[1].material.color;
-
-      scene.add(nextPBalls[nextPBalls.length-1]);
-      nextPlateIndex = getNextPlate(nextPlateIndex);
-    }
-          nextPlateIndex = getNextPlate(nextPlateIndex);
-  } 
-  console.log("curr ball no on plate after turn " + curr_balls_no);
-  return curr_balls;
-}
-*/
 function incBallsNo(plate) {
   var curr_balls = plate[1];
   var plateX = plate[0].position.x;
   var plateY = plate[0].position.z;
   var curr_balls_no = curr_balls.length;
-  if (curr_balls_no >= MAX_BALLS) 
-    return curr_balls;
+  if (curr_balls_no >= MAX_BALLS) {
+    console.error('Ooops cam multe bile');
+    return;
+  }
 
   var new_pos = getBallPositions(curr_balls_no+1);
   var index = 0;
@@ -110,7 +75,8 @@ function incBallsNo(plate) {
   curr_balls[index] = makeSphere(plateX + 2*BALL_RADIUS*x, 20, 
     plateY + 2*BALL_RADIUS*y);
 
-  return curr_balls;
+  scene.add(curr_balls[index]);
+  plate[1] = curr_balls;
 }
 
 function decBallsNo(plate) {
@@ -119,18 +85,19 @@ function decBallsNo(plate) {
   var plateY = plate[0].position.z;
   var curr_balls_no = curr_balls.length;
   if (curr_balls_no <= 0) {
-    return [[], []];
+    return null;
   }
   else if (curr_balls_no == 1) {
     scene.remove(curr_balls[0]);
-    return [[], curr_balls[0]];
+    plate[1] = [];
+    return curr_balls[0];
   }
 
   var new_pos = getBallPositions(curr_balls_no-1);
   var index = 0;
   var x, y;
   var new_curr_balls = [];
-  var result = [[], curr_balls[--curr_balls_no]];
+  curr_balls_no = curr_balls_no - 1;
   scene.remove(curr_balls[curr_balls_no]);
 
   //move current balls
@@ -141,8 +108,8 @@ function decBallsNo(plate) {
     curr_balls[index].position.z = (plateY + 2*BALL_RADIUS*y);
     new_curr_balls[index] = curr_balls[index++];
   }
-  result[0] = new_curr_balls;
-  return result;
+  plate[1] = new_curr_balls;
+  return curr_balls[curr_balls_no];
 }
 
 function getPlateNumber(x, y) {
@@ -199,6 +166,14 @@ function getNextPlate(n) {
   return (n+1)%12;
 }
 
+function addBall(plate_no) {
+  incBallsNo(plates[plate_no]);
+}
+
+function removeBall(plate_no) {
+  decBallsNo(plates[plate_no]);
+}
+
 function getBalls(plate_no) {
-  return plates[plate_no].length;
+  return plates[plate_no][1].length;
 }
