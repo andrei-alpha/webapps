@@ -4,7 +4,7 @@ function openInfoWindow(name, data, callback) {
 
 	$('#info-window').html(template);
 	$('#info-window').fadeIn(500);
-  $('#info-window-close').click(function(event) { closeInfoWindow(); });
+    $('#info-window-close').click(function(event) { closeInfoWindow(); });
 }
 
 function closeInfoWindow() {

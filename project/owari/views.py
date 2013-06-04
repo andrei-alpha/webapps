@@ -4,9 +4,15 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, Context, loader
+from django.views.decorators.csrf import csrf_protect
+from owari.models import User
+
+login = False
 
 def home(request):
-  return render_to_response('owari/index.html')
+  if login:
+    return render_to_response('owari/index.html')
+  return render_to_response('owari/login.html')
 
 def new_game(request):
   g = game.Game()
@@ -14,3 +20,10 @@ def new_game(request):
   output = 'Will start a new game ' + str(g.show()) + '!'
 
   return HttpResponse(output)
+
+@csrf_protect
+def backend(request, username, password):
+  user = User.objects.get(name = username, password = password)
+  global login
+  login = True
+  return render_to_response('owari/index.html')
