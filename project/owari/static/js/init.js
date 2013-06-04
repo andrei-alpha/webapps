@@ -8,7 +8,7 @@ var camera;
 var scene;
 var pointLight;
 var projector = new THREE.Projector();
-var objects = [];
+var objects = new Array();
 var plates = [];
 var button;
 var controls;
@@ -76,8 +76,8 @@ function onMouseDown(event) {
 
 function getClickedObjects(event) {
   var vector = new THREE.Vector3((event.clientX / window.innerWidth) 
-    * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-  projector.unprojectVector( vector, camera );
+    *2 - 1, - (event.clientY / window.innerHeight ) * 2 + 1, 0.5);
+  projector.unprojectVector(vector, camera);
   var raycaster = new THREE.Raycaster(camera.position, 
     vector.sub(camera.position).normalize());
   var intersects = raycaster.intersectObjects(objects);
@@ -89,19 +89,19 @@ function onMouseUp(event) {
   event.preventDefault();
   isMouseDown = false; 
   onMouseDownPosition.x = event.clientX - onMouseDownPosition.x;
-    onMouseDownPosition.y = event.clientY - onMouseDownPosition.y;
-    //if ( onMouseDownPosition.length() > 5 ) {
-    //  return;
-    //} 
+  onMouseDownPosition.y = event.clientY - onMouseDownPosition.y;
+  if ( onMouseDownPosition.length() > 5 ) {
+    return;
+  } 
 
-    var intersects = getClickedObjects(event);
-    if (intersects.length > 0) {
-
+  var intersects = getClickedObjects(event);
+        console.log("length is " + intersects.length);
+  if (intersects.length > 0) {
       var clicked = intersects[intersects.length-1].object;
       var pno = getPlateNumber(clicked.position.x, clicked.position.z);
-      //plates[pno][1] = runTurn(pno);
-    
-      console.log("plate clicked " + pno);
+      console.log("x and y " + clicked.position.x + " " + 
+        clicked.position.z);
+
       clickBowl(pno);
   }
 }

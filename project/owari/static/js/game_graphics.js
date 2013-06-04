@@ -16,30 +16,20 @@ function makePlates() {
     dataType: 'json',
     success: function(data) { 
       geometry = data.geometries[0];
-      material = data.materials[0];
       positions = data.object.children;
     }
   });
 
   for (var i = 0; i < positions.length; i++) {
-    plates[i] = [makePlate(geometry, material, positions[i]), []];
-    plates[i].id = i;
-    scene.add(plates[i][0]);
-    objects.push(plates[i][0]);
-    
+    plates[i] = [makePlate(geometry, positions[i]), []];
     plates[i][1] = putBalls(plates[i], INITIAL_BALL_NO);
-
-    for (var j = 0; j < plates[i][1].length; j++) {
-      scene.add(plates[i][1][j]);
-      objects.push(plates[i][1][j]);
-    }
   } 
   return plates;
 }
 
 function putBalls(plate, number) {
   var curr_balls = plate[1];
-  if (number > MAX_BALLS) 
+  if (number >= MAX_BALLS) 
     return curr_balls; 
   for (var i = 0; i < number; i++) {
     incBallsNo(plate);
@@ -76,6 +66,7 @@ function incBallsNo(plate) {
     plateY + 2*BALL_RADIUS*y);
 
   scene.add(curr_balls[index]);
+  objects.push(curr_balls[index]);
   plate[1] = curr_balls;
 }
 
@@ -89,16 +80,23 @@ function decBallsNo(plate) {
   }
   else if (curr_balls_no == 1) {
     scene.remove(curr_balls[0]);
+    var remove_ind = objects.indexOf(ball);
+    objects.splice(remove_ind, 1);
+    console.log(objects.length);
     plate[1] = [];
     return curr_balls[0];
   }
 
   var new_pos = getBallPositions(curr_balls_no-1);
   var index = 0;
-  var x, y;
+  var x, y, ball;
   var new_curr_balls = [];
-  curr_balls_no = curr_balls_no - 1;
-  scene.remove(curr_balls[curr_balls_no]);
+  curr_balls_no = curr_balls_no-1;
+  ball = curr_balls[curr_balls_no]
+  scene.remove(ball);
+  var remove_ind = objects.indexOf(ball);
+  objects.splice(remove_ind, 1);
+  console.log(objects.length);
 
   //move current balls
   while (curr_balls_no-- > 0) {
@@ -109,7 +107,7 @@ function decBallsNo(plate) {
     new_curr_balls[index] = curr_balls[index++];
   }
   plate[1] = new_curr_balls;
-  return curr_balls[curr_balls_no];
+  return ball;
 }
 
 function getPlateNumber(x, y) {

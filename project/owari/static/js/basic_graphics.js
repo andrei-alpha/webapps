@@ -31,7 +31,7 @@ function makeCamera() {
   return camera;
 }
 
-function makePlate(geometry, material, position) {
+function makePlate(geometry, position) {
   var geometry = new THREE.CubeGeometry(geometry.width, geometry.height,
     geometry.depth);
   var material = new THREE.MeshLambertMaterial({color: 0x9E550B});
@@ -39,6 +39,8 @@ function makePlate(geometry, material, position) {
   mesh.position.x = position.position[0];
   mesh.position.y = position.position[1];
   mesh.position.z = position.position[2];
+  scene.add(mesh);
+  objects.push(mesh);
   return mesh;
 }
 
