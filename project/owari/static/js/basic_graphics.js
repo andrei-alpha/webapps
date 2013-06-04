@@ -8,26 +8,18 @@ function makePointLight() {
 
 function makeCamera() {
   var camera;
-  $.ajax({
-    url:'/static/js/camera.json', 
-    async: false,
-    dataType: 'json',
-    success: function(data) { 
-        var view_angle = data.object.fov;
-        var aspect = data.object.aspect;
-        var near = data.object.near;
-        var far = data.object.far;
-        if (data.object.type == "PerspectiveCamera") {
-          camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
-        }
-        camera.position.x = data.object.position[0];
-        camera.position.y = data.object.position[1];
-        camera.position.z = data.object.position[2];
-        camera.rotation.x = data.object.rotation[0];
-        camera.rotation.y = data.object.rotation[1];
-        camera.rotation.z = data.object.rotation[2];
-      }
-    });
+  var data = readJson('/static/js/camera.json');
+  var view_angle = data.object.fov;
+  //var aspect = data.object.aspect;
+  var near = data.object.near;
+  var far = data.object.far;
+  camera = new THREE.PerspectiveCamera(view_angle, ASPECT, near, far);
+  camera.position.x = data.object.position[0];
+  camera.position.y = data.object.position[1];
+  camera.position.z = data.object.position[2];
+  camera.rotation.x = data.object.rotation[0];
+  camera.rotation.y = data.object.rotation[1];
+  camera.rotation.z = data.object.rotation[2];
   return camera;
 }
 
@@ -58,3 +50,19 @@ function makeSphere(x, y, z) {
   return sphere;
 }
 
+function readJson(filename) {
+  var filedata;
+  $.ajax({
+    url:filename, 
+    async: false,
+    dataType: 'json',
+    success: function(data) { 
+      filedata = data;
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+  });
+  return filedata;
+}

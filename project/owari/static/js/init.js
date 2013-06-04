@@ -50,10 +50,12 @@ function init()
   animate();
 }
 
-function pauseGame()
+function cancelGame()
 {
   window.cancelAnimationFrame(onFrame);
+  gameState = false;
 }
+
 
 function resumeGame()
 {
@@ -95,13 +97,11 @@ function onMouseUp(event) {
   } 
 
   var intersects = getClickedObjects(event);
-        console.log("length is " + intersects.length);
+  console.log("length is " + intersects.length);
   if (intersects.length > 0) {
       var clicked = intersects[intersects.length-1].object;
       var pno = getPlateNumber(clicked.position.x, clicked.position.z);
-      console.log("x and y " + clicked.position.x + " " + 
-        clicked.position.z);
-
+      console.log("x and y " + clicked.position.x + " " + clicked.position.z);
       clickBowl(pno);
   }
 }

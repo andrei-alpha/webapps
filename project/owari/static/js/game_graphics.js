@@ -7,18 +7,10 @@ var MAX_BALLS = 48;
 
 function makePlates() {
   var geometry;
-  var material;
   var positions = [];
-
-  $.ajax({
-    url:'/static/js/plates.json', 
-    async: false,
-    dataType: 'json',
-    success: function(data) { 
-      geometry = data.geometries[0];
-      positions = data.object.children;
-    }
-  });
+  var data = readJson('/static/js/plates.json');
+  geometry = data.geometries[0];
+  positions = data.object.children;
 
   for (var i = 0; i < positions.length; i++) {
     plates[i] = [makePlate(geometry, positions[i]), []];
@@ -111,7 +103,7 @@ function decBallsNo(plate) {
 }
 
 function getPlateNumber(x, y) {
-  var positions = readPlateJson();
+  var positions = readJson('/static/js/plates.json').object.children;
   for (var i = 0; i < positions.length; i++) {
     if (x == positions[i].position[0] && 
         y == positions[i].position[2]) {
@@ -122,24 +114,8 @@ function getPlateNumber(x, y) {
 }
 
 function getPlatePosition(plateNo) {
-  var positions = readPlateJson();
+  var positions = readJson('/static/js/plates.json').object.children;
   return [positions[plateNo].position[0], positions[plateNo].position[2]];
-}
-
-function readPlateJson() {
-    $.ajax({
-    url:'/static/js/plates.json', 
-    async: false,
-    dataType: 'json',
-    success: function(data) { 
-      positions = data.object.children;
-    },
-    error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
-  });
-  return positions;
 }
 
 function getBallPositions(balls_no) {

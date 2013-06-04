@@ -19,8 +19,7 @@ function startGame(gameMode) {
 	gameMode = 0;
 	gameCurrPlayer = 0;
 	gameState = true;
-	
-	init();
+	init();	
 }
 
 function validMove(plate_no) {
@@ -37,7 +36,6 @@ function validMove(plate_no) {
 function clickBowl(plate_no) {
 	if ( !validMove(plate_no) )
 		return false;
-
 	moveStones(plate_no);
 }
 

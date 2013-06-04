@@ -18,7 +18,7 @@ function openGameWindow(name, data, callback) {
 
 function closeGameWindow() {
   $('#game-window').fadeOut(500);
-  pauseGame();
+  cancelGame();
 }
 
 $(document).ready(function() {
