@@ -4,7 +4,6 @@
         <title>Login page</title>
         <link href="/static/css/login_style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css">
-
     </head>
 
     <body>
@@ -15,14 +14,15 @@
             <div id="login">
                 <form class="sign_in">
                     <label for="username">Username:</label>
-                    <input type="text" id="username"><br>
+                    <input type="text" placeholder="John Smith" id="username"><br>
                     <label for="password">Password:</label>
-                    <input type="password" id="password"<br>
+                    <input type="password"  placeholder="password" id="password"<br>
                 </form>
                 <div class="login_buttons">
-                    <button class="login_button" onclick="submit()">Sign in</button>
+                    <button id="login_button_submit" class="login_button" onclick="submit()">Sign in</button>
                     <button class="login_button" onclick="register()">Register</button>
                 </div>
+                <div id="login-message" class="message"></div>
             </div>
         </div>
             
@@ -42,7 +42,7 @@
 					<input type="password" id="confirm_pass"<br>
 				</form>
 				<div class="login_buttons">
-					<button class="login_button" onclick="javascript:void()">Submit</button>
+					<button id="register_button_submit" class="login_button" onclick="javascript:void()">Submit</button>
 					<button class="login_button" onclick="javascript:void()">Go Back</button>
 				</div>
 			</div> 

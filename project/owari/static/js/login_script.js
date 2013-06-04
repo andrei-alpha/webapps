@@ -29,7 +29,9 @@ function submit() {
       		location.reload();
     	},
     	error: function(html) {
-      		console.debug(html);
+    		$('#username').val('');
+    		$('#password').val('');
+      		$('#login-message').html('Incorrect user name or password combination.');
     	}
 	});  
 }
