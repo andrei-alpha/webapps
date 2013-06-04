@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login page</title>
+        <link href="/static/css/login_style.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css">
+
+    </head>
+
+    <body>
+        <h1> Owari</h1>
+
+        <div id="container">
+            <div id="title">Log in</div>
+            <div id="login">
+                <form class="sign_in">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username"><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password"<br>
+                </form>
+                <div class="login_buttons">
+                    <button class="login_button" onclick="submit()">Sign in</button>
+                    <button class="login_button" onclick="register()">Register</button>
+                </div>
+            </div>
+        </div>
+            
+		<div id="container_reg"> 
+			<div id="title_reg">Register</div>
+			<div id="register">
+				<form class="details">
+					<label for="first_name">First name:</label>
+					<input type="text" id="first_name"><br>
+					<label for="last_name">Last name:</label>
+					<input type="text" id="last_name"><br>
+					<label for="username">Choose username:</label>
+					<input type="text" id="choose_username"><br>
+					<label for="reg_pass">Choose password:</label>
+					<input type="password" id="reg_pass"<br>
+					<label for="confirm_pass">Confirm password:</label>
+					<input type="password" id="confirm_pass"<br>
+				</form>
+				<div class="login_buttons">
+					<button class="login_button" onclick="javascript:void()">Submit</button>
+					<button class="login_button" onclick="javascript:void()">Go Back</button>
+				</div>
+			</div> 
+		</div>
+    </body>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/login_script.js"></script>
+
+</html>

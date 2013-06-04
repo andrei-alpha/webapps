@@ -8,8 +8,9 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', 'owari.views.home', name='home'),
+    url(r'^backend/login/(?P<username>\w*)/(?P<password>\w*)/$', 'owari.views.backend'),     
+
     # url(r'^project/', include('project.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
