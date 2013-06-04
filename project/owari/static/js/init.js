@@ -14,8 +14,10 @@ var button;
 var controls;
 var isMouseDown = false, onMouseDownPosition;
 
-function init() {
+var onFrame;
 
+function init()
+{
   renderer = new THREE.WebGLRenderer();
   renderer.setSize(WIDTH, HEIGHT);
 /*
@@ -27,7 +29,6 @@ function init() {
 
   document.addEventListener('mousedown', onMouseDown, false);
   document.addEventListener('mouseup', onMouseUp, false);
-  setInterval(update,1000/30);
   scene = new THREE.Scene();
   pointLight = makePointLight();
   scene.add(pointLight);
@@ -45,18 +46,25 @@ function init() {
 
   onMouseDownPosition = new THREE.Vector2();
   renderer.render(scene, camera);
+
+  animate();
 }
 
-function update(){
-  renderer.render(scene, camera);
-  controls.update();
+function pauseGame()
+{
+  window.cancelAnimationFrame(onFrame);
+}
+
+function resumeGame()
+{
+ animate();
 }
 
 function animate() 
 {
-  requestAnimationFrame( animate );
+  onFrame = window.requestAnimationFrame(animate);
   renderer.render(scene, camera);  
-  update();
+  controls.update();
 }
 
 function onMouseDown(event) {

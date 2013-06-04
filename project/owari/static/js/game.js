@@ -10,9 +10,17 @@ var gameMode = 0;
 var gameState = false;
 
 function startGame(gameMode) {
+	if(gameState)
+	{
+		resumeGame();
+		return;
+	}
+
 	gameMode = 0;
 	gameCurrPlayer = 0;
 	gameState = true;
+	
+	init();
 }
 
 function validMove(plate_no) {

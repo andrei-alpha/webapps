@@ -13,14 +13,12 @@ function closeInfoWindow() {
 
 function openGameWindow(name, data, callback) {
   $('#game-window').fadeIn(50);
-
-  init();
-  animate();
   startGame();
 }
 
 function closeGameWindow() {
   $('#game-window').fadeOut(500);
+  pauseGame();
 }
 
 $(document).ready(function() {
