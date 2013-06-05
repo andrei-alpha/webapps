@@ -3,7 +3,7 @@
     width:    260px;
     right: 10px;
     bottom: 18px;
-    z-index: 3;
+    z-index: 7;
 }
 
 .chat-window-bar, .chat-content {

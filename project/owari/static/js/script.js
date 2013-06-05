@@ -4,7 +4,7 @@ function openInfoWindow(name, data, callback) {
 
 	$('#info-window').html(template);
 	$('#info-window').fadeIn(500);
-    $('#info-window-close').click(function(event) { closeInfoWindow(); });
+  $('#info-window-close').click(function(event) { closeInfoWindow(); });
 }
 
 function closeInfoWindow() {
@@ -13,6 +13,7 @@ function closeInfoWindow() {
 
 function openGameWindow(name, data, callback) {
   $('#game-window').fadeIn(50);
+  $('#game-window-close').click(function(event) { closeGameWindow(); });
   startGame();
 }
 
@@ -22,7 +23,7 @@ function closeGameWindow() {
 }
 
 $(document).ready(function() {
-  $('#game-window-close').click(function(event) { closeGameWindow(); });
+  
 });
 
 //first, checks if it isn't implemented yet
@@ -36,4 +37,20 @@ if (!String.prototype.format) {
       ;
     });
   };
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

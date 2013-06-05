@@ -1,4 +1,5 @@
 doc/*
 misc/*
 *.pyc
+.*.swp
 project/ENV/*

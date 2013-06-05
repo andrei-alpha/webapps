@@ -14,21 +14,17 @@ function menu_addItem(name, href, callback) {
 function chat_getUsers() {
     //TO DO: we should obtain data from backend
     //this is just a simple mock for now
+    
     var fun = function() { chat_newWindow(1, 'John Smith') };
     menu_addUser('John Smith', 1, fun);
-    
     var fun = function() { chat_newWindow(2, 'Irina Veliche') };
     menu_addUser('Irina Veliche', 2, fun);
-
     var fun = function() { chat_newWindow(3, 'Mark Zuckerberg') };
     menu_addUser('Mark Zuckerberg', 3, fun);
-
     var fun = function() { chat_newWindow(4, 'Will I Am') };
     menu_addUser('Will I Am', 4, fun);
-
     var fun = function() { chat_newWindow(5, 'Gandalf the White') };
     menu_addUser('Gandalf the White', 5, fun);
-
     var fun = function() { chat_newWindow(6, 'Chuck Norris') };
     menu_addUser('Chuck Norris', 6, fun);
 }
@@ -41,6 +37,23 @@ function menu_addUser(name, id, callback) {
     $('#user-item-' + id).click(callback);
 }
 
+function logout() {
+    var data = {}
+    data['csrfmiddlewaretoken'] = getCookie('csrftoken');
+
+    $.ajax({
+        url: '/backend/logout/',
+        type: 'post',
+        data: data,
+        success: function(result) {
+            location.reload();
+        },
+        error: function(html) {
+            console.log('error on logout');
+        }
+    });  
+}
+
 $(document).ready(function() {
     menu_addItem('User Profile', '#', null);
     menu_addItem('Game History', '#', null);
@@ -49,8 +62,13 @@ $(document).ready(function() {
     menu_addItem('Hall of Fame', '#', null);
 
     /* Set the height for the two menu components */
-    var total = $(window).height();
-    $('#user-list').height(total - $('#nav-menu').height() );
+    var totalH = $(window).height();
+    var totalW = $(window).width();
+    $('#top-menu ').width(totalW - 220);
+    $('#user-list').height(totalH - $('#nav-menu').height() );
+    $('#game-window').width(totalW - 220);
+    $('#top-menu').fadeIn(500);
+    $('#user-list').fadeIn(500);
     chat_getUsers();
 });
 
