@@ -151,3 +151,13 @@ function removeBall(plate_no) {
 function getBalls(plate_no) {
   return plates[plate_no][1].length;
 }
+
+function moveArrow(currPlayer) {
+  var pos = (1 - 2*currPlayer) * ARROW_SHIFT_LENGTH;
+ 
+  for (var i = 0; i < arrow.length; i++) {
+    scene.remove(arrow[i]);
+    arrow[i].position.z += pos;
+    scene.add(arrow[i]);
+  }
+}

@@ -10,16 +10,10 @@ var gameMode = 0;
 var gameState = false;
 
 function startGame(gameMode) {
-	if(gameState)
-	{
-		resumeGame();
-		return;
-	}
-
 	gameMode = 0;
 	gameCurrPlayer = 0;
 	gameState = true;
-	init();	
+	init();
 }
 
 function validMove(plate_no) {
@@ -77,6 +71,9 @@ function moveStones(plate_no) {
 
 	$('#game-window-title-name').html('Owari Game (' + gameCurrPlayer +
 	') _________ Score(0): ' + gameScore[0] + ' Score(1): ' + gameScore[1]);
+
+	//point to current player
+	moveArrow(gameCurrPlayer);
 }
 
 function getScore(player) {

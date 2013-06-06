@@ -1,3 +1,5 @@
+var ARROW_SHIFT_LENGTH = 250;
+
 function makePointLight() {
       var point = new THREE.PointLight(0xffffff);
       point.position.x = 0;
@@ -48,6 +50,40 @@ function makeSphere(x, y, z) {
   sphere.position.y = y;
   sphere.position.z = z;
   return sphere;
+}
+
+function makeArrow() {
+  var positions = readJson('/static/js/arrow.json').arrow;
+  var material = new THREE.MeshLambertMaterial({color: 0xffffff});
+  var geometry_centre = new THREE.CubeGeometry(50, 5, 5);
+  var geometry_right = new THREE.CubeGeometry(25, 5, 5);
+  var geometry_left = new THREE.CubeGeometry(25, 5, 5);
+
+  arrow[0] = new THREE.Mesh(geometry_centre, material);
+  arrow[1] = new THREE.Mesh(geometry_right, material);
+  arrow[2] = new THREE.Mesh(geometry_left, material);
+  
+  arrow[0].position.x = positions[0].position[0];
+  arrow[0].position.y = positions[0].position[1];
+  arrow[0].position.z = positions[0].position[2];
+
+  arrow[1].position.x = positions[1].position[0];
+  arrow[1].position.y = positions[1].position[1];
+  arrow[1].position.z = positions[1].position[2];
+
+  arrow[2].position.x = positions[2].position[0];
+  arrow[2].position.y = positions[2].position[1];
+  arrow[2].position.z = positions[2].position[2];
+
+  arrow[1].rotation.y = positions[1].rotation[1];
+  arrow[2].rotation.y = positions[2].rotation[1];
+  
+
+  for (var i = 0; i < arrow.length; i++) {
+    scene.add(arrow[i]);
+  }
+
+  return arrow;
 }
 
 function readJson(filename) {

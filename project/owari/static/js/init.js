@@ -13,6 +13,7 @@ var plates = [];
 var button;
 var controls;
 var isMouseDown = false, onMouseDownPosition;
+var arrow = [];
 
 var onFrame;
 
@@ -25,6 +26,7 @@ function init()
   document.body.appendChild(container);
   container.appendChild(renderer.domElement);
 */
+  $('#game-window-content').empty();
   $('#game-window-content').append(renderer.domElement);
 
   document.addEventListener('mousedown', onMouseDown, false);
@@ -43,7 +45,7 @@ function init()
   controls = new THREE.TrackballControls(camera); 
 
   plates = makePlates();
-
+  arrow = makeArrow();
   onMouseDownPosition = new THREE.Vector2();
   renderer.render(scene, camera);
 
@@ -56,17 +58,12 @@ function cancelGame()
   gameState = false;
 }
 
-
-function resumeGame()
-{
- animate();
-}
-
 function animate() 
 {
   onFrame = window.requestAnimationFrame(animate);
   renderer.render(scene, camera);  
   controls.update();
+  console.log("i love me!");
 }
 
 function onMouseDown(event) {
