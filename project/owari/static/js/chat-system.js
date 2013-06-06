@@ -24,8 +24,6 @@ function chat_closeWindow(userId) {
 function chat_newWindow(userId, name) {
 	chat_system_windowId = chat_system_windowId + 1;
 
-	console.log('new for ' + userId);
-
 	if (chat_system[userId] == null) {
 		var window = new ChatWindow(name, chat_system_windowId, userId, chat_system_pos, 
 			function() { chat_closeWindow(userId); } );

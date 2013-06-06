@@ -9,7 +9,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'owari.views.home', name='home'),
-    url(r'^backend/login/(?P<username>\w*)/(?P<password>\w*)/$', 'owari.views.backend'),     
+    url(r'^backend/login/$', 'owari.views.login'),     
+    url(r'^backend/register/$', 'owari.views.register'),
+    url(r'^backend/logout/$', 'owari.views.logout'),
 
     # url(r'^project/', include('project.foo.urls')),
 

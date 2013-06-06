@@ -14,29 +14,99 @@ $('body').css('background-repeat', 'no-repeat');
 $('body').css('background-position', 'center');
 $('body').css('background-attachment', 'fixed');
 
-document.getElementById('container').style.display = "block";
-document.getElementById('container_reg').style.display = "none";
-$('')
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
 function submit() {
-	var username = $('#username').val();
-	var password = $('#password').val();
+	var data = {}
+	data['username'] = $('#username').val();
+	data['password'] = CryptoJS.MD5( $('#password-1').val() ).toString();
+	data['csrfmiddlewaretoken'] = getCookie('csrftoken');
 
 	$.ajax({
-    	url: '/backend/login/' + username + '/' + password,
-    	type: 'get',
+    	url: '/backend/login/',
+    	type: 'post',
+    	data: data,
     	success: function(result) {
       		location.reload();
     	},
     	error: function(html) {
     		$('#username').val('');
-    		$('#password').val('');
+    		$('#password-1').val('');
       		$('#login-message').html('Incorrect user name or password combination.');
     	}
 	});  
 }
 
 function register() {
-	document.getElementById('container_reg').style.display = "block";
-	document.getElementById('container').style.display = "none";
+	$('#register-message').css('color', 'red');
+
+	var first_name = $('#first_name').val();
+	var last_name = $('#last_name').val();
+	var email = $('#email').val();
+	var password = CryptoJS.MD5( $('#password-2').val() ).toString();
+	var csrftoken = getCookie('csrftoken');
+
+	console.log('from ' + $('#password-2').val() + ' to ' + password);
+
+	/* Check input for validity. */
+	var error = null;
+	if (!error && first_name.length < 1)
+		error = 'Your first name cannot be empty';
+	if (!error && last_name.length < 1)
+		error = 'Your last name cannot be empty';
+	var re = /\S+@\S+\.\S+/;
+	if (!error && !re.test(email) )
+		error = 'Your email address is invalid';
+	if (!error && password.length < 5)
+		error = 'Your password must be at least 5 characters';
+
+	if (error) {
+		$('#register-message').html(error);
+		return;
+	}
+
+	data = {}
+	data['first_name'] = first_name;
+	data['last_name'] = last_name;
+	data['email'] = email;
+	data['password'] = password;
+	data['csrfmiddlewaretoken'] = csrftoken;
+
+	$.ajax({
+    	url: '/backend/register/',
+    	type: 'post',
+    	data: data,
+    	success: function(result) {
+    		$('#register-message').css('color', 'green');
+      		$('#register-message').html('Registration was successful. Proceed to login');
+    	},
+    	error: function(html) {
+    		$('#email').val('');
+      		$('#register-message').html('Your email address is already used.');
+    	}
+	});
+}
+
+function show_registerTab() {
+	$('#container_reg').css('display', 'block');
+	$('#container').css('display', 'none');
+}
+
+function show_loginTab() {
+	$('#container_reg').css('display', 'none');
+	$('#container').css('display', 'block');
 }

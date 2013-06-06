@@ -14,10 +14,10 @@
 }
 
 #game-window {
-    width: 100%;
+    width: 70%;
     height: 100%;
     top: 0px;
-    left: 0px;
+    left: 220px;
     background: rgba(50, 20, 20, 1);
     /*background-image: url('../img/pattern_01.jpg');*/
     z-index: 5;
