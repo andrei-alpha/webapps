@@ -29,7 +29,6 @@ html, body {
 #search {
     left: 20%;
     position: absolute;
-    display: none;
 }
 
 #search-box {
