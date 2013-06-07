@@ -1,4 +1,4 @@
-var itemId = 0, contactId = 0;
+var itemId = 0, contactId = 0, curr_user;
 
 function menu_addItem(name, href, callback) {
     itemId = itemId + 1;
@@ -21,8 +21,9 @@ function user_getProfile() {
         type: 'post',
         data: data,
         success: function(json) {
-            data = $.parseJSON(json);
-            $('#curr-user-name').html(data['name']);
+            curr_user = $.parseJSON(json);
+            curr_user['first_name'] = curr_user['name'].split(' ')[0];
+            $('#curr-user-name').html(curr_user['name']);
         },
         error: function(html) {
             console.log('error on get users');
@@ -57,7 +58,6 @@ function logout() {
 }
 
 $(document).ready(function() {
-    //setCookie('csrftoken', 'a4d4f6802b0e64489261f2bb25b43b575a875048', 100);
     menu_addItem('User Profile', '#', null);
     menu_addItem('Game History', '#', null);
     menu_addItem('Play Game', '#', function() { openGameWindow('', null, null); });
@@ -73,6 +73,7 @@ $(document).ready(function() {
     $('#top-menu').fadeIn(500);
     $('#user-list').fadeIn(500);
     chat_getUsers();
+    setInterval(chat_getMessages, 500);
     user_getProfile();
 });
 

@@ -4,6 +4,7 @@
     right: 10px;
     bottom: 18px;
     z-index: 7;
+    display: none;
 }
 
 .chat-window-bar, .chat-content {

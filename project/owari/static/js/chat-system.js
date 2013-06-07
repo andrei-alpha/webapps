@@ -2,6 +2,7 @@ var chat_system = {};
 var chat_system_last = {};
 var chat_system_pos = 0;
 var chat_system_windowId = 0;
+var chat_users = {};
 
 /* Reposition all the windows. Will be called when we close
 a window */
@@ -10,7 +11,7 @@ function chat_refresh() {
 	for (userId in chat_system) {
 		var window = chat_system[userId];
 
-		if(window != null) {
+		if(window != null && window.visible == true) {
 			window.setPosition(chat_system_pos);
 			chat_system_pos = chat_system_pos + 1;
 		}
@@ -18,7 +19,7 @@ function chat_refresh() {
 }
 
 function chat_getUsers() {
-    var data = {}
+    var data = {};
     data['csrfmiddlewaretoken'] = getCookie('csrftoken');
     data['type'] = 'get_users';
 
@@ -27,16 +28,15 @@ function chat_getUsers() {
         type: 'post',
         data: data,
         success: function(json) {
-            users = $.parseJSON(json);
-            for (var id in users) {
+            chat_users = $.parseJSON(json);
+            for (var id in chat_users) {
                 (function(copyId){
-                    var fun = function() { chat_newWindow(copyId, users[copyId]) };
-                    menu_addUser(users[copyId], copyId, fun);
+                    var fun = function() { chat_newWindow(copyId, chat_users[copyId], true) };
+                    menu_addUser(chat_users[copyId], copyId, fun);
+                    chat_newWindow(copyId, chat_users[copyId], false);
                     chat_system_last[copyId] = 0;
                 })(id);
             }
-
-            chat_get_messages();
         },
         error: function(html) {
             console.log('error on get users');
@@ -44,19 +44,31 @@ function chat_getUsers() {
     });
 }
 
-function chat_get_messages() {
+function chat_getMessages() {
 	data = {};
-	data['csrfmiddlewaretoken'] = getCookie('csrftoken');
-	data['type'] = 'get_messages';
-	data['users'] = {};
-	data['users'] = [{'1' : 0, '2': 0, '3': 0}];
+	data['type'] = "get_messages";
+	for (var id in chat_system_last) {
+		(function(copyId){
+			data[copyId] = chat_system_last[copyId];
+		})(id);
+	}
 
 	$.ajax({
         url: '/backend/messages/',
         type: 'post',
         data: data,
         success: function(json) {
-            console.log('WTF');
+        	data = $.parseJSON(json);
+        	for (id in data) {
+            	for(var ind = 0; ind < data[id].length; ++ind) {
+            		message = data[id][ind];
+
+            		if (message[2] == false && chat_system[id].visible == false)
+            			chat_system[id].show();
+            		chat_system[id].receive(message[0], message[1], message[2]);
+            		chat_system_last[id] = message[0];
+            	}
+            }
         },
         error: function(html) {
             console.log('error on get messages');
@@ -64,12 +76,26 @@ function chat_get_messages() {
     });
 }
 
+function chat_markMessageRead(messageId) {
+	data = {};
+	data['type'] = "mark_read";
+	data['id'] = messageId;
+
+	$.ajax({
+        url: '/backend/messages/',
+        type: 'post',
+        data: data,
+        error: function(html) {
+        	console.log('cannot mark as read');
+        }
+    });
+}
+
 function chat_closeWindow(userId) {
-	chat_system[userId] = null;
 	chat_refresh();
 }
 
-function chat_newWindow(userId, name) {
+function chat_newWindow(userId, name, show) {
 	chat_system_windowId = chat_system_windowId + 1;
 
 	if (chat_system[userId] == null) {
@@ -77,7 +103,9 @@ function chat_newWindow(userId, name) {
 			function() { chat_closeWindow(userId); } );
     	window.init();
     	chat_system[userId] = window;
-    	chat_system_last[userId] = 0;
-    	chat_system_pos = chat_system_pos + 1;
+    	if(show)
+    		window.show();
 	}
+	else if(show && chat_system[userId].visible == false)
+		chat_system[userId].show();
 }

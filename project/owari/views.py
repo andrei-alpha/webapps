@@ -6,10 +6,12 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext, Context, loader
 from django.views.decorators.csrf import csrf_protect
 from owari.models import User
+from owari.models import Message
 import random, string, json
+from itertools import chain
 
 users = {}
-#users['zeyg7zh7w3o9r6f50ztrr78fifuh2my9'] = 1
+users['2ccdbt3gcs9lj54bk1x8vx7s19g6fto8'] = 1
 
 def home(request):
   if not 'usertoken' in request.COOKIES:
@@ -92,19 +94,33 @@ def messages(request):
 
     message = Message(fromId = userid, toId = recipient, text = data['text'], read = False)
     message.save()
+    return HttpResponse(message.id)
 
   # Request all new messages
   if data['type'] == 'get_messages':
     result = {}  
 
-    print data
-    print data['users']
+    for uid in data:
+      if uid == 'type':
+        continue
 
-    #for user in data['users']:
-    #  print user
-    #  objects1 Message.objects.filter(fromId = userId, toId = user[
+      query1 = Message.objects.filter(fromId = userid, toId = uid, id__gt = data[uid])
+      query2 = Message.objects.filter(fromId = uid, toId = userid, id__gt = data[uid])
 
+      res = list(chain(query1, query2))
+      
+      result[uid] = []
+      for mes in res:
+        result[uid].append([mes.id, mes.text, mes.read])
     return HttpResponse( json.dumps(result) ) 
+  
+  # Mark a message as read
+  if data['type'] == 'mark_read':
+    print 'mark as read', id, ' ok'
+    message = Message.objects.get(id = data['id'])
+    message.read = True
+    message.save()
+    return HttpResponse('ok') 
 
   return HttpResponseServerError()
 
