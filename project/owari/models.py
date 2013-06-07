@@ -14,3 +14,8 @@ class User(models.Model):
 class Game(models.Model):
   date = models.DateField()
 
+class Message(models.Model):
+  fromId = models.IntegerField()
+  toId = models.IntegerField()
+  text = models.CharField(max_length=1000)
+  read = models.BooleanField()

@@ -9,7 +9,7 @@ from owari.models import User
 import random, string, json
 
 users = {}
-#users['127.0.0.1'] = True
+#users['zeyg7zh7w3o9r6f50ztrr78fifuh2my9'] = 1
 
 def home(request):
   if not 'usertoken' in request.COOKIES:
@@ -28,7 +28,6 @@ def new_game(request):
 
   return HttpResponse(output)
 
-@csrf_protect
 def login(request):
   if not 'username' in request.POST:
     return HttpResponseServerError()
@@ -42,13 +41,11 @@ def login(request):
   users[usertoken] = user.id
   return HttpResponse( json.dumps({'usertoken': usertoken}) )
 
-@csrf_protect
 def logout(request):
   usertoken = request.COOKIES['usertoken']
   users.pop(usertoken)
   return HttpResponse('ok')
 
-@csrf_protect
 def register(request):
   if not 'first_name' in request.POST:  
     return HttpResponseServerError()
@@ -74,11 +71,12 @@ def register(request):
   print 'New User: ' + name + ' [' + username + ']'
   return HttpResponse('ok')
 
-@csrf_protect
 def messages(request):
   data = request.POST
 
+  global users
   userid = users[ request.COOKIES['usertoken'] ]
+  # List all users from the system
   if data['type'] == 'get_users':
     result = {}
     all_users = User.objects.all()
@@ -88,12 +86,32 @@ def messages(request):
         result[user.id] = user.name
     return HttpResponse( json.dumps(result) )
 
-  return HttpResponse('ok')
+  # Save a new message in the database
+  if data['type'] == 'new_message':
+    recipient = data['recipient']    
 
-@csrf_protect
+    message = Message(fromId = userid, toId = recipient, text = data['text'], read = False)
+    message.save()
+
+  # Request all new messages
+  if data['type'] == 'get_messages':
+    result = {}  
+
+    print data
+    print data['users']
+
+    #for user in data['users']:
+    #  print user
+    #  objects1 Message.objects.filter(fromId = userId, toId = user[
+
+    return HttpResponse( json.dumps(result) ) 
+
+  return HttpResponseServerError()
+
 def user(request):
   data = request.POST
 
+  global users
   userid = users[ request.COOKIES['usertoken'] ]
   if data['type'] == 'get_profile':
     result = {}

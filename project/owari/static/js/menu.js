@@ -30,39 +30,6 @@ function user_getProfile() {
     });
 }
 
-function chat_getUsers() {
-    var data = {}
-    data['csrfmiddlewaretoken'] = getCookie('csrftoken');
-    data['type'] = 'get_users';
-    
-    $.ajax({
-        url: '/backend/messages/',
-        type: 'post',
-        data: data,
-        success: function(json) {
-            users = $.parseJSON(json);
-            for (var id in users) {
-                /* A neet way to clone an object with JQuery. See: 
-                stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object */
-                //var copyId = $.extend(true, {}, id)[0];
-                
-                /*var copyId = cloneObject(id, true);
-                console.log(copyId, id);
-                id = '30';
-                console.log(copyId, id);*/
-
-                (function(copyId){
-                    var fun = function() { chat_newWindow(copyId, users[copyId]) };
-                    menu_addUser(users[copyId], copyId, fun);
-                })(id);
-            }
-        },
-        error: function(html) {
-            console.log('error on get users');
-        }
-    });
-}
-
 function menu_addUser(name, id, callback) {
     var userItemTemplate = $('#userItemTemplate').html();
     var template = userItemTemplate.format(name, id);
@@ -90,7 +57,7 @@ function logout() {
 }
 
 $(document).ready(function() {
-    setCookie('csrftoken', 'a4d4f6802b0e64489261f2bb25b43b575a875048', 100);
+    //setCookie('csrftoken', 'a4d4f6802b0e64489261f2bb25b43b575a875048', 100);
     menu_addItem('User Profile', '#', null);
     menu_addItem('Game History', '#', null);
     menu_addItem('Play Game', '#', function() { openGameWindow('', null, null); });

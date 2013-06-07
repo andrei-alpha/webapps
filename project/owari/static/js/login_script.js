@@ -13,7 +13,7 @@ $('body').css('background-image', 'url(' + image + ')');
 $('body').css('background-repeat', 'no-repeat');
 $('body').css('background-position', 'center');
 $('body').css('background-attachment', 'fixed');
-setCookie('csrftoken', 'a4d4f6802b0e64489261f2bb25b43b575a875048', 100);
+//setCookie('csrftoken', 'a4d4f6802b0e64489261f2bb25b43b575a875048', 100);
 
 function getCookie(name) {
     var cookieValue = null;
