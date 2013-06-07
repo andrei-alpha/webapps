@@ -2,10 +2,11 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-  username = models.CharField(max_length=50, primary_key=True)
+  username = models.CharField(max_length=50)
   password = models.CharField(max_length=50)
   email = models.CharField(max_length=50)
   name = models.CharField(max_length=50)
+  image = models.CharField(max_length=200, null = True)
   rating = models.IntegerField()
   country = models.CharField(max_length=50)
   gold = models.IntegerField()

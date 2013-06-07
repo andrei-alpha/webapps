@@ -13,6 +13,7 @@ $('body').css('background-image', 'url(' + image + ')');
 $('body').css('background-repeat', 'no-repeat');
 $('body').css('background-position', 'center');
 $('body').css('background-attachment', 'fixed');
+setCookie('csrftoken', 'a4d4f6802b0e64489261f2bb25b43b575a875048', 100);
 
 function getCookie(name) {
     var cookieValue = null;
@@ -30,6 +31,14 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function setCookie(c_name, value, exdays)
+{
+  var exdate=new Date();
+  exdate.setDate(exdate.getDate() + exdays);
+  var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+  document.cookie=c_name + "=" + c_value;
+}
+
 function submit() {
 	var data = {}
 	data['username'] = $('#username').val();
@@ -40,7 +49,9 @@ function submit() {
     	url: '/backend/login/',
     	type: 'post',
     	data: data,
-    	success: function(result) {
+    	success: function(json) {
+    		token = $.parseJSON(json);
+    		setCookie('usertoken', token['usertoken'], 100);
       		location.reload();
     	},
     	error: function(html) {
@@ -58,9 +69,8 @@ function register() {
 	var last_name = $('#last_name').val();
 	var email = $('#email').val();
 	var password = CryptoJS.MD5( $('#password-2').val() ).toString();
+	var country = $('#country').find(':selected').text()
 	var csrftoken = getCookie('csrftoken');
-
-	console.log('from ' + $('#password-2').val() + ' to ' + password);
 
 	/* Check input for validity. */
 	var error = null;
@@ -84,6 +94,7 @@ function register() {
 	data['last_name'] = last_name;
 	data['email'] = email;
 	data['password'] = password;
+	data['country'] = country;
 	data['csrfmiddlewaretoken'] = csrftoken;
 
 	$.ajax({

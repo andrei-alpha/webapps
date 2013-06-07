@@ -3,6 +3,9 @@ function ChatWindow(name, windowId, userId, position, callback) {
     this.name = name;
     this.windowId = windowId;
     this.userId = userId;
+
+    console.log('new for ' + userId);
+
     this.width = 260 + 4;
     this.position = position;
     this.visible = true;
@@ -11,6 +14,8 @@ function ChatWindow(name, windowId, userId, position, callback) {
 
 ChatWindow.prototype.init = function() {
     // Add the html code from a chat window template
+    console.log('click: ' + this.userId);
+
     var windowTemplate = $('#chatWindowTemplate').html();   
     var template = windowTemplate.format(this.windowId);
     $('#chat').append(template);
