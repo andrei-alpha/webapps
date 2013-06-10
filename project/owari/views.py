@@ -6,10 +6,13 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext, Context, loader
 from django.views.decorators.csrf import csrf_protect
 from owari.models import User
+from owari.models import Message
+from owari.models import Invite
 import random, string, json
+from itertools import chain
 
 users = {}
-#users['zeyg7zh7w3o9r6f50ztrr78fifuh2my9'] = 1
+users['j104ohagxr8os2ou1rnze8okbhaf0jlg'] = 1
 
 def home(request):
   if not 'usertoken' in request.COOKIES:
@@ -60,15 +63,19 @@ def register(request):
   username = request.POST['email']
   password = request.POST['password']
   country = request.POST['country']
-  name = request.POST['first_name'] + ' ' + request.POST['last_name']
+  first_name = request.POST['first_name']
+  last_name = request.POST['last_name']    
+  full_name = first_name + ' ' + last_name
 
-  if User.objects.filter(name__exact = username):
+  if User.objects.filter(email__exact = email):
     return HttpResponseServerError()
 
-  user = User(username = username, password = password, email = email, name = name, rating = 1200, country = country, gold = 0)
+  user = User(username = username, password = password, email = email, 
+    first_name = first_name, last_name = last_name, full_name = full_name,
+    rating = 1200, country = country, gold = 0)
   user.save()
 
-  print 'New User: ' + name + ' [' + username + ']'
+  print 'New User: ' + full_name + ' [' + username + ']'
   return HttpResponse('ok')
 
 def messages(request):
@@ -83,7 +90,7 @@ def messages(request):
     
     for user in all_users:
       if user.id != userid:
-        result[user.id] = user.name
+        result[user.id] = user.full_name
     return HttpResponse( json.dumps(result) )
 
   # Save a new message in the database
@@ -92,21 +99,71 @@ def messages(request):
 
     message = Message(fromId = userid, toId = recipient, text = data['text'], read = False)
     message.save()
+    return HttpResponse(message.id)
+  # Mark a message as read
+  if data['type'] == 'mark_read':
+    print 'mark as read', id, ' ok'
+    message = Message.objects.get(id = data['id'])
+    message.read = True
+    message.save()
+    return HttpResponse('ok')
 
-  # Request all new messages
-  if data['type'] == 'get_messages':
-    result = {}  
+  
+def invite(request):
+  data = request.POST
 
-    print data
-    print data['users']
+  global users
+  userid = users[ request.COOKIES['usertoken'] ]
 
-    #for user in data['users']:
-    #  print user
-    #  objects1 Message.objects.filter(fromId = userId, toId = user[
+  if data['type'] == 'new_invite':
+    recipient = data['recipient']
+    invite = Invite(fromId = userid, toId = recipient, status = 'pending')
+    invite.save()
 
-    return HttpResponse( json.dumps(result) ) 
+  if data['type'] == 'accept_invite':
+    sender = data['sender']
+    invite = Invite.objects.get(fromId = sender, toId = userid)
+    invite.status = 'accept'
+    invite.save()
 
-  return HttpResponseServerError()
+  if data['type'] == 'cancel_invite':
+    sender = data['sender']
+    invite = Invite.objects.get(fromId = sender, toId = userid)
+    invite.status = 'cancel'
+    invite.save()
+  
+  return HttpResponse('ok')
+
+def updates(request):
+  data = request.POST
+
+  global users
+  userid = users[ request.COOKIES['usertoken'] ]
+  # Request all new messages, invites, and user status
+  result = {}
+  result['messages'] = {} 
+
+  for uid in data:
+    query1 = Message.objects.filter(fromId = userid, toId = uid, id__gt = data[uid])
+    query2 = Message.objects.filter(fromId = uid, toId = userid, id__gt = data[uid])
+
+    res = list(chain(query1, query2))
+ 
+    result['messages'][uid] = []
+    for mes in res:
+      result['messages'][uid].append([mes.id, mes.text, mes.read])
+
+  query1 = Invite.objects.filter(toId = userid)
+  query2 = Invite.objects.filter(fromId = userid)
+  res = list(chain(query1, query2))
+  
+  result['invites'] = []
+  for invite in res:
+    result['invites'].append([invite.fromId, invite.toId, invite.status])
+    if invite.status != 'pending':
+      invite.delete()
+
+  return HttpResponse( json.dumps(result) ) 
 
 def user(request):
   data = request.POST
@@ -117,7 +174,8 @@ def user(request):
     result = {}
     
     user = User.objects.get(id = userid)
-    result['name'] = user.name
+    result['id'] = user.id
+    result['name'] = user.full_name
     result['image'] = user.image
     result['rating'] = user.rating
     result['country'] = user.country
@@ -125,6 +183,20 @@ def user(request):
 
     return HttpResponse( json.dumps(result) )
 
+  if data['type'] == 'search_users':
+    result = []
+    names1 = User.objects.filter(full_name__startswith = data['name'])
+    names2 = User.objects.filter(last_name__startswith = data['name'])
+    names = list(chain(names1, names2))
+    seen = {}
+  
+    for user in names:
+      if user.id in seen or user.id == userid:
+        continue
+      result.append([user.id, user.full_name])
+      seen[user.id] = True
+
+    return HttpResponse( json.dumps(result) )
 
   return HttpResponse('ok')  
 

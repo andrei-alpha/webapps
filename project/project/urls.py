@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     url(r'^backend/logout/$', 'owari.views.logout'),
     url(r'^backend/messages/$', 'owari.views.messages'),
     url(r'^backend/user/$', 'owari.views.user'),
+    url(r'^backend/updates/$', 'owari.views.updates'),
+    url(r'^backend/invite/$', 'owari.views.invite'),
 
     # url(r'^project/', include('project.foo.urls')),
 
