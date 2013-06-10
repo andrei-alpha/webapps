@@ -1,6 +1,6 @@
 #info-window {
-    width: 1200px;
-    height: 800px;
+    width: 550px;
+    height: 650px;
     top: 100px;
     left: 600px;
     background: rgba(50, 20, 20, 0.8); 
@@ -14,10 +14,9 @@
 }
 
 #game-window {
-    width: 70%;
-    height: 100%;
+    width: 0;
+    height: 0;
     top: 0px;
-    left: 220px;
     background: rgba(50, 20, 20, 1);
     /*background-image: url('../img/pattern_01.jpg');*/
     z-index: 5;
