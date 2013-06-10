@@ -9,6 +9,7 @@
     <!-- Style -->
     <link href="/static/css/style.css" rel="stylesheet">
     <link href="/static/css/chat.css" rel="stylesheet">
+    <link href="/static/css/invite.css" rel="stylesheet">
     <link href="/static/css/info-window.css" rel="stylesheet">
 
   </head>
@@ -39,12 +40,13 @@
       </div>
       <button id="log-out-button" onclick="logout()">Log Out</button>
     </div>
+    <div id="search-results"></div>
 
     <!-- Chat -->
     <div id="chat"></div>
     <!-- InfoWindow -->
     <div id="info-window"></div>
-  
+
     <!-- Templates -->
     <!-- Menu item template -->
     <script type="text/template" id="menuItemTemplate">
@@ -94,13 +96,37 @@
         </div>
       </div>
     </script>
+    <!-- Invite window template -->
+    <script type="text/template" id="inviteWindowTemplate">
+      <div id="invite-window-{0}" class="invite-window">
+        <div class="invite-title">
+          <div id="invite-title-name-{0}" class="invite-title-name">Game Invitation</div>
+          <img id="invite-close-{0}" class="invite-close" src="/static/img/cross.png" alt="X">
+          <img id="invite-accept-{0}" class="invite-accept" src="/static/img/accept.png"></img>
+        </div>
+        <div class="invite-contet">
+          <div id="invite-pic-{0}" class="invite-pic"></div>
+          <div id="invite-text-{0}" class="invite-text">{1}.</div>
+        </div>
+      </div>
+    </script>
+    <!-- Search result template -->
+    <script type="text/template" id="searchResultTemplate">
+      <div id="search-result-box-{0}" class="search-result-box">
+        <table>
+          <tr><td><img id="search-result-pic-{0}" class="search-result-pic"></img></td>
+          <td><div id="search-result-name-{0}" class="search-result-name"></div></td></tr>
+        </table>
+      </div>
+    </script>
 
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="/static/js/map.js"></script>  
     <script src="/static/js/script.js"></script>
     <script src="/static/js/chat-window.js"></script>
-    <script src="/static/js/chat-system.js"></script>  
+    <script src="/static/js/chat-system.js"></script>
+    <script src="/static/js/invite.js"></script>  
     <script src="/static/js/menu.js"></script>
     <script src="/static/js/game.js"></script>
     <!-- <script src="/static/js/bootstrap.min.js"></script> -->

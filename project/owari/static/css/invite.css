@@ -1,0 +1,67 @@
+.invite-window {
+	width: 240px;
+	height: 100px;
+	background-color: rgba(50, 20, 20, 0.9);
+	border-radius: 20px;
+	position: fixed;
+	z-index: 4;
+	right: 5px;
+	display: none;
+}
+
+.invite-title-name {
+    padding-left: 10px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.invite-close {
+    top: 6px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.invite-close:hover {
+    background: rgba(250, 0, 0, 1);
+}
+
+.invite-accept {
+	top: 6px;
+	color: #fff;
+	right: 45px;
+	border-radius: 100px;
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+	position: absolute;
+}
+
+.invite-accept:hover {
+	background: rgba(0, 200, 0, 0.4);
+}
+
+.invite-content {
+	padding: 10px;
+}
+
+.invite-pic {
+	margin-left: 5px;
+	margin-top: 5px;
+	width: 40px;
+	height: 40px;
+	background-image: url('../img/user-placeholder-small.png');
+}
+
+.invite-text {
+	color: #fff;
+	font-size: 15px;
+	width: 180px;
+	height: 30px;
+	right: 5px;
+	top: 30px;
+	position: absolute;
+}

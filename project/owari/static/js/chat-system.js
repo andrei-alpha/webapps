@@ -44,47 +44,28 @@ function chat_getUsers() {
     });
 }
 
-function chat_getMessages() {
-	data = {};
-	data['type'] = "get_messages";
-	for (var id in chat_system_last) {
-		(function(copyId){
-			data[copyId] = chat_system_last[copyId];
-		})(id);
-	}
+function chat_getMessages(data) {
+	for (id in data) {
+    	for(var ind = 0; ind < data[id].length; ++ind) {
+    		message = data[id][ind];
 
-	$.ajax({
-        url: '/backend/messages/',
-        type: 'post',
-        data: data,
-        success: function(json) {
-        	data = $.parseJSON(json);
-        	for (id in data) {
-            	for(var ind = 0; ind < data[id].length; ++ind) {
-            		message = data[id][ind];
-
-            		if (message[2] == false && chat_system[id].visible == false)
-            			chat_system[id].show();
-            		chat_system[id].receive(message[0], message[1], message[2]);
-            		chat_system_last[id] = message[0];
-            	}
-            }
-        },
-        error: function(html) {
-            console.log('error on get messages');
-        }
-    });
+    		if (message[2] == false && chat_system[id].visible == false)
+    			chat_system[id].show();
+    		chat_system[id].receive(message[0], message[1], message[2]);
+    		chat_system_last[id] = message[0];
+    	}
+    }
 }
 
 function chat_markMessageRead(messageId) {
-	data = {};
-	data['type'] = "mark_read";
-	data['id'] = messageId;
+	data2 = {};
+	data2['type'] = "mark_read";
+	data2['id'] = messageId;
 
 	$.ajax({
         url: '/backend/messages/',
         type: 'post',
-        data: data,
+        data: data2,
         error: function(html) {
         	console.log('cannot mark as read');
         }

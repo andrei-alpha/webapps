@@ -31,6 +31,34 @@ html, body {
     position: absolute;
 }
 
+#search-results {
+    width: 338px;
+    top: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 3;
+    position: fixed;
+}
+
+.search-result-name {
+    width: 290px;
+    height: 40px;
+    font-weight: bold;
+    padding-left: 5px;
+    color: rgb(0, 0, 0);
+}
+
+.search-result-pic {
+    width: 40px;
+    height: 40px;
+    margin-left: 1px;
+    background-image: url('../img/user-placeholder-small.png');
+}
+
+.search-result-box:hover {
+    background-color: rgba(0, 0, 250, 0.6);
+    cursor: pointer;
+}
+
 #search-box {
     border-radius: 25px;
     height: 10px;

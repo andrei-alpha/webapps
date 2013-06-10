@@ -79,6 +79,7 @@ ChatWindow.prototype.show = function () {
     this.place();
 
     $('#chat-window-' + this.windowId).fadeIn(500);
+    $('#chat-messages-' + this.windowId).scrollTop($('#chat-messages-' + this.windowId)[0].scrollHeight);
     this.visible = true;
 }
 
