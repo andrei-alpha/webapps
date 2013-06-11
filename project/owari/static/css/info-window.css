@@ -1,8 +1,8 @@
 #info-window {
-    width: 550px;
-    height: 650px;
+    width: 1200px;
+    height: 700px;
     top: 100px;
-    left: 600px;
+    left: 500px;
     background: rgba(50, 20, 20, 0.8); 
     border-radius: 20px;
     box-shadow: 5px 5px 40px #321414;  /*For IE9/Final CSS3 spec*/
@@ -14,12 +14,10 @@
 }
 
 #game-window {
-    width: 0;
-    height: 0;
+    height: 100%;
     top: 0px;
-    /*left: 220px; */
+    left: 220px;
     background: rgba(50, 20, 20, 1);
-    /*background-image: url('../img/pattern_01.jpg');*/
     z-index: 5;
     position: absolute;
     display: none;
@@ -57,4 +55,96 @@
 #info-window-content {
     color: #fff;
     padding: 50px;
+}
+
+.input-label {
+    display: inline-block;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    font-style:  oblique;
+}
+
+.input {
+    border-radius: 25px;
+    margin: 10px;
+    height: 10px;
+    width: 200px;
+    padding: 10px;
+    font-size: 12px;
+    float: right;
+}
+
+#details {
+    width: 400px;
+}
+
+#country {
+    border-radius: 25px;
+    margin-top: 8px;
+    padding: 0px;
+    height: 32px;
+    width: 226px;
+    font-size: 12px;
+}
+
+.user_button {
+    top: 380px;
+    border-radius: 20px;
+    margin:        10px;
+    cursor:        pointer;
+    color:         #fff;
+    font-size:     18px;
+    background:    brown;
+    height:        30px;
+    width:         100px;
+    position: absolute;
+    font-family: "Times New Roman", Times, serif;
+}
+
+#input-pass{
+    display: none;
+}
+
+.user_button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#change-pass-button {
+    margin-left: 170px;
+}
+
+#submit-details-button {
+    margin-left: 290px;
+}
+
+#user-profile-message {
+    bottom: -60px;
+    font-size: 18px;
+    color: rgb(255, 0, 0);
+    position: relative;
+}
+
+#user-profile-pic {
+    right: 40px;
+    top: 40px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    position: absolute;
+    background-image: url('../img/user-placeholder-small.png'); 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#rating-chart {
+    width: 680px;
+    height: 450px;
+    top: 140px;
+    left: 470px;
+    position: absolute;
 }

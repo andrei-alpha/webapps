@@ -15,7 +15,7 @@ import ai
 
 users = {}
 games = {}
-users['j104ohagxr8os2ou1rnze8okbhaf0jlg'] = 1
+users['ftfn62nlrn59kp6ohphr70l6h4qujpi6'] = 1
 
 def home(request):
   if not 'usertoken' in request.COOKIES:
@@ -205,10 +205,14 @@ def user(request):
     
     user = User.objects.get(id = userid)
     result['id'] = user.id
+    result['first_name'] = user.first_name
+    result['last_name'] = user.last_name
     result['name'] = user.full_name
+    result['email'] = user.email
     result['image'] = user.image
     result['rating'] = user.rating
     result['country'] = user.country
+    result['cityId'] = user.cityId
     result['gold'] = user.gold
     result['gameid'] = user.gameId
 
@@ -228,6 +232,28 @@ def user(request):
       seen[user.id] = True
 
     return HttpResponse( json.dumps(result) )
+
+  if data['type'] == 'get_rating':
+    result = {}
+    result['dates'] = ['8 Oct', '12 Oct', '30 Oct', '20 Nov', '4 Dec', '15 Dec', '7 Jan', '14 Jan', '8 Mar', '10 Apr']
+    result['values'] = [1200, 1310, 1420, 1450, 1390, 1430, 1490, 1570, 1670, 1790]
+    return HttpResponse( json.dumps(result) )
+
+  if data['type'] == 'change_profile':
+    user = User.objects.get(id = userid)
+
+    if 'password' in data:
+      if user.password != data['old_password']:
+        return HttpResponseServerError()
+      user.password = data['password']
+
+    user.first_name = data['first_name']
+    user.last_name = data['last_name']
+    user.email = data['email']
+    user.image = data['image']
+    user.country = data['country']
+    user.full_name = user.first_name + ' ' + user.last_name
+    user.save()
 
   return HttpResponse('ok')  
 

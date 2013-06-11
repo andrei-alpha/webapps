@@ -1,4 +1,10 @@
 from ctypes import cdll
+import os
+
+# Comment the next two lines for a fast startup
+os.system('cd owari/static/cpp && sh compile.sh && mv libai.so ../../.')
+os.system('pwd')
+
 lib = cdll.LoadLibrary('./owari/libai.so')
 
 class Ai(object):

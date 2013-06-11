@@ -170,7 +170,7 @@ function search(keypress) {
 }
 
 $(document).ready(function() {
-    menu_addItem('User Profile', '#', null);
+    menu_addItem('User Profile', '#', function() { openUserProfile(); } );
     menu_addItem('Game History', '#', null);
     menu_addItem('Tutorial', '#', null);
     menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -5, 1, true); } );
