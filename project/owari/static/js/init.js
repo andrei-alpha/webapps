@@ -28,7 +28,9 @@ function init()
 */
   $('#game-window-content').empty();
   $('#game-window-content').append(renderer.domElement);
-
+  console.log("WIDTH, HEIGHT of window: " + $('#game-window-content').width() + "; " + $('#game-window-content').height());
+  //WIDTH = $('#game-window-content').width();
+  //HEIGHT = $('#game-window-content').height();
   document.addEventListener('mousedown', onMouseDown, false);
   document.addEventListener('mouseup', onMouseUp, false);
   scene = new THREE.Scene();
@@ -56,6 +58,14 @@ function cancelGame()
 {
   window.cancelAnimationFrame(onFrame);
   gameState = false;
+  $('#game-window-content').empty();
+  document.removeEventListener('mousedown', onMouseDown, false);
+  document.removeEventListener('mouseup', onMouseUp, false);
+}
+
+function trick(e)
+{
+  console.log(e);
 }
 
 function animate() 
@@ -63,7 +73,6 @@ function animate()
   onFrame = window.requestAnimationFrame(animate);
   renderer.render(scene, camera);  
   controls.update();
-  console.log("i love me!");
 }
 
 function onMouseDown(event) {
@@ -74,8 +83,8 @@ function onMouseDown(event) {
 }
 
 function getClickedObjects(event) {
-  var vector = new THREE.Vector3((event.clientX / window.innerWidth) 
-    *2 - 1, - (event.clientY / window.innerHeight ) * 2 + 1, 0.5);
+  var vector = new THREE.Vector3((event.clientX / WIDTH) 
+    *2 - 1, - (event.clientY / HEIGHT) * 2 + 1, 0.5);
   projector.unprojectVector(vector, camera);
   var raycaster = new THREE.Raycaster(camera.position, 
     vector.sub(camera.position).normalize());
@@ -85,6 +94,7 @@ function getClickedObjects(event) {
 
 
 function onMouseUp(event) {
+  var clicked, pno, x, y;
   event.preventDefault();
   isMouseDown = false; 
   onMouseDownPosition.x = event.clientX - onMouseDownPosition.x;
@@ -94,11 +104,12 @@ function onMouseUp(event) {
   } 
 
   var intersects = getClickedObjects(event);
-  console.log("length is " + intersects.length);
+  
   if (intersects.length > 0) {
-      var clicked = intersects[intersects.length-1].object;
-      var pno = getPlateNumber(clicked.position.x, clicked.position.z);
-      console.log("x and y " + clicked.position.x + " " + clicked.position.z);
+      clicked = intersects[intersects.length-1].object;
+      x = clicked.position.x;
+      y = clicked.position.y;
+      pno = getPlateNumber(clicked.position.x, clicked.position.z); 
       clickBowl(pno);
   }
 }

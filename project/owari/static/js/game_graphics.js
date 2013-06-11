@@ -88,7 +88,6 @@ function decBallsNo(plate) {
   scene.remove(ball);
   var remove_ind = objects.indexOf(ball);
   objects.splice(remove_ind, 1);
-  console.log(objects.length);
 
   //move current balls
   while (curr_balls_no-- > 0) {
@@ -103,13 +102,16 @@ function decBallsNo(plate) {
 }
 
 function getPlateNumber(x, y) {
+  //x -= 575;
+  console.log("x y plate number " + x + "; " + y);
   var positions = readJson('/static/js/plates.json').object.children;
   for (var i = 0; i < positions.length; i++) {
-    if (x == positions[i].position[0] && 
-        y == positions[i].position[2]) {
+    if (x >= positions[i].position[0] - 100 && x <= positions[i].position[0] + 100 && 
+       y >= positions[i].position[2] - 100 && y <= positions[i].position[2] + 100) {
+      console.log ("clicked on plate " + i);
       return i;
     }
-  }
+  } 
   return -1;
 }
 

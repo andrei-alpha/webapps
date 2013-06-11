@@ -26,7 +26,7 @@ label {
 }
 
 
-#pass, #submit, #edit, #hide, #submit_pass {
+#pass, #submit_profile, #edit, #hide, #submit_pass {
     border-radius: 20px;
     margin-top: 10px;
     cursor: pointer;
@@ -42,7 +42,7 @@ label {
 }
 
 
-#submit {
+#submit_profile {
 	margin-left: 12px;
 }
 
