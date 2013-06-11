@@ -50,6 +50,10 @@
     background: rgba(250, 0, 0, 1);
 }
 
+#game-window-close:hover {
+    background: rgba(250, 0, 0, 1);   
+}
+
 #info-window-content {
     color: #fff;
     padding: 50px;

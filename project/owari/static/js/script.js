@@ -11,17 +11,6 @@ function closeInfoWindow() {
   $('#info-window').fadeOut(500);
 }
 
-function openGameWindow(name, data, callback) {
-  $('#game-window').fadeIn(50);
-  $('#game-window-close').click(function(event) { closeGameWindow(); });
-  startGame();
-}
-
-function closeGameWindow() {
-  $('#game-window').fadeOut(500);
-  cancelGame();
-}
-
 //first, checks if it isn't implemented yet
 if (!String.prototype.format) {
   String.prototype.format = function() {

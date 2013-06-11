@@ -60,6 +60,10 @@ Invite.prototype.close = function() {
 		$('#invite-text-' + this.windowId).text(this.name + ' can not play a game now');
 		$('#invite-text-' + this.windowId).css('color', 'red');
 		$('#invite-window-' + this.windowId).fadeOut(3000);
+
+		inviteAjaxCall('/backend/invite/', 
+			{'type': 'delete_invite', 'recipient': this.otherId},
+			'error on delete invite');
 	}
 	else {
 		$('#invite-window-' + this.windowId).fadeOut(500);
@@ -76,7 +80,12 @@ Invite.prototype.accept = function() {
 	if (this.type == "sent") {
 		$('#invite-text-' + this.windowId).text(this.name + ' has accepted your invite');
 		$('#invite-text-' + this.windowId).css('color', 'green');
-		$('#invite-window-' + this.windowId).fadeOut(3000);
+		$('#invite-window-' + this.windowId).fadeOut(2000);
+		setTimeout(startGame(curr_user['id'], this.otherId, 0, false), 2000);
+
+		inviteAjaxCall('/backend/invite/', 
+			{'type': 'delete_invite', 'recipient': this.otherId},
+			'error on delete invite');
 	}
 	else {
 		$('#invite-window-' + this.windowId).fadeOut(500);
@@ -84,6 +93,7 @@ Invite.prototype.accept = function() {
 		inviteAjaxCall('/backend/invite/', 
 			{'type': 'accept_invite', 'sender': this.otherId},
 			'error on accept invite');
+		setTimeout(startGame(this.otherId, curr_user['id'], 0, true), 1000);
 	}
 	invite_system[this.windowId] = null;
 	invite_refresh();

@@ -17,7 +17,17 @@ class User(models.Model):
   online = models.BooleanField(default = False)
 
 class Game(models.Model):
-  date = models.DateField()
+  date = models.DateField(auto_now = True)
+  moves = models.IntegerField(default = 0)
+  score1 = models.IntegerField(default = 0)
+  score2 = models.IntegerField(default = 0)
+  player1 = models.IntegerField()
+  player2 = models.IntegerField()
+
+class GameMove(models.Model):
+  gameId = models.IntegerField()
+  bowl = models.IntegerField()
+
 
 class Message(models.Model):
   fromId = models.IntegerField()

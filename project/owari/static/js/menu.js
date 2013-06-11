@@ -64,6 +64,9 @@ function getUpdates() {
             data[copyId] = chat_system_last[copyId];
         })(id);
     }
+    /* If I am playing and waiting for oponent or just registered on a game. */  
+    if (gameState == true || curr_user['gameid'] != 0)
+        data['gameMoves'] = gameMoves;
 
     $.ajax({
         url: '/backend/updates/',
@@ -73,6 +76,8 @@ function getUpdates() {
             data = $.parseJSON(json);
             chat_getMessages(data['messages']);
             invite_getInvites(data['invites']);
+            if ('game' in data)
+                game_getMoves(data['game']);
         },
         error: function(html) {
             console.log('error on get updates');
@@ -141,7 +146,7 @@ function search(keypress) {
         data: data,
         success: function(json) {
             users = $.parseJSON(json);
-            $('#search-results').css('height', (46 * users.length) + 'px');
+            $('#search-results').css('height', (48 * users.length) + 'px');
 
             searchItemId = 0;
             for (indx in users) {
@@ -167,8 +172,8 @@ function search(keypress) {
 $(document).ready(function() {
     menu_addItem('User Profile', '#', null);
     menu_addItem('Game History', '#', null);
-    menu_addItem('Play Game', '#', function() { openGameWindow('', null, null); });
     menu_addItem('Tutorial', '#', null);
+    menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -5, 1, true); } );
     menu_addItem('Hall of Fame', '#', null);
     $('#search-box').keyup(function(event) { search(event.which); } );
 
@@ -180,7 +185,7 @@ $(document).ready(function() {
     $('#game-window').width(totalW - 220);
     $('#top-menu').fadeIn(500);
     $('#user-list').fadeIn(500);
-    $('#search-results').css('left', 356 + $('#top-menu ').width() / 5);
+    $('#search-results').css('left', 390 + $('#top-menu ').width() / 5);
 
     /* Get all users and current user's profile. */
     chat_getUsers();

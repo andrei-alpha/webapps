@@ -26,12 +26,16 @@
         <div id="game-window-title-name">Owari Game</div>
         <img id="game-window-close" src="/static/img/cross.png" alt="X">
       </div>
-      <div id="game-window-content"></div>
+      <div id="game-window-content">
+        <div id="pointer-0" class="pointer"></div>
+        <div id="pointer-1" class="pointer"></div>
+        <canvas width="800px" height="400px" id="canvas"></canvas>
+      </div>
     </div>
     <!-- Top menu -->
     <div id="top-menu">
       <div id="search">
-        <label for="search" id="search-label">Game Invite</label>
+        <label for="search" id="search-label">Game Invitation</label>
         <input type="text" id="search-box" placeholder="Search for people, places and things"></input>
       </div>
       <div id="curr-user-item">
@@ -131,13 +135,14 @@
     <script src="/static/js/game.js"></script>
     <!-- <script src="/static/js/bootstrap.min.js"></script> -->
 
-    <!-- Graphics -->
+    <script src="/static/js/graphics.js"></script>
+    <!-- Graphics 
     <script src="/static/js/three/build/three.min.js"></script>
     <script src="/static/js/basic_graphics.js"></script>
     <script src="/static/js/game_graphics.js"></script>
     <script src="/static/js/three/build/TrackballControls.js"></script>
     <script src="/static/js/three/build/THREEx.FullScreen.js"></script>
     <script src="/static/js/three/build/THREEx.WindowResize.js"></script>
-    <script src="/static/js/init.js"></script>
+    <script src="/static/js/init.js"></script> -->
   </body>
 </html>

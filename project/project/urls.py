@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^backend/user/$', 'owari.views.user'),
     url(r'^backend/updates/$', 'owari.views.updates'),
     url(r'^backend/invite/$', 'owari.views.invite'),
+    url(r'^backend/game/$', 'owari.views.game'),
 
     # url(r'^project/', include('project.foo.urls')),
 

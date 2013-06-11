@@ -8,10 +8,13 @@ from django.views.decorators.csrf import csrf_protect
 from owari.models import User
 from owari.models import Message
 from owari.models import Invite
+from owari.models import Game
 import random, string, json
 from itertools import chain
+import ai
 
 users = {}
+games = {}
 users['j104ohagxr8os2ou1rnze8okbhaf0jlg'] = 1
 
 def home(request):
@@ -131,6 +134,11 @@ def invite(request):
     invite = Invite.objects.get(fromId = sender, toId = userid)
     invite.status = 'cancel'
     invite.save()
+
+  if data['type'] == 'delete_invite':
+    recipient = data['recipient']
+    invite = Invite.objects.get(fromId = userid, toId = recipient)
+    invite.delete()
   
   return HttpResponse('ok')
 
@@ -144,6 +152,9 @@ def updates(request):
   result['messages'] = {} 
 
   for uid in data:
+    if not uid.isdigit():
+      continue
+
     query1 = Message.objects.filter(fromId = userid, toId = uid, id__gt = data[uid])
     query2 = Message.objects.filter(fromId = uid, toId = userid, id__gt = data[uid])
 
@@ -160,8 +171,27 @@ def updates(request):
   result['invites'] = []
   for invite in res:
     result['invites'].append([invite.fromId, invite.toId, invite.status])
-    if invite.status != 'pending':
-      invite.delete()
+
+  gameid = User.objects.get(id = userid).gameId
+  if 'gameMoves' in data:
+    found = False
+    if not gameid in games:
+      user = User.objects.get(id = userid)        
+      user.gameId = 0
+      user.save()
+    else:
+      found = True
+      game = games[gameid]
+
+    if found and int(game['moves']) > int(data['gameMoves']):
+      print 'send_update', game
+
+      result['game'] = {}
+      result['game']['player'] = game['player']
+      result['game']['score'] = game['score']
+      result['game']['moves'] = game['moves']
+      result['game']['turn'] = game['turn']
+      result['game']['board'] = game['board']
 
   return HttpResponse( json.dumps(result) ) 
 
@@ -180,6 +210,7 @@ def user(request):
     result['rating'] = user.rating
     result['country'] = user.country
     result['gold'] = user.gold
+    result['gameid'] = user.gameId
 
     return HttpResponse( json.dumps(result) )
 
@@ -200,4 +231,64 @@ def user(request):
 
   return HttpResponse('ok')  
 
-  
+def game(request):
+  data = request.POST
+
+  global users
+  userid = int(users[ request.COOKIES['usertoken'] ])
+  gameid = int(User.objects.get(id = userid).gameId)
+  player1 = int(data['player1'])
+  player2 = int(data['player2'])
+
+  if data['type'] == 'new_game':
+    game = Game(player1 = player1, player2 = player2)
+    game.save()
+
+    games[game.id] = {}
+    games[game.id]['player'] = [player1, player2]
+    games[game.id]['score'] = [0, 0]
+    games[game.id]['turn'] = 1
+    games[game.id]['moves'] = 0
+
+    print 'new_game', games[game.id]
+
+    if player1 > 0: # If it's a human player
+      user1 = User.objects.get(id = player1)
+      user1.gameId = game.id
+      user1.save()    
+
+    if player2 > 0: # If it's a human player
+      user2 = User.objects.get(id = player2)
+      user2.gameId = game.id
+      user2.save()
+    
+  if data['type'] == 'end_game':
+    game = Game.objects.get(id = gameid)
+    game.moves = games[game.id]['moves']
+    game.score1 = games[game.id]['score'][0]
+    game.score2 = games[game.id]['score'][1]
+    game.save()
+
+    user1 = User.objects.get(id = userid)
+    user1.gameId = 0
+    user1.save()
+
+  if data['type'] == 'new_move':
+    games[gameid]['moves'] = data['moves']
+    games[gameid]['score'][0] = data['score0']
+    games[gameid]['score'][1] = data['score1']
+    games[gameid]['turn'] = data['turn']
+    games[gameid]['board'] = data['board'].split(' ')
+
+    print 'new_move', games[gameid]
+
+  if data['type'] == 'ai_move':
+    game = games[gameid]
+    board = ' '.join(game['board'])
+    turn = int(game['turn']) - 1
+    level = -1 * (player1 if userid == player2 else player2)
+
+    move = ai.compute(board, game['score'][0], game['score'][1], turn, level)
+    return HttpResponse( json.dumps({'move': move}) )
+
+  return HttpResponse('ok')
