@@ -1,9 +1,3 @@
-/*
-getBalls(plate_no);
-incBallNo(plate_no);
-decBallNo(plate_no);
-*/
-
 var gameScore = [0, 0, 0];
 var gamePlayer = [0, 0, 0];
 var gameTurn = 0;

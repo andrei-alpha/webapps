@@ -205,3 +205,29 @@ if (!String.prototype.format) {
     });
   };
 }
+
+function showChangePass() {
+    $('#change_pass').fadeIn(70);
+}
+
+function hideChangePass() {
+    $('#change_pass').fadeOut(70);
+}
+
+function changePass() {
+    $('#change_pass').fadeOut(70);
+    $('#change_success').fadeIn(70);
+}
+
+function editProfile() {
+    $('#first_name_box').attr('readonly', false);
+    $('#last_name_box').attr('readonly', false);
+    $('#email_box').attr('readonly', false);
+}   
+
+function submitProfile() {
+    $('#profile_success').fadeIn(70);
+    $('#first_name_box').attr('readonly', true);
+    $('#last_name_box').attr('readonly', true);
+    $('#email_box').attr('readonly', true);
+}

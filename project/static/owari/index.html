@@ -11,6 +11,8 @@
     <link href="/static/css/chat.css" rel="stylesheet">
     <link href="/static/css/invite.css" rel="stylesheet">
     <link href="/static/css/info-window.css" rel="stylesheet">
+    <link href="/static/css/profile_style.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css">
 
   </head>
   <body>
@@ -75,8 +77,64 @@
         <img id="info-window-close" src="/static/img/cross.png" alt="X">
       </div>
         <div id="info-window-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et diam ipsum, nec laoreet eros. Vestibulum leo quam, facilisis ac imperdiet ac, blandit at ligula. Vivamus risus leo, facilisis vel accumsan mattis, vulputate vitae diam. Sed felis nunc, fermentum non porttitor at, rhoncus sed sapien. Mauris eget eros sit amet risus volutpat elementum. Cras at sapien ante, ut tempor metus. Nulla in ligula eu eros euismod consequat. Aenean mauris purus, iaculis sed pretium vitae, varius vitae ligula. Cras pellentesque facilisis nunc, in pulvinar lectus hendrerit non. Quisque gravida convallis ullamcorper. Nunc ullamcorper suscipit condimentum. Suspendisse nec erat lectus, id tempor diam. Nam hendrerit hendrerit volutpat. Fusce semper imperdiet nisi, eu egestas ligula fermentum a.</p>
-          <p>Mauris porttitor, sem at suscipit commodo, erat tortor blandit nibh, convallis feugiat metus leo a purus. Mauris sed orci dolor, sit amet blandit nibh. Duis dignissim, purus eget feugiat pharetra, risus massa feugiat nisl, nec dignissim enim sem ut urna. Maecenas eget quam diam, ut aliquam turpis. Nulla facilisi. In hac habitasse platea dictumst. Fusce lobortis faucibus magna nec interdum.</p>
+
+
+          <form class="user-info">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name_box" value="Mickey" readonly>
+            <br>
+            <label for="last_name">Last Name: </label>
+            <input type="text" id="last_name_box" value="Mouse" readonly><br>
+            <label for="email">Your Email:</label>
+            <input type="text" id="email_box" value="boss@disney.com" readonly><br>
+          </form>
+
+          <table>
+          <tr>
+            <td>
+            <button id="edit" onclick="editProfile()">Edit</button> 
+            </td>
+            <td>
+            <button id="submit_profile" onclick="submitProfile()">Submit</button>
+            </td>
+          </tr>
+          </table>
+
+          <label for="profile_success" id="profile_success"><br>Profile details changed successfully!</label> 
+          
+          <button id="pass" onclick="showChangePass()">Change your password here</button>
+          
+          <div id="change_pass">
+            <form>
+            <label for="curr_pass">Current Password:</label>
+            <input type="text" id="curr_pass" value="current"><br>
+            <label for="new_pass">The New Password:</label>
+            <input type="text" id="new_pass" value="1234"><br>
+            <label for="confirm_pass">Confirm Password:</label>
+            <input type="text" id="new_pass" value="1234"><br>
+            </form>
+            <button id="submit_pass" onclick="changePass()">Change Password</button>
+            <button id="hide" onclick="hideChangePass()">Hide</button><br><br>
+          </div>
+
+          <label for="change_success" id="change_success"><br>Password changed successfully!</label> 
+          
+          <table>
+          <tr>
+            <td>
+            <label for="rating" id="rating">Your rating:</label> 
+            </td>
+          </tr>
+          <tr>
+            <td>
+            <label for="gold" id="gold">Gold: </label>
+            </td>
+          </tr>
+          </table>
+
+
+
+
       </div>
     </script>
     <!-- Chat window template -->

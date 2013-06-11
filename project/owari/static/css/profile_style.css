@@ -1,0 +1,55 @@
+#username , #password, #first_name, #first_name_box, #last_name, #last_name_box, #email, #email_box,
+	#curr_pass, #new_pass, #confirm_pass {
+    border-radius: 25px;
+    margin-top: 10px;
+    height: 10px;
+    width: 200px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+#last_name_box {
+	margin-left: 5px;
+}
+
+
+#gold, #rating {
+	left: 5px;
+}
+
+label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    font-style: oblique;
+}
+
+
+#pass, #submit_profile, #edit, #hide, #submit_pass {
+    border-radius: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    height: 30px;
+    width: 100px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+#pass {
+	width: 216px;
+	margin-bottom: 10px;
+}
+
+
+#submit_profile {
+	margin-left: 12px;
+}
+
+#submit_pass {
+	width: 200px;
+}
+
+#change_pass, #change_success, #profile_success {
+	display: none
+}
