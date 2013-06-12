@@ -1,0 +1,110 @@
+{"cities" :
+	[
+		{
+			"name": "Nairobi",
+			"id": 1,
+			"level": 1,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Yaounde",
+			"id": 2,
+			"level": 9,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Niamey",
+			"id": 3,
+			"level": 6,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Khartoum",
+			"id": 4,
+			"level": 5,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Johannesburg",
+			"id": 5,
+			"level": 1,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Cairo",
+			"id": 6,
+			"level": 9,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Burkina Faso",
+			"id": 7,
+			"level": 3,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Zanzibar",
+			"id": 8,
+			"level": 7,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Luanda",
+			"id": 9,
+			"level": 7,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Nairobi",
+			"id": 10,
+			"level": 13,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Nairobi",
+			"id": 11,
+			"level": 8,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Nairobi",
+			"id": 12,
+			"level": 4,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Nairobi",
+			"id": 13,
+			"level": 2,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Nairobi",
+			"id": 14,
+			"level": 10,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		},
+		{
+			"name": "Nairobi",
+			"id": 15,
+			"level": 1,
+			"story": "lorem ipsum",
+			"image": "image.jpg"
+		}
+	]
+}
+
