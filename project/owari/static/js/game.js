@@ -160,7 +160,7 @@ function game_getPlayerName(playerId) {
 		return 'Ai player level ' + (-1 * playerId);
 	if (playerId == curr_user['id'])
 		return curr_user['name'];
-	return chat_users[playerId];
+	return users[playerId][0];
 }
 
 function game_getMoves(data) {
@@ -201,13 +201,6 @@ function game_getMoves(data) {
 		gameTurn = parseInt( data['turn'] );
 		moveArrow(gameTurn - 1);
 	}
-}
-
-function gameLog() {
-	console.log(chat_users[gamePlayer[1]] + ' vs ' + chat_users[gamePlayer[2]] + ' turn:' + gameTurn);
-	console.log(gameScore[1] + ' - ' + gameScore[2]);
-	console.log(getBalls(11) + ' ' + getBalls(10) + ' ' + getBalls(9) + ' ' + getBalls(8) + ' ' + getBalls(7) + ' ' + getBalls(6));
-	console.log(getBalls(0) + ' ' + getBalls(1) + ' ' + getBalls(2) + ' ' + getBalls(3) + ' ' + getBalls(4) + ' ' + getBalls(5));
 }
 
 function getScore(player) {

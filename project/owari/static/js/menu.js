@@ -1,4 +1,6 @@
 var searchItemCurr = -1, searchItemId = 0, itemId = 0, contactId = 0, curr_user;
+var getUsers = 9999;
+var users = {};
 
 function menu_addItem(name, href, callback) {
     itemId = itemId + 1;
@@ -31,12 +33,17 @@ function user_getProfile() {
     });
 }
 
-function menu_addUser(name, id, callback) {
+function menu_addUser(user, id, callback) {
     var userItemTemplate = $('#userItemTemplate').html();
-    var template = userItemTemplate.format(name, id);
+    var template = userItemTemplate.format(user[0], id);
 
     $('#user-list').append(template);
     $('#user-item-' + id).click(callback);
+    $('#user-item-pic-' + id).css('background-image', 'url(' + user[2] + ')');
+    if (user[1] == true)
+        $('#user-item-status-pic-' + id).css('background-position', '-15px 0px');
+    else
+        $('#user-item-status-pic-' + id).css('background-position', '-15px 15px');
 }
 
 function logout() {
@@ -68,6 +75,12 @@ function getUpdates() {
     if (gameState == true || curr_user['gameid'] != 0)
         data['gameMoves'] = gameMoves;
 
+    /* Every 30 seconds we want to get all the users and profile pics. */
+    if (getUsers > 60) {
+        getUsers = 0;
+        data['getUsers'] = true;
+    }
+
     $.ajax({
         url: '/backend/updates/',
         type: 'post',
@@ -78,11 +91,29 @@ function getUpdates() {
             invite_getInvites(data['invites']);
             if ('game' in data)
                 game_getMoves(data['game']);
+            if ('users' in data)
+                system_updateUsers(data['users']);
         },
         error: function(html) {
             console.log('error on get updates');
         }
     });
+
+    getUsers = getUsers + 1;
+}
+
+function system_updateUsers(usersData) {
+    // Recreate users
+    users = {};
+
+    for (var id in usersData) {
+        (function(copyId){
+            if (copyId != curr_user['id'])
+                users[copyId] = usersData[copyId];
+        })(id);
+    }
+    chat_addUsers(users);
+    $('#curr-user-pic').css('background-image', 'url(' + curr_user['image'] + ')');
 }
 
 function searchClick(id) {
@@ -145,20 +176,21 @@ function search(keypress) {
         type: 'post',
         data: data,
         success: function(json) {
-            users = $.parseJSON(json);
-            $('#search-results').css('height', (48 * users.length) + 'px');
+            resultUsers = $.parseJSON(json);
+            $('#search-results').css('height', (48 * resultUsers.length) + 'px');
 
             searchItemId = 0;
-            for (indx in users) {
+            for (indx in resultUsers) {
                 (function(i){
-                    var name = users[i][1];
-                    var id = users[i][0];
+                    var name = resultUsers[i][1];
+                    var id = resultUsers[i][0];
                     var fun = function() { searchClick(id); };
 
                     item = template.format(searchItemId);
                     $('#search-results').append(item);
                     $('#search-result-name-' + searchItemId).html(name);
-                    $('#search-result-box-' + searchItemId).click(fun);
+                    $('#search-result-pic-' + searchItemId).css('background-image', 'url(' + users[id][2] + ')');
+                    $('#search-result-box-' + searchItemId).click(fun);                    
                     searchItemId = searchItemId + 1;
                 })(indx);
             }
@@ -188,7 +220,6 @@ $(document).ready(function() {
     $('#search-results').css('left', 390 + $('#top-menu ').width() / 5);
 
     /* Get all users and current user's profile. */
-    chat_getUsers();
     user_getProfile();
     setInterval(getUpdates, 1000);
 });

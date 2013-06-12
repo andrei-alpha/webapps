@@ -41,7 +41,9 @@ def login(request):
     return HttpResponseServerError()
 
   user = User.objects.get(username = request.POST['username'], password = request.POST['password'])
-  
+  user.online = True
+  user.save()  
+
   global users
   usertoken = ''.join(random.choice(string.ascii_lowercase + string.digits) for x in range(32))
   users[usertoken] = user.id
@@ -49,6 +51,11 @@ def login(request):
 
 def logout(request):
   usertoken = request.COOKIES['usertoken']
+  
+  user = User.objects.get(id = users[usertoken])
+  user.online = False
+  user.save()
+
   users.pop(usertoken)
   return HttpResponse('ok')
 
@@ -192,6 +199,18 @@ def updates(request):
       result['game']['moves'] = game['moves']
       result['game']['turn'] = game['turn']
       result['game']['board'] = game['board']
+
+  if 'getUsers' in data:
+    defaultImage = 'static/img/user-placeholder-small.png'
+    result['users'] = {}
+
+    all_users = User.objects.all()
+    for user in all_users:
+      image = str(user.image)
+
+      if len(image) < 5:
+        image = defaultImage
+      result['users'][user.id] = [user.full_name, user.online, image]
 
   return HttpResponse( json.dumps(result) ) 
 

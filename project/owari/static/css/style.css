@@ -62,6 +62,9 @@ html, body {
     height: 40px;
     margin-left: 1px;
     background-image: url('../img/user-placeholder-small.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 .search-result-box:hover {
@@ -104,6 +107,10 @@ html, body {
     top: 4px;
     border-radius: 10px;
     background-image: url('../img/user-placeholder-small.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #log-out-button {
@@ -185,6 +192,10 @@ html, body {
     width: 44px;
     display: table-cell;
     background-image: url('../img/user-placeholder-small.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .user-item-name {
@@ -206,7 +217,7 @@ html, body {
     height: 15px;
     background-image: url('../img/user-status.png');
     background-size: 45px 30px;
-    background-position: -15px 0px;
+    background-position: -15px 15px;
 }
 
 /* Some scroolbar styling tips from http://webdesign.tutsplus.com/tutorials/

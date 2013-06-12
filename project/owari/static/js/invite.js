@@ -5,7 +5,7 @@ var invite_system_pos = 0;
 function Invite(type, otherId, position, callback) {
 	this.windowId = otherId;
 	this.otherId = otherId;
-	this.name = chat_users[otherId];
+	this.name = users[otherId][0];
 	this.position = position;
 	this.callback = callback;
 	this.height = 100 + 4;
@@ -122,7 +122,7 @@ function invite_refresh() {
 
 function sendInvite(toId) {
 	if (invite_system[toId] != null)
-		return 'You have already invited ' + chat_users[toId];
+		return 'You have already invited ' + users[toId][0];
 
 	var inv = new Invite("sent", toId, invite_system_pos, null);
 	inv.init();

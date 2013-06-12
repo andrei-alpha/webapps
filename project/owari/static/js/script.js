@@ -17,8 +17,11 @@ function openUserProfile() {
 
   $('#info-window').html(template);
   $('#info-window').fadeIn(500);
-  $('#info-window-close').click(function(event) { closeInfoWindow(); });
+  $('#info-window-close').click(function(event) { user_getProfile(); closeInfoWindow(); });
   $('#info-window-content').html( $('#userProfileTemplate').html() );
+  $('#user-profile-pic').css('background-image', 'url(' + curr_user['image'] + ')');
+  $('#user-gold-label').html('Gold: ' + curr_user['gold']);
+  $('#user-rating-label').html('Rating: ' + curr_user['rating']);
 
   $('#user-profile-message').html('');
   $('#first_name').val(curr_user['first_name']);
@@ -205,8 +208,6 @@ if (!String.prototype.format) {
     });
   };
 }
-
-openUserProfile(); 
 
 function deleteCookie(c_name) {
   document.cookie = encodeURIComponent(c_name) + "=deleted; expires=" + new Date(0).toUTCString();

@@ -148,3 +148,33 @@
     left: 470px;
     position: absolute;
 }
+
+#user-rating-label, #user-rating-pic {
+    top: 50px;
+    position: absolute;
+}
+
+#user-gold-label, #user-gold-pic {
+    top: 120px;
+    position: absolute;
+}
+
+#user-rating-label , #user-gold-label {
+    left: 504px;
+}
+
+#user-rating-pic {
+    left: 620px;
+    width: 50px;
+    height: 50px;
+    border-radius: 500px;
+    background-image: url('../img/king.png');
+}
+
+#user-gold-pic {
+    left: 620px;
+    width: 50px;
+    height: 50px;
+    border-radius: 500px;
+    background-image: url('../img/gold.png');
+}

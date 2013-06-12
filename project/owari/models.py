@@ -8,7 +8,7 @@ class User(models.Model):
   full_name = models.CharField(max_length=50)
   first_name = models.CharField(max_length=50)
   last_name = models.CharField(max_length=50)
-  image = models.CharField(max_length=200, null = True)
+  image = models.CharField(max_length=200, default = '')
   rating = models.IntegerField()
   country = models.CharField(max_length=50)
   gold = models.IntegerField()

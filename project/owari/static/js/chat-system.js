@@ -2,7 +2,6 @@ var chat_system = {};
 var chat_system_last = {};
 var chat_system_pos = 0;
 var chat_system_windowId = 0;
-var chat_users = {};
 
 /* Reposition all the windows. Will be called when we close
 a window */
@@ -18,30 +17,18 @@ function chat_refresh() {
 	}
 }
 
-function chat_getUsers() {
-    var data = {};
-    data['csrfmiddlewaretoken'] = getCookie('csrftoken');
-    data['type'] = 'get_users';
+function chat_addUsers(chat_users) {
+	chat_system = {};
+	$('#user-list').html('');
 
-    $.ajax({
-        url: '/backend/messages/',
-        type: 'post',
-        data: data,
-        success: function(json) {
-            chat_users = $.parseJSON(json);
-            for (var id in chat_users) {
-                (function(copyId){
-                    var fun = function() { chat_newWindow(copyId, chat_users[copyId], true) };
-                    menu_addUser(chat_users[copyId], copyId, fun);
-                    chat_newWindow(copyId, chat_users[copyId], false);
-                    chat_system_last[copyId] = 0;
-                })(id);
-            }
-        },
-        error: function(html) {
-            console.log('error on get users');
-        }
-    });
+	for (var id in chat_users) {
+        (function(copyId){
+            var fun = function() { chat_newWindow(copyId, chat_users[copyId][0], true) };
+            menu_addUser(chat_users[copyId], copyId, fun);
+            chat_newWindow(copyId, chat_users[copyId][0], false);
+            chat_system_last[copyId] = 0;
+        })(id);
+	}
 }
 
 function chat_getMessages(data) {
