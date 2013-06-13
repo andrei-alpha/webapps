@@ -13,6 +13,8 @@ import ai
 users = {}
 games = {}
 users['ftfn62nlrn59kp6ohphr70l6h4qujpi6'] = 1
+users['rilhkptfz25nvxy5jbzzd1habgqo32of'] = 5
+
 defaultImage = 'static/img/user-placeholder-small.png'
 
 def home(request):
@@ -167,10 +169,12 @@ def updates(request):
     query2 = Message.objects.filter(fromId = uid, toId = userid, id__gt = data[uid])
 
     res = list(chain(query1, query2))
+    res.sort(key = lambda x: x.id)
  
     result['messages'][uid] = []
     for mes in res:
-      result['messages'][uid].append([mes.id, mes.text, mes.read])
+      time = mes.date.strftime("%H:%M %p") 
+      result['messages'][uid].append([mes.id, mes.text, mes.read, mes.fromId, time])
 
   query1 = Invite.objects.filter(toId = userid)
   query2 = Invite.objects.filter(fromId = userid)
@@ -191,7 +195,7 @@ def updates(request):
       found = True
       game = games[gameid]
 
-    if found and int(game['moves']) > int(data['gameMoves']):
+    if found and (int(game['moves']) > int(data['gameMoves']) or game['status'] == 'ended'):
       print 'send_update', game
 
       result['game'] = {}
@@ -200,6 +204,7 @@ def updates(request):
       result['game']['moves'] = game['moves']
       result['game']['turn'] = game['turn']
       result['game']['board'] = game['board']
+      result['game']['status'] = game['status']
 
   if 'getUsers' in data:
     result['users'] = {}

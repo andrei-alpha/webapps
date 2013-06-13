@@ -22,12 +22,12 @@ function chat_addUsers(chat_users) {
         (function(copyId){
         	if (chat_system[copyId] != null) {
         		menu_changeUser(chat_users[copyId], copyId);
-        		chat_system[copyId].change(chat_users[copyId][0], copyId);
+        		chat_system[copyId].change(chat_users[copyId], copyId);
         	}
         	else {
         		var fun = function() { chat_newWindow(copyId, chat_users[copyId][0], true) };
             	menu_addUser(chat_users[copyId], copyId, fun);
-            	chat_newWindow(copyId, chat_users[copyId][0], false);
+            	chat_newWindow(copyId, chat_users[copyId], false);
             	chat_system_last[copyId] = 0;
             }
         })(id);
@@ -41,7 +41,7 @@ function chat_getMessages(data) {
 
     		if (message[2] == false && chat_system[id].visible == false)
     			chat_system[id].show();
-    		chat_system[id].receive(message[0], message[1], message[2]);
+    		chat_system[id].receive(message[0], message[1], message[2], message[3], message[4]);
     		chat_system_last[id] = message[0];
     	}
     }
@@ -66,11 +66,11 @@ function chat_closeWindow(userId) {
 	chat_refresh();
 }
 
-function chat_newWindow(userId, name, show) {
+function chat_newWindow(userId, user, show) {
 	chat_system_windowId = chat_system_windowId + 1;
 
 	if (chat_system[userId] == null) {
-		var window = new ChatWindow(name, chat_system_windowId, userId, chat_system_pos, 
+		var window = new ChatWindow(user, chat_system_windowId, userId, chat_system_pos, 
 			function() { chat_closeWindow(userId); } );
     	window.init();
     	chat_system[userId] = window;

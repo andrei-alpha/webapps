@@ -186,6 +186,16 @@ function game_getMoves(data) {
 		initGraphics();
 	}
 
+	// The oponent left the game
+	if (data['status'] == 'ended') {
+		gameState = false;
+		var oponent = (gamePlayer[1] != curr_user['id'] ? gamePlayer[1] : gamePlayer[2]);
+		name = game_getPlayerName(oponent);
+		$('#game-window-title-name').html('<h1>' + name + ' left the game!</h1>');
+		endGame();
+		return;
+	}
+
 	// update the board
 	gameScore[1] = parseInt( data['score'][0] );
 	gameScore[2] = parseInt( data['score'][1] );

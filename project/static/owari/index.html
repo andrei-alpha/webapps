@@ -50,7 +50,6 @@
     <div id="chat"></div>
     <!-- InfoWindow -->
     <div id="info-window"></div>
-
     <!-- Templates -->
     <!-- Menu item template -->
     <script type="text/template" id="menuItemTemplate">
@@ -383,6 +382,15 @@
         </div>
       </div>
     </script>
+    <!-- Chat window template -->
+    <script type="text/template" id="chatMessageTemplate">
+      <div id="chat-message-{0}-{1}" class="chat-message">
+        <div id="chat-message-pic-{0}-{1}" class="chat-message-pic"></div>
+        <div id="chat-message-time-{0}-{1}" class="chat-message-time">{2}</div>
+        <div id="chat-message-content-{0}-{1}" class="chat-message-content">{3}</div>
+      </div>
+    </script>
+
     <!-- Invite window template -->
     <script type="text/template" id="inviteWindowTemplate">
       <div id="invite-window-{0}" class="invite-window">

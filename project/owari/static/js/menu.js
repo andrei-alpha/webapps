@@ -85,7 +85,7 @@ function getUpdates() {
         data['gameMoves'] = gameMoves;
 
     /* Every 30 seconds we want to get all the users and profile pics. */
-    if (getUsers > 10) {
+    if (getUsers > 30) {
         getUsers = 0;
         data['getUsers'] = true;
     }
