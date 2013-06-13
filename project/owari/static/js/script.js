@@ -20,12 +20,10 @@ function openUserProfile() {
   $('#info-window-close').click(function(event) { user_getProfile(); closeInfoWindow(); });
   $('#info-window-content').html( $('#userProfileTemplate').html() );
   $('#user-profile-pic').css('background-image', 'url(' + curr_user['image'] + ')');
-  $('#user-gold-label').html('Gold: ' + curr_user['gold']);
-  $('#user-rating-label').html('Rating: ' + curr_user['rating']);
 
   $('#user-profile-message').html('');
   $('#first_name').val(curr_user['first_name']);
-  $('#last_name').val(curr_user['first_name']);
+  $('#last_name').val(curr_user['last_name']);
   $('#email').val(curr_user['email']);
   $('#image_url').val(curr_user['image']);
   $('#country :selected').text(curr_user['country']);
@@ -34,17 +32,23 @@ function openUserProfile() {
   $.ajax({
     url: '/backend/user/',
     type: 'post',
+    async: false,
     data: {'type': 'get_rating'},
     success: function(json) {
       data = $.parseJSON(json);
       dates = data['dates'];
       values = data['values'];
+      curr_user['gold'] = data['gold'];
+      curr_user['rating'] = data['rating'];
       generateRatingChart(dates, values);
     },
     error: function(html) {
       console.log('error on get rating');
     }
   });
+
+  $('#user-gold-label').html('Gold: ' + curr_user['gold']);
+  $('#user-rating-label').html('Rating: ' + curr_user['rating']);
 }
 
 function generateRatingChart(dates, values) {
@@ -71,7 +75,8 @@ function generateRatingChart(dates, values) {
         categories: dates,
         labels: {
           formatter: function() {
-            return this.value;
+            var str = this.value;
+            return str.split(",")[0];
           },
           style: {
             color: '#fff'
@@ -98,7 +103,7 @@ function generateRatingChart(dates, values) {
         enabled: false
       },
       tooltip: {
-        pointFormat: 'Rating: <b>{point.y:,.0f}</b><br>{point.x}'
+        pointFormat: 'Rating: <b>{point.y:,.0f}</b><br>id: {point.x}'
       },
       series: [{
           name: curr_user['name'],
@@ -142,8 +147,7 @@ function userProfileSubmit() {
   var error = null;
   $.ajax({
     url: image_url, 
-    type: 'get',
-    async: false,
+    type: 'HEAD',
     error: function(html) { 
       error = 'Image url is invalid';
     }
@@ -188,6 +192,9 @@ function userProfileSubmit() {
     success: function(result) {
       $('#user-profile-message').css('color', 'green');
       $('#user-profile-message').html('Your profile was updated');
+      $('#user-profile-pic').css('background-image', 'url(' + curr_user['image'] + ')');
+      // Update the user profile
+      user_getProfile();
     },
     error: function(html) {
       $('#user-profile-message').css('color', 'red');

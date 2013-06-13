@@ -28,6 +28,13 @@ ChatWindow.prototype.init = function() {
     $('#chat-close-' + this.windowId).click(function(event) { _this.close(); });
 }
 
+ChatWindow.prototype.change = function(name, userId) {
+    this.name = name;
+    this.userId = userId;
+
+    $('#chat-window-bar-name-' + this.windowId).text(this.name);
+}
+
 ChatWindow.prototype.receive = function(id, message, read) {
     // We should mark the message as unread
     $('#chat-messages-' + this.windowId).append('<div class="chat-message">' + message + '</div>');

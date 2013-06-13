@@ -18,15 +18,18 @@ function chat_refresh() {
 }
 
 function chat_addUsers(chat_users) {
-	chat_system = {};
-	$('#user-list').html('');
-
 	for (var id in chat_users) {
         (function(copyId){
-            var fun = function() { chat_newWindow(copyId, chat_users[copyId][0], true) };
-            menu_addUser(chat_users[copyId], copyId, fun);
-            chat_newWindow(copyId, chat_users[copyId][0], false);
-            chat_system_last[copyId] = 0;
+        	if (chat_system[copyId] != null) {
+        		menu_changeUser(chat_users[copyId], copyId);
+        		chat_system[copyId].change(chat_users[copyId][0], copyId);
+        	}
+        	else {
+        		var fun = function() { chat_newWindow(copyId, chat_users[copyId][0], true) };
+            	menu_addUser(chat_users[copyId], copyId, fun);
+            	chat_newWindow(copyId, chat_users[copyId][0], false);
+            	chat_system_last[copyId] = 0;
+            }
         })(id);
 	}
 }

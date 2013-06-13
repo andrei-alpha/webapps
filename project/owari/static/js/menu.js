@@ -24,7 +24,7 @@ function user_getProfile() {
         data: data,
         success: function(json) {
             curr_user = $.parseJSON(json);
-            curr_user['first_name'] = curr_user['name'].split(' ')[0];
+            $('#curr-user-pic').css('background-image', 'url(' + curr_user['image'] + ')');
             $('#curr-user-name').html(curr_user['name']);
         },
         error: function(html) {
@@ -39,6 +39,15 @@ function menu_addUser(user, id, callback) {
 
     $('#user-list').append(template);
     $('#user-item-' + id).click(callback);
+    $('#user-item-pic-' + id).css('background-image', 'url(' + user[2] + ')');
+    if (user[1] == true)
+        $('#user-item-status-pic-' + id).css('background-position', '-15px 0px');
+    else
+        $('#user-item-status-pic-' + id).css('background-position', '-15px 15px');
+}
+
+function menu_changeUser(user, id) {
+    $('#user-item-name-' + id).html(user[0]);
     $('#user-item-pic-' + id).css('background-image', 'url(' + user[2] + ')');
     if (user[1] == true)
         $('#user-item-status-pic-' + id).css('background-position', '-15px 0px');
@@ -76,7 +85,7 @@ function getUpdates() {
         data['gameMoves'] = gameMoves;
 
     /* Every 30 seconds we want to get all the users and profile pics. */
-    if (getUsers > 60) {
+    if (getUsers > 10) {
         getUsers = 0;
         data['getUsers'] = true;
     }
@@ -87,12 +96,13 @@ function getUpdates() {
         data: data,
         success: function(json) {
             data = $.parseJSON(json);
+            // First we need to update users
+            if ('users' in data)
+                system_updateUsers(data['users']);
             chat_getMessages(data['messages']);
             invite_getInvites(data['invites']);
             if ('game' in data)
                 game_getMoves(data['game']);
-            if ('users' in data)
-                system_updateUsers(data['users']);
         },
         error: function(html) {
             console.log('error on get updates');
@@ -113,7 +123,6 @@ function system_updateUsers(usersData) {
         })(id);
     }
     chat_addUsers(users);
-    $('#curr-user-pic').css('background-image', 'url(' + curr_user['image'] + ')');
 }
 
 function searchClick(id) {
@@ -177,7 +186,7 @@ function search(keypress) {
         data: data,
         success: function(json) {
             resultUsers = $.parseJSON(json);
-            $('#search-results').css('height', (48 * resultUsers.length) + 'px');
+            $('#search-results').css('height', (50 * resultUsers.length) + 'px');
 
             searchItemId = 0;
             for (indx in resultUsers) {
@@ -205,7 +214,7 @@ $(document).ready(function() {
     menu_addItem('User Profile', '#', function() { openUserProfile(); } );
     menu_addItem('Game History', '#', null);
     menu_addItem('Tutorial', '#', null);
-    menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -5, 1, true); } );
+    menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -10, 1, true); } );
     menu_addItem('Hall of Fame', '#', null);
     $('#search-box').keyup(function(event) { search(event.which); } );
 
@@ -235,30 +244,4 @@ if (!String.prototype.format) {
       ;
     });
   };
-}
-
-function showChangePass() {
-    $('#change_pass').fadeIn(70);
-}
-
-function hideChangePass() {
-    $('#change_pass').fadeOut(70);
-}
-
-function changePass() {
-    $('#change_pass').fadeOut(70);
-    $('#change_success').fadeIn(70);
-}
-
-function editProfile() {
-    $('#first_name_box').attr('readonly', false);
-    $('#last_name_box').attr('readonly', false);
-    $('#email_box').attr('readonly', false);
-}   
-
-function submitProfile() {
-    $('#profile_success').fadeIn(70);
-    $('#first_name_box').attr('readonly', true);
-    $('#last_name_box').attr('readonly', true);
-    $('#email_box').attr('readonly', true);
 }

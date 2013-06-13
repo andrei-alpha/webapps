@@ -28,8 +28,9 @@ Invite.prototype.init = function() {
     	template = windowTemplate.format(this.windowId, 'Waiting for ' + this.name + "'" + 's response');
 
     $('body').append(template);
+    $('#invite-pic-' + this.windowId).css('background-image', 'url(' + users[this.otherId][2] + ')');
 
-    // Place the window and set the name
+    // Place the window
     this.place();
     
     if (this.type == "sent") {

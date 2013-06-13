@@ -5,10 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseServerEr
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, Context, loader
 from django.views.decorators.csrf import csrf_protect
-from owari.models import User
-from owari.models import Message
-from owari.models import Invite
-from owari.models import Game
+from owari.models import User, Message, Invite, Game, Rating
 import random, string, json
 from itertools import chain
 import ai
@@ -16,6 +13,7 @@ import ai
 users = {}
 games = {}
 users['ftfn62nlrn59kp6ohphr70l6h4qujpi6'] = 1
+defaultImage = 'static/img/user-placeholder-small.png'
 
 def home(request):
   if not 'usertoken' in request.COOKIES:
@@ -80,10 +78,13 @@ def register(request):
   if User.objects.filter(email__exact = email):
     return HttpResponseServerError()
 
-  user = User(username = username, password = password, email = email, 
+  user = User(username = username, password = password, email = email, image = defaultImage,
     first_name = first_name, last_name = last_name, full_name = full_name,
     rating = 1200, country = country, gold = 0)
   user.save()
+
+  rating = Rating(userId = user.id, value = 1200, gameId = 0)
+  rating.save()
 
   print 'New User: ' + full_name + ' [' + username + ']'
   return HttpResponse('ok')
@@ -201,7 +202,6 @@ def updates(request):
       result['game']['board'] = game['board']
 
   if 'getUsers' in data:
-    defaultImage = 'static/img/user-placeholder-small.png'
     result['users'] = {}
 
     all_users = User.objects.all()
@@ -254,8 +254,18 @@ def user(request):
 
   if data['type'] == 'get_rating':
     result = {}
-    result['dates'] = ['8 Oct', '12 Oct', '30 Oct', '20 Nov', '4 Dec', '15 Dec', '7 Jan', '14 Jan', '8 Mar', '10 Apr']
-    result['values'] = [1200, 1310, 1420, 1450, 1390, 1430, 1490, 1570, 1670, 1790]
+    result['dates'] = []
+    result['values'] = []  
+
+    ratings = Rating.objects.filter(userId = userid)
+    for rating in ratings:
+      result['dates'].append( rating.date.strftime("%d %B, %H:%M %p") )
+      result['values'].append( rating.value )
+    result['rating'] = User.objects.get(id = userid).rating
+    result['gold'] = User.objects.get(id = userid).gold
+
+    #result['dates'] = ['8 Oct', '12 Oct', '30 Oct', '20 Nov', '4 Dec', '15 Dec', '7 Jan', '14 Jan', '8 Mar', '10 Apr']
+    #result['values'] = [1200, 1310, 1420, 1450, 1390, 1430, 1490, 1570, 1670, 1790]
     return HttpResponse( json.dumps(result) )
 
   if data['type'] == 'change_profile':
@@ -294,6 +304,7 @@ def game(request):
     games[game.id]['score'] = [0, 0]
     games[game.id]['turn'] = 1
     games[game.id]['moves'] = 0
+    games[game.id]['status'] = 'pending'
 
     print 'new_game', games[game.id]
 
@@ -309,14 +320,29 @@ def game(request):
     
   if data['type'] == 'end_game':
     game = Game.objects.get(id = gameid)
-    game.moves = games[game.id]['moves']
-    game.score1 = games[game.id]['score'][0]
-    game.score2 = games[game.id]['score'][1]
+    game.moves = int(games[game.id]['moves'])
+    game.score1 = int(games[game.id]['score'][0])
+    game.score2 = int(games[game.id]['score'][1])
     game.save()
 
     user1 = User.objects.get(id = userid)
     user1.gameId = 0
     user1.save()
+
+    print 'end_game', game.score1, game.score2, player1, player2
+
+    # The wining player is the oponent in case curr_user leaves the game
+    win_player = (player1 if player1 != userid else player2)
+    # Or curr_user if his score is >= 24
+    if game.score1 >= 24:
+      win_player = player1
+    if game.score2 >= 24:
+      win_player = player2
+
+    if games[game.id]['status'] == 'pending':
+      games[game.id]['status'] = 'ended'
+      compute_rating(player1, player2, win_player, game.id)
+      compute_gold(player1, player2, win_player)
 
   if data['type'] == 'new_move':
     games[gameid]['moves'] = data['moves']
@@ -330,10 +356,55 @@ def game(request):
   if data['type'] == 'ai_move':
     game = games[gameid]
     board = ' '.join(game['board'])
-    turn = int(game['turn']) - 1
+    turn = int(data['turn']) - 1
     level = -1 * (player1 if userid == player2 else player2)
 
     move = ai.compute(board, game['score'][0], game['score'][1], turn, level)
     return HttpResponse( json.dumps({'move': move}) )
 
   return HttpResponse('ok')
+
+def compute_gold(player1, player2, win_player):
+  # Don't give gold to AI
+  if win_player <= 0:
+    return
+
+  Ga = (User.objects.get(id = player1).rating if player1 > 0 else 1000 + -200 * player1) / 50
+  Gb = (User.objects.get(id = player2).rating if player2 > 0 else 1000 + -200 * player2) / 50
+
+  user = User.objects.get(id = win_player)
+  if win_player == player1:
+    user.gold = user.gold + Gb
+  else:
+    user.gold = user.gold + Ga
+  user.save()
+    
+def compute_rating(player1, player2, win_player, gameid):
+  Ra = float(User.objects.get(id = player1).rating if player1 > 0 else 1000 + -200 * player1)
+  Rb = float(User.objects.get(id = player2).rating if player2 > 0 else 1000 + -200 * player2)
+    
+  Ea = 1.0 / (1.0 + pow(10.0, ((Rb - Ra) / 400.0)) )
+  Eb = 1.0 / (1.0 + pow(10.0, ((Ra - Rb) / 400.0)) )
+  K = 16.0
+
+  if player1 == win_player:
+    newRa = int(Ra + K * (1.0 - Ea))
+    newRb = int(Rb + K * (0.0 - Eb))
+  else:
+    newRa = int(Ra + K * (0.0 - Ea))
+    newRb = int(Rb + K * (1.0 - Eb))
+  
+  update_rating(player1, newRa, gameid)
+  update_rating(player2, newRb, gameid)
+
+def update_rating(player, newRa, gameid):
+    if player <= 0:
+      return
+
+    rating = Rating(value = newRa, userId = player, gameId = gameid)
+    rating.save()
+
+    user = User.objects.get(id = player)
+    user.rating = newRa
+    user.save()
+

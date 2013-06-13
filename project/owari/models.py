@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Owari models here.
 class User(models.Model):
   username = models.CharField(max_length=50)
   password = models.CharField(max_length=50)
@@ -41,3 +41,9 @@ class Invite(models.Model):
   toId = models.IntegerField()
   date = models.DateTimeField(auto_now = True)
   status = models.CharField(max_length = 10, default = 'pending')
+
+class Rating(models.Model):
+  value = models.IntegerField()
+  userId = models.IntegerField()
+  gameId = models.IntegerField()
+  date = models.DateTimeField(auto_now = True)

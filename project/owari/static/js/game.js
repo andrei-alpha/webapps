@@ -4,6 +4,7 @@ var gameTurn = 0;
 var gameMode = 0;
 var gameMoves = 0;
 var gameState = false;
+var GameEnded = false;
 
 function startGame(player1, player2, mode, register) {
 	$('#game-window').fadeIn(500);
@@ -16,14 +17,17 @@ function startGame(player1, player2, mode, register) {
 	gameTurn = 1;
 	gameMoves = 0;
 	gameState = true;
+	GameEnded = false;
 	gameMode = mode;
 	
-	/* Initialize the graphics. */
-	initGraphics();
-
+	/* Register the game. */
 	if (register)
 		gameAjaxCall({'type': 'new_game', 'player1': gamePlayer[1], 
 			'player2': gamePlayer[2]}, 'error on new game');
+
+	/* Initialize the graphics. */
+	initGraphics();
+	$('#game-window-title-name').html('');
 
 	game_nextMove();
 }
@@ -59,6 +63,7 @@ function game_nextMove() {
 	if (!found) {
 		gameTurn = (gameTurn == 1 ? 2 : 1);
 		moveArrow(gameTurn - 1);
+		setTimeout(game_nextMove(), 100);
 		return;
 	}
 
@@ -66,6 +71,7 @@ function game_nextMove() {
 	if (gamePlayer[gameTurn] < 0) {
 		data = {};
 		data['type'] = 'ai_move';
+		data['turn'] = gameTurn;
 		data['player1'] = gamePlayer[1];
 		data['player2'] = gamePlayer[2];
 
@@ -85,7 +91,6 @@ function game_nextMove() {
 	}
 
 	// In this case just wait for the oponent's move
-	return;
 }
 
 function clickBowl(plate_no) {
@@ -137,7 +142,7 @@ function moveStones(plate_no) {
 	else {
 		// point to current player
 		moveArrow(gameTurn - 1);
-		setTimeout(game_nextMove(), 100);
+		setTimeout(game_nextMove(), 200);
 	}
 }
 
@@ -146,21 +151,24 @@ function game_checkWin() {
 	if (gameScore[gameTurn] >= 24) {
 		gameState = false;
 		name = game_getPlayerName(gamePlayer[gameTurn]);
-		$('#game-window-title-name').html('<h1>' + name + ' has won!</h1>');
+		$('#game-window-title-name').html('<h1>' + name + ' won!</h1>');
 	}
 }
 
 function endGame() {
+	if (GameEnded == true)
+		return;
+	GameEnded = true;
 	gameAjaxCall({'type': 'end_game', 'player1': gamePlayer[1], 
 		'player2': gamePlayer[2]}, 'error on end game');
 }
 
 function game_getPlayerName(playerId) {
-	if (playerId < 0)
-		return 'Ai player level ' + (-1 * playerId);
+	if (playerId <= 0)
+		return 'Ai player level ' + (-1 * playerId) + ' has';
 	if (playerId == curr_user['id'])
-		return curr_user['name'];
-	return users[playerId][0];
+		return 'You have';
+	return users[playerId][0] + ' has';
 }
 
 function game_getMoves(data) {
@@ -200,6 +208,7 @@ function game_getMoves(data) {
 	else {
 		gameTurn = parseInt( data['turn'] );
 		moveArrow(gameTurn - 1);
+		setTimeout(game_nextMove(), 200);
 	}
 }
 
