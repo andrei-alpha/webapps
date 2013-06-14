@@ -8,7 +8,7 @@ var GameEnded = false;
 
 function startGame(player1, player2, mode, register) {
 	$('#game-window').fadeIn(500);
-	$('#game-window-close').click(function(event) { endGame(); closeGame(); });
+	$('#game-window-close').click(function(event) { endGame(); closeGame(); cancelGraphicalGame(); });
 
 	gameScore[1] = gameScore[2] = 0;
  	gamePlayer[0] = 0;
@@ -26,6 +26,7 @@ function startGame(player1, player2, mode, register) {
 			'player2': gamePlayer[2]}, 'error on new game');
 
 	/* Initialize the graphics. */
+	//initGraphics();
 	initGraphics();
 	$('#game-window-title-name').html('');
 

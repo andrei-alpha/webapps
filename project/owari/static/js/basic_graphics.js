@@ -54,6 +54,7 @@ function makeSphere(x, y, z) {
 
 function makeArrow() {
   var positions = readJson('/static/js/arrow.json').arrow;
+  console.log('arrow'); 
   var material = new THREE.MeshLambertMaterial({color: 0xffffff});
   var geometry_centre = new THREE.CubeGeometry(50, 5, 5);
   var geometry_right = new THREE.CubeGeometry(25, 5, 5);

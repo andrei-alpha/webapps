@@ -19,25 +19,31 @@ var onFrame;
 
 function init()
 {
-  renderer = new THREE.WebGLRenderer();
+  renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(WIDTH, HEIGHT);
 /*
   var container = document.createElement('div');
   document.body.appendChild(container);
   container.appendChild(renderer.domElement);
 */
-  $('#game-window-content').empty();
-  $('#game-window-content').append(renderer.domElement);
-  console.log("WIDTH, HEIGHT of window: " + $('#game-window-content').width() + "; " + $('#game-window-content').height());
-  //WIDTH = $('#game-window-content').width();
-  //HEIGHT = $('#game-window-content').height();
+  $('#game-bg').fadeIn(1000);
+  $('#game-window-title').fadeIn(1000);
+  $('#game-window-close').fadeIn(1000);
+
+  $('#game-window').empty();
+  $('#game-window').append(renderer.domElement);
+
   document.addEventListener('mousedown', onMouseDown, false);
   document.addEventListener('mouseup', onMouseUp, false);
   scene = new THREE.Scene();
+
+  camera = makeCamera();
+  camera.lookAt(scene.position);
+  scene.add(camera);
+
   pointLight = makePointLight();
   scene.add(pointLight);
-  camera = makeCamera();
-  scene.add(camera);
+
  
   //window resize on mouse drag/scroll
   THREEx.WindowResize(renderer, camera);
@@ -54,11 +60,14 @@ function init()
   animate();
 }
 
-function cancelGame()
+function cancelGraphicalGame()
 {
   window.cancelAnimationFrame(onFrame);
   gameState = false;
-  $('#game-window-content').empty();
+  $('#game-window').empty();
+  $('#game-bg').fadeOut(1000);
+  $('#game-window-title').fadeOut(1000);
+  $('#game-window-close').fadeOut(1000);
   document.removeEventListener('mousedown', onMouseDown, false);
   document.removeEventListener('mouseup', onMouseUp, false);
 }
