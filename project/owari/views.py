@@ -367,6 +367,11 @@ def game(request):
     move = ai.compute(board, game['score'][0], game['score'][1], turn, level)
     return HttpResponse( json.dumps({'move': move}) )
 
+  if data['type'] == 'use_cheat':
+    user = User.objects.get(id = userid)
+    user.gold = user.gold - int(data['gold'])
+    user.save()
+
   return HttpResponse('ok')
 
 def compute_gold(player1, player2, win_player):
