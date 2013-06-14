@@ -17,7 +17,7 @@ var arrow = [];
 
 var onFrame;
 
-function init()
+function initGraphics()
 {
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(WIDTH, HEIGHT);
@@ -60,7 +60,7 @@ function init()
   animate();
 }
 
-function cancelGraphicalGame()
+function cancelGraphics()
 {
   window.cancelAnimationFrame(onFrame);
   gameState = false;

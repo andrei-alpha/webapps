@@ -7,7 +7,7 @@ function initGraphics() {
 	setUpContext();
 
 	//Set the canvas to be centered
-    $('#canvas').css('left', 450);
+    $('#canvas').css('left', 600);
     $('#canvas').css('top', 200);
     $('#canvas').css('position', 'absolute');
 
@@ -148,6 +148,10 @@ var events = {
         if(mouseState == 'down' && curCircle != null)
             clickBowl(curCircle[4]);
     }
+}
+
+function cancelGraphics() {
+	// do nothing
 }
 
 function mousePosition(e) {

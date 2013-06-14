@@ -210,6 +210,43 @@ function search(keypress) {
     });
 }
 
+function loadGraphics() {
+    var WebGl = true, gl = null;
+
+    if (!window.WebGLRenderingContext) {
+        // Browser has no idea what WebGL is. Suggest they
+        // get a new browser by presenting the user with link to
+        // http://get.webgl.org
+        WebGl = false;
+    }
+    else
+        gl = canvas.getContext("webgl");   
+    
+    if (!gl) {
+        // Browser could not initialize WebGL. User probably needs to
+        // update their drivers or get a new browser. Present a link to
+        // http://get.webgl.org/troubleshooting
+        WebGl = false;  
+    }
+
+    if (WebGl == true) {
+        console.log('We have WebGL support');
+
+        $.getScript('/static/js/three/build/three.min.js', null);
+        $.getScript('/static/js/basic_graphics.js', null);
+        $.getScript('/static/js/game_graphics.js', null);
+        $.getScript('/static/js/three/build/TrackballControls.js', null);
+        $.getScript('/static/js/three/build/THREEx.FullScreen.js', null);
+        $.getScript('/static/js/three/build/THREEx.WindowResize.js', null);
+        $.getScript('/static/js/init.js', false);
+    }
+    else {
+        console.log('WebGL is not supported');
+
+        $.getScript('/static/js/graphics.js', false);
+    }
+}
+
 $(document).ready(function() {
     menu_addItem('User Profile', '#', function() { openUserProfile(); } );
     menu_addItem('Game History', '#', null);
@@ -223,7 +260,7 @@ $(document).ready(function() {
     var totalW = $(window).width();
     $('#top-menu ').width(totalW - 220);
     $('#user-list').height(totalH - $('#nav-menu').height() );
-    $('#game-window').width(totalW - 220);
+    //$('#game-window').width(totalW - 220);
     $('#top-menu').fadeIn(500);
     $('#user-list').fadeIn(500);
     $('#search-results').css('left', 390 + $('#top-menu ').width() / 5);
@@ -231,6 +268,7 @@ $(document).ready(function() {
     /* Get all users and current user's profile. */
     user_getProfile();
     setInterval(getUpdates, 1000);
+    loadGraphics();
 });
 
 //first, checks if it isn't implemented yet

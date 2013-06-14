@@ -15,10 +15,22 @@
 
 #game-window {
     height: 100%;
+    width: 100%;
     top: 0px;
-    left: 220px;
+    left: 0px;
     background: rgba(50, 20, 20, 1);
-    z-index: 5;
+    z-index: 4;
+    position: absolute;
+    display: none;
+}
+
+#game-bg {
+    width: 100%;
+    height: 100%;
+    left: 220px;
+    top: 20px;
+    background: rgba(50, 20, 20, 1);
+    z-index: 4;
     position: absolute;
     display: none;
 }
