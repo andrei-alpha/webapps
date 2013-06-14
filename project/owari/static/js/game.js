@@ -112,6 +112,7 @@ function moveStones(plate_no) {
 		if (getBalls(ind) == 1) {
 			removeBall(ind);
 			gameScore[gameTurn] += 2;
+			addBallsScore(gameTurn, gameScore[gameTurn]);
 		}
 		else
 			addBall(ind);
@@ -183,7 +184,7 @@ function game_getMoves(data) {
 		gameState = true;
 		
 		/* Initialize the graphics. */
-		initGraphics();
+		init();
 	}
 
 	// The oponent left the game

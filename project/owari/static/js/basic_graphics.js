@@ -1,3 +1,4 @@
+
 var ARROW_SHIFT_LENGTH = 250;
 
 function makePointLight() {
@@ -102,4 +103,32 @@ function readJson(filename) {
       }
   });
   return filedata;
+}
+
+function displayScore(scoreBoard, score) {
+  var materialFront = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+  var materialSide = new THREE.MeshBasicMaterial( { color: 0x000088 } );
+  var materialArray = [ materialFront, materialSide ];
+  var scoreBoardX = scoreBoard[0].position.x;
+  var scoreBoardY = scoreBoard[0].position.z;
+  var textGeom = new THREE.TextGeometry( scoreBoard[1].length, 
+  {
+    size: 30, height:4, curveSegments: 2,
+    font: "helvetiker", weight: "bold", style: "normal",
+    bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
+    material: 0, extrudeMaterial: 1
+  });
+  // font: helvetiker, gentilis, droid sans, droid serif, optimer
+  // weight: normal, bold
+  
+  var textMaterial = new THREE.MeshFaceMaterial(materialArray);
+  var textMesh = new THREE.Mesh(textGeom, textMaterial );
+  
+  textGeom.computeBoundingBox();
+  var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+  
+  textMesh.position.set( -0.5*textWidth, 50, scoreBoardY);
+  textMesh.rotation.x = -Math.PI / 4;
+
+  return textMesh;
 }

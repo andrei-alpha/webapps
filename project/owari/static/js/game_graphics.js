@@ -163,3 +163,87 @@ function moveArrow(currPlayer) {
     scene.add(arrow[i]);
   }
 }
+
+function makeScoreBoards() {
+  var geometry;
+  var material;
+  var positions = [];
+
+  $.ajax({
+    url:'/static/js/scores.json', 
+    async: false,
+    dataType: 'json',
+    success: function(data) { 
+      geometry = data.geometries[0];
+      positions = data.object.children;
+    }
+  });
+
+    for (var i = 0; i < positions.length; i++) {
+    scoreBoards[i] = [makePlate(geometry, positions[i]), []];
+    } 
+  return scoreBoards;
+}
+
+function getBallPositionsScore(balls_no){
+   var new_pos;
+    //read new positions for required number of balls
+  $.ajax({
+    url:'/static/js/score_positions.json', 
+    async: false,
+    dataType: 'json',
+    success: function(data) { 
+      new_pos = data.balls_no[balls_no-1];
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+  });
+  return new_pos;
+}
+
+function incScore(scoreBoardNo, score) {
+  var scoreBoard = scoreBoards[scoreBoardNo];
+  for(i = 0 ; i < 2; i++) {
+    var curr_balls = scoreBoard[1];
+    var scoreBoardX = scoreBoard[0].position.x;
+    var scoreBoardY = scoreBoard[0].position.z;
+    var curr_balls_no = curr_balls.length;
+    if (curr_balls_no >= MAX_BALLS) {
+      console.error('Ooops cam multe bile');
+      return;
+    }
+ 
+    var new_pos = getBallPositionsScore(curr_balls_no+1);
+    var index = 0;
+    var x, y;
+
+  //move current balls
+    while (curr_balls_no-- > 0) {
+      x = new_pos[index][0];
+      y = new_pos[index][1];
+      curr_balls[index].position.x = (scoreBoardX + 2*BALL_RADIUS*x);
+      curr_balls[index++].position.z = (scoreBoardY + 2*BALL_RADIUS*y);
+    }
+
+  //add a new ball to the last position given
+    x = new_pos[index][0];
+    y = new_pos[index][1];
+    curr_balls[index] = makeSphere(scoreBoardX + 2*BALL_RADIUS*x, 20, 
+    scoreBoardY + 2*BALL_RADIUS*y);
+
+    scene.add(curr_balls[index]);
+    objects.push(curr_balls[index]);
+    scoreBoard[1] = curr_balls; 
+  }
+
+    scene.remove(text[scoreBoardNo]);
+    text[scoreBoardNo] = displayScore(scoreBoard, score);
+    scene.add(text[scoreBoardNo]);
+}
+
+
+function addBallsScore(playerScoreBoard, score) {
+  incScore((playerScoreBoard%2), score );
+} 
