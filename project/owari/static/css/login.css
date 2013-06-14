@@ -1,0 +1,138 @@
+body {
+    background-size: cover;
+}
+
+h1 {
+    color: white;
+    font-size: 100px;
+    text-align: center;
+    padding: 40px;
+    font-family: "Tangerine", serif;
+    line-height: 60px;
+	font-weight: bold;
+}
+
+#container, #container_reg {
+    width: 500px;
+    height: 300px;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+    background: rgba(50, 20, 20, 0.9);
+    margin-left: -275px;
+    margin-top: -150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 25px;
+}
+
+#container {
+    display: block;
+}
+
+#container_reg {
+    height: 500px;
+    display: none;
+}
+
+#login, #register {
+    position: absolute;
+    box-sizing: border-box;
+    top: 30%;
+    left: 20%;
+}
+
+#title, #title_reg {
+    font-weight: bold;
+    font-family: serif;
+    font-size:   70px;
+    position:    absolute;
+    top:         8%;
+    left:        30%;
+    color:       brown;
+	font-family: "Tangerine", serif;
+}
+
+#username , #password, #first_name, #last_name, #email, #password-1, #password-2 {
+    border-radius: 25px;
+    margin-top: 10px;
+    height: 10px;
+    width: 200px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+#username {
+    margin-left: 28px;
+}
+
+#country {
+    border-radius: 25px;
+    margin-top: 8px;
+    height: 32px;
+    width: 226px;
+    font-size: 12px;
+}
+
+#password-1 {
+    margin-left: 5px;
+}
+
+#first_name {
+    margin-left: 48px;
+}
+
+#last_name {
+    margin-left: 49px;
+}
+
+#email {
+    margin-left: 44px;
+}
+
+#password-2 {
+    margin-left: 24px;
+}
+
+#country {
+    margin-left: 66px;
+}
+
+.login_button {
+    border-radius: 20px;
+    margin:        10px;
+    cursor:        pointer;
+    color:         #fff;
+    font-size:     18px;
+    background:    brown;
+    height:        30px;
+    width:         100px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.message {
+    bottom: -40px;
+    font-size: 18px;
+    text-align: center;
+    color: rgb(255, 0, 0);
+    position: relative;
+}
+
+#login_button_submit {
+    margin-left: 80px;
+}
+
+#register_button_submit {
+    margin-left: 130px;
+}
+
+.login_button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    font-style:  oblique;
+}

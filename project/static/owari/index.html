@@ -9,7 +9,7 @@
     <!-- Style -->
     <link href="/static/css/style.css" rel="stylesheet">
     <link href="/static/css/chat.css" rel="stylesheet">
-    <link href="/static/css/invite.css" rel="stylesheet">
+    <link href="/static/css/game.css" rel="stylesheet">
     <link href="/static/css/info-window.css" rel="stylesheet">
 
   </head>
@@ -21,6 +21,7 @@
       <div id="nav-menu"></div>
       <div id="user-list"></div>
     </div>
+    <!-- Game window -->
     <div id="game-window">
       <div id="info-window-title">
         <div id="game-window-title-name">Owari Game</div>
@@ -46,12 +47,11 @@
       <button id="log-out-button" onclick="logout()">Log Out</button>
     </div>
     <div id="search-results"></div>
-
     <!-- Chat -->
     <div id="chat"></div>
     <!-- InfoWindow -->
     <div id="info-window"></div>
-    <!-- Templates -->
+    
     <!-- Menu item template -->
     <script type="text/template" id="menuItemTemplate">
       <div id="menu-item-{2}" class="menu-item">
@@ -77,7 +77,7 @@
         <div id="info-window-content"></div>
       </div>
     </script>
-
+    <!-- User profile tempalte -->
     <script type="text/template" id="userProfileTemplate">
       <div id="details">
         <img id="user-profile-pic"></img>
@@ -361,7 +361,6 @@
         </div>
       </div>
     </script>
-
     <!-- Chat window template -->
     <script type="text/template" id="chatWindowTemplate">
       <div id="chat-window-{0}" class="chat-window">
@@ -391,7 +390,18 @@
         <div id="chat-message-content-{0}-{1}" class="chat-message-content">{3}</div>
       </div>
     </script>
-
+    <!-- Cheat window template -->
+    <script type="text/template" id="cheatWindowTemplate">
+      <div id="cheat-{0}" class="cheat">
+        <div id="cheat-title-{0}" class="cheat-title">
+          <div id="cheat-title-name-{0}" class="cheat-title-name">{1}</div>
+          <div id="cheat-title-req" class="cheat-title-req">{2}</div>
+          <div class="cheat-gold-pic"></div>
+        </div>
+        <div id="cheat-content-{0}" class="cheat-content">{3}</div>
+        <div id="cheat-message-{0}" class="cheat-message"></div>
+      </div>
+    </script>
     <!-- Invite window template -->
     <script type="text/template" id="inviteWindowTemplate">
       <div id="invite-window-{0}" class="invite-window">
@@ -422,7 +432,8 @@
     <script src="/static/js/script.js"></script>
     <script src="/static/js/chat-window.js"></script>
     <script src="/static/js/chat-system.js"></script>
-    <script src="/static/js/invite.js"></script>  
+    <script src="/static/js/invite.js"></script>
+    <script src="/static/js/cheats.js"></script>  
     <script src="/static/js/menu.js"></script>
     <script src="/static/js/game.js"></script>
     <script src="/static/js/lib/crypto.js"></script>
@@ -430,17 +441,16 @@
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <!-- <script src="/static/js/bootstrap.min.js"></script> -->
 
-    <!--
-    Basic Graphics 
-    <script src="/static/js/graphics.js"></script>
-    WebGL Graphics  
+    <!-- Basic Graphics 
+    <script src="/static/js/graphics.js"></script> -->
+    <!-- WebGL Graphics -->  
     <script src="/static/js/three/build/three.min.js"></script>
-    <script src="/static/js/basic_graphics.js"></script>
+    <!-- <script src="/static/js/basic_graphics.js"></script>
     <script src="/static/js/game_graphics.js"></script>
     <script src="/static/js/three/build/TrackballControls.js"></script>
     <script src="/static/js/three/build/THREEx.FullScreen.js"></script>
     <script src="/static/js/three/build/THREEx.WindowResize.js"></script>
-    <script src="/static/js/init.js"></script> 
-    -->
+    <script src="/static/js/init.js"></script> -->
+    
   </body>
 </html>

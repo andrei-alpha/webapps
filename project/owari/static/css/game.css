@@ -1,0 +1,124 @@
+.invite-window {
+	width: 240px;
+	height: 100px;
+	background-color: rgba(50, 20, 20, 0.9);
+	border-radius: 20px;
+	position: fixed;
+	z-index: 4;
+	right: 5px;
+	display: none;
+}
+
+.invite-title-name {
+    padding-left: 10px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.invite-close {
+    top: 6px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.invite-close:hover {
+    background: rgba(250, 0, 0, 1);
+}
+
+.invite-accept {
+	top: 6px;
+	color: #fff;
+	right: 45px;
+	border-radius: 100px;
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+	position: absolute;
+}
+
+.invite-accept:hover {
+	background: rgba(0, 200, 0, 0.4);
+}
+
+.invite-content {
+	padding: 10px;
+}
+
+.invite-pic {
+	margin-left: 5px;
+	margin-top: 5px;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	background-image: url('../img/user-placeholder-small.png');
+	-webkit-background-size: cover;
+}
+
+.invite-text {
+	color: #fff;
+	font-size: 15px;
+	width: 180px;
+	height: 30px;
+	right: 5px;
+	top: 30px;
+	position: absolute;
+}
+
+.cheat {
+	width: 230px;
+	height: 120px;
+	position: fixed;
+	right: 10px;
+	border: 20px;
+	color: brown;
+	font-family: "Times New Roman", Times, serif;
+	text-align:justify;
+	font-size: 14px;
+	text-justify:inter-word;
+	-webkit-border-image: url("../img/border-1.png") 25%;
+	display: none;
+	z-index: 6;
+}
+
+.cheat:hover {
+	-webkit-border-image: url("../img/border-2.png") 25%;
+	cursor: pointer;
+}
+
+.cheat-title-name {
+	font-size: 18px;
+	top: -15px;
+	left: 10px;
+}
+
+.cheat-title-req {
+	top: 38px;
+	right: 0px;
+	position: absolute;
+}
+
+.cheat-content {
+	width: 190px;
+	font-style: italic;
+}
+
+.cheat-message {
+	bottom: -10px;
+	font-size: 15px;
+	color: red;
+	position: absolute;
+}
+
+.cheat-gold-pic {
+	width: 40px;
+    height: 40px;
+    top: -5px;
+    right: -10px;
+    position: absolute;
+	background-image: url('../img/gold.png');
+	background-size: cover;
+}

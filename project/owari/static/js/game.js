@@ -30,9 +30,13 @@ function startGame(player1, player2, mode, register) {
 	$('#game-window-title-name').html('');
 
 	game_nextMove();
+	initCheats();
 }
 
 function closeGame() {
+	gameTurn = 0;
+	closeAllCheats();
+
 	$('#game-window').fadeOut(500);
 	if (gameState == true)
 		endGame();

@@ -251,7 +251,7 @@ $(document).ready(function() {
     menu_addItem('User Profile', '#', function() { openUserProfile(); } );
     menu_addItem('Game History', '#', null);
     menu_addItem('Tutorial', '#', null);
-    menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -10, 1, true); } );
+    menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -1, 1, true); } );
     menu_addItem('Hall of Fame', '#', null);
     $('#search-box').keyup(function(event) { search(event.which); } );
 
@@ -269,6 +269,8 @@ $(document).ready(function() {
     user_getProfile();
     setInterval(getUpdates, 1000);
     loadGraphics();
+
+    initCheats();
 });
 
 //first, checks if it isn't implemented yet
