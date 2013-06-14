@@ -14,6 +14,8 @@ var button;
 var controls;
 var isMouseDown = false, onMouseDownPosition;
 var arrow = [];
+var scoreBoards = [];
+var text = [];
 
 var onFrame;
 
@@ -53,6 +55,14 @@ function initGraphics()
   controls = new THREE.TrackballControls(camera); 
 
   plates = makePlates();
+  scoreBoards = makeScoreBoards();
+  
+  scene.add(plates);
+  scene.add(scoreBoards);
+ // text[0] = displayScore(scoreBoards[0], 0);
+ // text[1] = displayScore(scoreBoards[1], 0);
+//  scene.add(text[0]);
+//  scene.add(text[1]);
   arrow = makeArrow();
   onMouseDownPosition = new THREE.Vector2();
   renderer.render(scene, camera);

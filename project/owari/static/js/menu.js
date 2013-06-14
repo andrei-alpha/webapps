@@ -217,7 +217,7 @@ function loadGraphics() {
         // Browser has no idea what WebGL is. Suggest they
         // get a new browser by presenting the user with link to
         // http://get.webgl.org
-        WebGl = false;
+        WebGl = true;
     }
     else
         gl = canvas.getContext("webgl");   
