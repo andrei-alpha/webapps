@@ -213,7 +213,7 @@ function search(keypress) {
 function loadGraphics() {
     var WebGl = true, gl = null;
 
-    if (!window.WebGLRenderingContext) {
+    /*if (!window.WebGLRenderingContext) {
         // Browser has no idea what WebGL is. Suggest they
         // get a new browser by presenting the user with link to
         // http://get.webgl.org
@@ -226,8 +226,8 @@ function loadGraphics() {
         // Browser could not initialize WebGL. User probably needs to
         // update their drivers or get a new browser. Present a link to
         // http://get.webgl.org/troubleshooting
-        WebGl = false;  
-    }
+        WebGl = true;  
+    }*/
 
     if (WebGl == true) {
         console.log('We have WebGL support');

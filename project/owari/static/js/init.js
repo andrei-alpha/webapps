@@ -13,8 +13,8 @@ var plates = [];
 var button;
 var controls;
 var isMouseDown = false, onMouseDownPosition;
-var arrow = [];
 var scoreBoards = [];
+var arrow = [];
 var text = [];
 
 var onFrame;
@@ -23,20 +23,12 @@ function initGraphics()
 {
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(WIDTH, HEIGHT);
-/*
-  var container = document.createElement('div');
-  document.body.appendChild(container);
-  container.appendChild(renderer.domElement);
-*/
-  $('#game-bg').fadeIn(1000);
-  $('#game-window-title').fadeIn(1000);
-  $('#game-window-close').fadeIn(1000);
 
   $('#game-window').empty();
+  $('#game-window').fadeIn(1000);
   $('#game-window').append(renderer.domElement);
-
-  document.addEventListener('mousedown', onMouseDown, false);
-  document.addEventListener('mouseup', onMouseUp, false);
+  //$('#chat-input').focus();
+  $('#game-window').on("click", onMouseClick);
   scene = new THREE.Scene();
 
   camera = makeCamera();
@@ -46,24 +38,21 @@ function initGraphics()
   pointLight = makePointLight();
   scene.add(pointLight);
 
- 
   //window resize on mouse drag/scroll
-  THREEx.WindowResize(renderer, camera);
-  THREEx.FullScreen.bindKey({charCode : 'm'.charCodeAt(0)});
+  //THREEx.WindowResize(renderer, camera);
+  //THREEx.FullScreen.bindKey({charCode : 'm'.charCodeAt(0)});
   
   //controls
-  controls = new THREE.TrackballControls(camera); 
+  controls = new THREE.TrackballControls(camera, renderer.domElement); 
 
   plates = makePlates();
-  scoreBoards = makeScoreBoards();
-  
   scene.add(plates);
+  
+  scoreBoards = makeScoreBoards();
   scene.add(scoreBoards);
- // text[0] = displayScore(scoreBoards[0], 0);
- // text[1] = displayScore(scoreBoards[1], 0);
-//  scene.add(text[0]);
-//  scene.add(text[1]);
+
   arrow = makeArrow();
+  
   onMouseDownPosition = new THREE.Vector2();
   renderer.render(scene, camera);
 
@@ -75,11 +64,8 @@ function cancelGraphics()
   window.cancelAnimationFrame(onFrame);
   gameState = false;
   $('#game-window').empty();
-  $('#game-bg').fadeOut(1000);
-  $('#game-window-title').fadeOut(1000);
-  $('#game-window-close').fadeOut(1000);
-  document.removeEventListener('mousedown', onMouseDown, false);
-  document.removeEventListener('mouseup', onMouseUp, false);
+  $('#game-window').fadeOut(1000);
+  $('#game-window').off("click");
 }
 
 function trick(e)
@@ -94,11 +80,16 @@ function animate()
   controls.update();
 }
 
-function onMouseDown(event) {
-  event.preventDefault();
-  isMouseDownn = true;
-  onMouseDownPosition.x = event.clientX;
-  onMouseDownPosition.y = event.clientY;
+function onMouseClick(event) {
+  var clicked, pno, x, y;
+  var intersects = getClickedObjects(event);
+  if (intersects.length > 0) {
+      clicked = intersects[intersects.length-1].object;
+      x = clicked.position.x;
+      y = clicked.position.y;
+      pno = getPlateNumber(clicked.position.x, clicked.position.z); 
+      clickBowl(pno);
+  }
 }
 
 function getClickedObjects(event) {
@@ -109,26 +100,4 @@ function getClickedObjects(event) {
     vector.sub(camera.position).normalize());
   var intersects = raycaster.intersectObjects(objects);
   return intersects;
-}
-
-
-function onMouseUp(event) {
-  var clicked, pno, x, y;
-  event.preventDefault();
-  isMouseDown = false; 
-  onMouseDownPosition.x = event.clientX - onMouseDownPosition.x;
-  onMouseDownPosition.y = event.clientY - onMouseDownPosition.y;
-  if ( onMouseDownPosition.length() > 5 ) {
-    return;
-  } 
-
-  var intersects = getClickedObjects(event);
-  
-  if (intersects.length > 0) {
-      clicked = intersects[intersects.length-1].object;
-      x = clicked.position.x;
-      y = clicked.position.y;
-      pno = getPlateNumber(clicked.position.x, clicked.position.z); 
-      clickBowl(pno);
-  }
 }

@@ -1,0 +1,49 @@
+{
+	"metadata": {
+		"version": 4,
+		"type": "object",
+		"generator": "ObjectExporter"
+	},
+	"geometries": [
+		{
+			"type": "CubeGeometry",
+			"width": 500,
+			"height": 10,
+			"depth": 150,
+			"widthSegments": 1,
+			"heightSegments": 1,
+			"depthSegments": 1
+		}],
+	"materials": [
+		{
+			"type": "MeshLambertMaterial",
+			"color": 16777215,
+			"ambient": 16777215,
+			"emissive": 0,
+			"opacity": 1,
+			"transparent": false,
+			"wireframe": false
+		}],
+	"object": {
+		"type": "Scene",
+		"children": [
+			{
+				"name": "Cube 18",
+				"type": "Mesh",
+				"position": [0,0,-350],
+				"rotation": [0,0,0],
+				"scale": [1,1,1],
+				"geometry": 0,
+				"material": 0
+			},
+			{
+				"name": "Cube 18",
+				"type": "Mesh",
+				"position": [0,0,350],
+				"rotation": [0,0,0],
+				"scale": [1,1,1],
+				"geometry": 0,
+				"material": 0
+			}]
+	}
+}

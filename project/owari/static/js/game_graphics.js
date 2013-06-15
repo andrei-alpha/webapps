@@ -74,7 +74,7 @@ function decBallsNo(plate) {
     scene.remove(curr_balls[0]);
     var remove_ind = objects.indexOf(ball);
     objects.splice(remove_ind, 1);
-    console.log(objects.length);
+    //console.log(objects.length);
     plate[1] = [];
     return curr_balls[0];
   }
@@ -103,12 +103,12 @@ function decBallsNo(plate) {
 
 function getPlateNumber(x, y) {
   //x -= 575;
-  console.log("x y plate number " + x + "; " + y);
+  //console.log("x y plate number " + x + "; " + y);
   var positions = readJson('/static/js/plates.json').object.children;
   for (var i = 0; i < positions.length; i++) {
     if (x >= positions[i].position[0] - 100 && x <= positions[i].position[0] + 100 && 
        y >= positions[i].position[2] - 100 && y <= positions[i].position[2] + 100) {
-      console.log ("clicked on plate " + i);
+      //console.log ("clicked on plate " + i);
       return i;
     }
   } 
@@ -205,11 +205,12 @@ function getBallPositionsScore(balls_no){
 
 function incScore(scoreBoardNo, score) {
   var scoreBoard = scoreBoards[scoreBoardNo];
-  for(i = 0 ; i < 2; i++) {
-    var curr_balls = scoreBoard[1];
-    var scoreBoardX = scoreBoard[0].position.x;
-    var scoreBoardY = scoreBoard[0].position.z;
-    var curr_balls_no = curr_balls.length;
+  var curr_balls = scoreBoard[1];
+  var scoreBoardX = scoreBoard[0].position.x;
+  var scoreBoardY = scoreBoard[0].position.z;
+  var curr_balls_no = curr_balls.length;
+
+  for(; curr_balls_no < score; ) {
     if (curr_balls_no >= MAX_BALLS) {
       console.error('Ooops cam multe bile');
       return;
@@ -219,7 +220,7 @@ function incScore(scoreBoardNo, score) {
     var index = 0;
     var x, y;
 
-  //move current balls
+    //move current balls
     while (curr_balls_no-- > 0) {
       x = new_pos[index][0];
       y = new_pos[index][1];
@@ -227,7 +228,7 @@ function incScore(scoreBoardNo, score) {
       curr_balls[index++].position.z = (scoreBoardY + 2*BALL_RADIUS*y);
     }
 
-  //add a new ball to the last position given
+    //add a new ball to the last position given
     x = new_pos[index][0];
     y = new_pos[index][1];
     curr_balls[index] = makeSphere(scoreBoardX + 2*BALL_RADIUS*x, 20, 
@@ -236,14 +237,18 @@ function incScore(scoreBoardNo, score) {
     scene.add(curr_balls[index]);
     objects.push(curr_balls[index]);
     scoreBoard[1] = curr_balls; 
+    curr_balls_no = curr_balls.length;
   }
 
-    scene.remove(text[scoreBoardNo]);
-    text[scoreBoardNo] = displayScore(scoreBoard, score);
-    scene.add(text[scoreBoardNo]);
+  scene.remove(text[scoreBoardNo]);
+  text[scoreBoardNo] = displayScore(scoreBoard, score);
+  scene.add(text[scoreBoardNo]);
 }
 
+function getBallsScore(player) {
+  return  scoreBoards[player == 2 ? 0 : 1][1].length;
+}
 
-function addBallsScore(playerScoreBoard, score) {
-  incScore((playerScoreBoard%2), score );
+function setBallsScore(player, score) {
+  incScore(player == 2 ? 0 : 1, score);
 } 

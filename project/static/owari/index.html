@@ -23,19 +23,19 @@
     </div>
     <!-- Game window -->
     <div id="game-window">
-      <div id="game-window-title">
-        <div id="game-window-title-name">Owari Game</div>
-        <div id="game-window-gold-label"></div>
-        <div id="game-window-gold-pic"></div>
-        <img id="game-window-close" src="/static/img/cross.png" alt="X">
-      </div>
       <div id="game-window-content">
         <div id="pointer-0" class="pointer"></div>
         <div id="pointer-1" class="pointer"></div>
-        <div id="game-bg"></div>
         <canvas width="800px" height="400px" id="canvas"></canvas>
       </div>
     </div>
+    <div id="game-window-title">
+      <div id="game-window-title-name"></div>
+      <div id="game-window-gold-label"></div>
+      <div id="game-window-gold-pic"></div>
+      <img id="game-window-close" src="/static/img/cross.png" alt="X">
+    </div>
+
     <!-- Top menu -->
     <div id="top-menu">
       <div id="search">
@@ -197,7 +197,7 @@
     <script src="/static/js/three/build/three.min.js"></script>
 
     <!-- WebGL fonts, why so many? -->
-    <!-- <script src="/static/js/fonts/gentilis_bold.typeface.js"></script>
+    <script src="/static/js/fonts/gentilis_bold.typeface.js"></script>
     <script src="/static/js/fonts/gentilis_regular.typeface.js"></script>
     <script src="/static/js/fonts/optimer_bold.typeface.js"></script>
     <script src="/static/js/fonts/optimer_regular.typeface.js"></script>
@@ -206,6 +206,6 @@
     <script src="/static/js/fonts/droid_sans_regular.typeface.js"></script>
     <script src="/static/js/fonts/droid_sans_bold.typeface.js"></script>
     <script src="/static/js/fonts/droid_serif_regular.typeface.js"></script>
-    <script src="/static/js/fonts/droid_serif_bold.typeface.js"></script> -->
+    <script src="/static/js/fonts/droid_serif_bold.typeface.js"></script>
   </body>
 </html>

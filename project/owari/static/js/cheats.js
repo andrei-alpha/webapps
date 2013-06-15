@@ -153,6 +153,7 @@ Cheat.prototype.click = function() {
 	if (this.type == 2) cheat_AncientEarthquake();
 	if (this.type == 3) cheat_StoneStorm();
 	if (this.type == 4) cheat_OldWine();
+	setBallsScore(gameTurn, gameScore[gameTurn]);
 
 	this.close();
 }

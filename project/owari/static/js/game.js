@@ -28,6 +28,7 @@ function startGame(player1, player2, mode, register) {
 	/* Initialize the graphics. */
 	initGraphics();
 	$('#game-window-title-name').html('');
+	$('#game-window-title').fadeIn(1000);
 
 	game_nextMove();
 	initCheats();
@@ -38,6 +39,7 @@ function closeGame() {
 	closeAllCheats();
 
 	$('#game-window').fadeOut(500);
+	$('#game-window-title').fadeOut(1000);
 	if (gameState == true)
 		endGame();
 	gameState = false;
@@ -116,7 +118,7 @@ function moveStones(plate_no) {
 		if (getBalls(ind) == 1) {
 			removeBall(ind);
 			gameScore[gameTurn] += 2;
-			addBallsScore(gameTurn, gameScore[gameTurn]);
+			setBallsScore(gameTurn, gameScore[gameTurn]);
 		}
 		else
 			addBall(ind);
@@ -180,6 +182,7 @@ function game_getMoves(data) {
 	if (gameState == false) {
 		// the game window is not opened
 		$('#game-window').fadeIn(500);
+		$('#game-window-title').fadeIn(1000);
 		$('#game-window-close').click(function(event) { closeGame(); });
 
 		gamePlayer[0] = 0;
@@ -188,7 +191,7 @@ function game_getMoves(data) {
 		gameState = true;
 		
 		/* Initialize the graphics. */
-		init();
+		setTimeout(initGraphics(), 600);
 	}
 
 	// The oponent left the game
@@ -204,6 +207,8 @@ function game_getMoves(data) {
 	// update the board
 	gameScore[1] = parseInt( data['score'][0] );
 	gameScore[2] = parseInt( data['score'][1] );
+	setBallsScore(1, gameScore[1]);
+	setBallsScore(2, gameScore[2]);
 	gameMoves = parseInt( data['moves'] );
 	for (var ind = 0; ind < 12; ++ind) {
 		var dec = getBalls(ind) - parseInt(data['board'][ind]);

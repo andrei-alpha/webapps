@@ -154,6 +154,10 @@ function cancelGraphics() {
 	// do nothing
 }
 
+function setBallsScore(player, score) {
+    // do nothing
+}
+
 function mousePosition(e) {
     // http://www.malleus.de/FAQ/getImgMousePos.html
     // http://www.quirksmode.org/js/events_properties.html#position
