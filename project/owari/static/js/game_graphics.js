@@ -8,7 +8,7 @@ var MAX_BALLS = 48;
 function makePlates() {
   var geometry;
   var positions = [];
-  var data = readJson('/static/js/plates.json');
+  var data = readJson('/static/js/json/plates.json');
   geometry = data.geometries[0];
   positions = data.object.children;
 
@@ -104,7 +104,7 @@ function decBallsNo(plate) {
 function getPlateNumber(x, y) {
   //x -= 575;
   //console.log("x y plate number " + x + "; " + y);
-  var positions = readJson('/static/js/plates.json').object.children;
+  var positions = readJson('/static/js/json/plates.json').object.children;
   for (var i = 0; i < positions.length; i++) {
     if (x >= positions[i].position[0] - 100 && x <= positions[i].position[0] + 100 && 
        y >= positions[i].position[2] - 100 && y <= positions[i].position[2] + 100) {
@@ -116,7 +116,7 @@ function getPlateNumber(x, y) {
 }
 
 function getPlatePosition(plateNo) {
-  var positions = readJson('/static/js/plates.json').object.children;
+  var positions = readJson('/static/js/json/plates.json').object.children;
   return [positions[plateNo].position[0], positions[plateNo].position[2]];
 }
 
@@ -124,7 +124,7 @@ function getBallPositions(balls_no) {
   var new_pos;
     //read new positions for required number of balls
   $.ajax({
-    url:'/static/js/ball_positions.json', 
+    url:'/static/js/json/ball_positions.json', 
     async: false,
     dataType: 'json',
     success: function(data) { 
@@ -170,7 +170,7 @@ function makeScoreBoards() {
   var positions = [];
 
   $.ajax({
-    url:'/static/js/scores.json', 
+    url:'/static/js/json/scores.json', 
     async: false,
     dataType: 'json',
     success: function(data) { 
@@ -189,7 +189,7 @@ function getBallPositionsScore(balls_no){
    var new_pos;
     //read new positions for required number of balls
   $.ajax({
-    url:'/static/js/score_positions.json', 
+    url:'/static/js/json/score_positions.json', 
     async: false,
     dataType: 'json',
     success: function(data) { 

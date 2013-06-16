@@ -14,6 +14,14 @@ $('body').css('background-repeat', 'no-repeat');
 $('body').css('background-position', 'center');
 $('body').css('background-attachment', 'fixed');
 
+$.getJSON('/static/js/json/countries.json', function(data) {
+    $('#country').html('');
+    for (var i = 0; i < data.length; ++i) {
+      $('#country').append('<option>' + data[i] + '</option>');
+	}
+	$('#country :selected').text('United Kingdom');
+});
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {

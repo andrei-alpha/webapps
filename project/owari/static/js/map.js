@@ -134,12 +134,13 @@ function makeBindings(mapWindowId, image, city, level) {
 }
 
 function showMapWindow(mapWindowId) {
-  $('#map-window-' + mapWindowId).fadeIn(500);
+  $('#map-window-' + mapWindowId).fadeIn(1000);
 }
 
 function closeMapWindow(mapWindowId) {
-  $('#map-window-' + mapWindowId).fadeOut(500);
-  setTimeout(mapInfoBox.close, 1000);
+  $('#map-window-' + mapWindowId).fadeOut(1000);
+  var fun = function() { mapInfoBox.close(); };
+  setTimeout(fun, 1000);
 }
 
 function playMapWindow(mapWindowId, city, level) {

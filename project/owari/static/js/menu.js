@@ -211,7 +211,8 @@ function search(keypress) {
 }
 
 function loadGraphics() {
-    if (Detector.webgl) {
+    // Go with WebGL for now
+    if (true || Detector.webgl) {
         console.log('We have WebGL support');
 
         $.getScript('/static/js/three/build/three.min.js', null);
@@ -242,10 +243,11 @@ $(document).ready(function() {
     var totalW = $(window).width();
     $('#top-menu ').width(totalW - 220);
     $('#user-list').height(totalH - $('#nav-menu').height() );
-    //$('#game-window').width(totalW - 220);
     $('#top-menu').fadeIn(500);
     $('#user-list').fadeIn(500);
     $('#search-results').css('left', 390 + $('#top-menu ').width() / 5);
+    $('#info-window').css('left', (totalW - 1420) / 2 + 220);
+    $('#info-window').css('top', (totalH - 750) / 2 + 50);
 
     /* Get all users and current user's profile. */
     user_getProfile();

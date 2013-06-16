@@ -38,7 +38,7 @@ html, body {
 }
 
 #search {
-    left: 20%;
+    left: 25%;
     position: absolute;
 }
 
@@ -243,95 +243,3 @@ htmlcss-tutorials/quick-tip-styling-scrollbars-to-match-your-ui-design/ */
     background-color: black;
 } /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also
  needs to be styled */
-
- 
-#tutorial-slide {
-    border-radius: 20px;
-    border-width: 0.5px;
-    border-style: solid;
-    border-color: 0xfff;
-    margin-left: 25px;
-    margin-right: 25px;
-    width: 1000px;
-    height: 500px; 
-}
-
-#tutorial-img1, #tutorial-img2, #tutorial-img3, #tutorial-img4,
-    #tutorial-img6-1, #tutorial-img6-2 {
-    width: 600px;
-    height: 400px;
-    margin: auto;
-    display: block;
-}
-
-#tutorial-img1, #tutorial-img2, #tutorial-img3, #tutorial-img4 {
-    box-shadow: 10px 10px 7px #3B2727;
-}
-
-#tutorial-img1 {
-    width: 600px;
-    height: 400px;
-}
-
-#tutorial-img2 {
-    width: 600px;
-    height: 400px;
-}
-
-#tutorial-img3 {
-    width: 1000px;
-    height: 200px;
-}
-
-#tutorial-img4 {
-    width: 800px;
-    height: 400px;
-}
-
-#tutorial-img6-1 {
-    width: 600px;
-    height: 350px;
-    padding-right: 20px;
-}
-
-#tutorial-img6-2 {
-    width: 400px;
-    height: 350px;
-}
-
-#tutorial-text {
-    font-size: 25px;
-    color: #fff;
-    font-family: 'Times New Roman';
-    padding: 10px;
-}
-
-#tutorial-next {
-    width: 30px;
-    height: 100px;
-    background-color: rgba(50, 20, 20, 0);
-    border: 0px;
-    cursor: pointer;
-}
-
-#tutorial-prev {
-    width: 30px;
-    height: 100px;
-    background-color: rgba(50, 20, 20, 0);
-    border: 0px;
-    cursor: pointer;
-}
-
-#prev-img {
-    width: 20px;
-    height: 100px;
-}
-
-#next-img {
-    width: 20px;
-    height: 100px;
-}
-
-#slide1, #slide2, #slide3, #slide4, #slide5, #slide6 {
-    display: none;
-}

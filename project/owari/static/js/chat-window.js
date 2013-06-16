@@ -46,7 +46,7 @@ ChatWindow.prototype.receive = function(id, message, read, fromId, time) {
 
         this.lastLineNo = this.lastLineNo + 1;
         $('#chat-message-content-' + itemId).html(lastMessage + '<br>' + message);
-        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 23) );
+        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 25) );
     }
     else {
         this.lastLineNo = 0;
@@ -62,7 +62,6 @@ ChatWindow.prototype.receive = function(id, message, read, fromId, time) {
     }
     $('#chat-messages-' + this.windowId).scrollTop($('#chat-messages-' + 
         this.windowId)[0].scrollHeight);
-    $('#chat-input-' + this.windowId).val('');
 
     if (read == false)
         chat_markMessageRead(id);
@@ -78,7 +77,7 @@ ChatWindow.prototype.submit = function() {
 
         this.lastLineNo = this.lastLineNo + 1;
         $('#chat-message-content-' + itemId).html(lastMessage + '<br>' + message);
-        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 23));
+        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 25));
     }
     else {
         this.lastLineNo = 0;

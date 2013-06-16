@@ -26,7 +26,14 @@ function openUserProfile() {
   $('#last_name').val(curr_user['last_name']);
   $('#email').val(curr_user['email']);
   $('#image_url').val(curr_user['image']);
-  $('#country :selected').text(curr_user['country']);
+
+  $.getJSON('/static/js/json/countries.json', function(data) {
+    $('#country').html('');
+    for (var i = 0; i < data.length; ++i) {
+      $('#country').append('<option>' + data[i] + '</option>');
+    }
+    $('#country :selected').text(curr_user['country']);
+  });
 
   // Get rating information
   $.ajax({
