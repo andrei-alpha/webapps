@@ -348,9 +348,9 @@ def game(request):
       compute_gold(player1, player2, win_player)
 
   if data['type'] == 'new_move':
-    games[gameid]['moves'] = data['moves']
-    games[gameid]['score'][0] = data['score0']
-    games[gameid]['score'][1] = data['score1']
+    games[gameid]['moves'] = int(data['moves'])
+    games[gameid]['score'][0] = int(data['score0'])
+    games[gameid]['score'][1] = int(data['score1'])
     games[gameid]['turn'] = data['turn']
     games[gameid]['board'] = data['board'].split(' ')
 
@@ -434,12 +434,15 @@ def stats(request):
       if game.score1 < 24 and game.score2 < 24:
         continue
 
-      win = 'oponent'
-      if game.player1 == userid and game.score1 > 24:
+      win = 'opponent'
+      if game.player1 == userid and int(game.score1) >= 24:
         win = 'you'
-      if game.player2 == userid and game.score2 > 24:
+      if game.player2 == userid and int(game.score2) >= 24:
         win = 'you'
       time = game.date.strftime("%d %B, %H:%M %p")
+
+      print game.date, game.player1, game.player2, game.score1, game.score2, win, time
+
       results.append([time, game.player1, game.score1, game.player2, game.score2, game.moves, win])
     
     return HttpResponse( json.dumps(results) )

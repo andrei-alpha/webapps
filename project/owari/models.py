@@ -17,7 +17,7 @@ class User(models.Model):
   online = models.BooleanField(default = False)
 
 class Game(models.Model):
-  date = models.DateField(auto_now = True)
+  date = models.DateTimeField(auto_now = True)
   moves = models.IntegerField(default = 0)
   score1 = models.IntegerField(default = 0)
   score2 = models.IntegerField(default = 0)

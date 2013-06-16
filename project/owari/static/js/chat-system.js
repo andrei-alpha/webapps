@@ -39,10 +39,14 @@ function chat_getMessages(data) {
     	for(var ind = 0; ind < data[id].length; ++ind) {
     		message = data[id][ind];
 
+            /* The wierd case when syncronization play a trick. */
+            if (chat_system_last[id] >= message[0])
+                continue;
+
     		if (message[2] == false && chat_system[id].visible == false)
     			chat_system[id].show();
     		chat_system[id].receive(message[0], message[1], message[2], message[3], message[4]);
-    		chat_system_last[id] = message[0];
+    		chat_system_last[id] = Math.max(chat_system_last[id], message[0]);
     	}
     }
 }

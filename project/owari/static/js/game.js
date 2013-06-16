@@ -201,16 +201,6 @@ function game_getMoves(data) {
 		setTimeout(initGraphics(), 600);
 	}
 
-	// The oponent left the game
-	if (gameState == true && data['status'] == 'ended') {
-		gameState = false;
-		var oponent = (gamePlayer[1] != curr_user['id'] ? gamePlayer[1] : gamePlayer[2]);
-		name = game_getPlayerName(oponent);
-		$('#game-window-title-name').html('<h1>' + name + ' left the game!</h1>');
-		endGame();
-		return;
-	}
-
 	// update the board
 	gameScore[1] = parseInt( data['score'][0] );
 	gameScore[2] = parseInt( data['score'][1] );
@@ -236,6 +226,16 @@ function game_getMoves(data) {
 		gameTurn = parseInt( data['turn'] );
 		moveArrow(gameTurn - 1);
 		setTimeout(game_nextMove(), 200);
+	}
+
+	// The oponent left the game
+	if (gameState == true && data['status'] == 'ended') {
+		gameState = false;
+		var oponent = (gamePlayer[1] != curr_user['id'] ? gamePlayer[1] : gamePlayer[2]);
+		name = game_getPlayerName(oponent);
+		$('#game-window-title-name').html('<h1>' + name + ' left the game!</h1>');
+		endGame();
+		return;
 	}
 }
 

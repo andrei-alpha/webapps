@@ -138,16 +138,16 @@ function invite_getInvites(data) {
 		invite = data[ind];
 
 		if (invite[0] == curr_user['id']) {
-			if (invite[2] != 'pending') {
+			if (invite_system[ invite[1] ] == null) {
+				var inv = new Invite("sent", invite[1], invite_system_pos, null);
+				inv.init();
+				invite_system_pos = invite_system_pos + 1;
+			}
+			else if (invite[2] != 'pending') {
 				if (invite[2] == 'accept')
 					invite_system[ invite[1] ].accept();
 				else
 					invite_system[ invite[1] ].close();
-			}
-			else if (invite_system[ invite[1] ] == null) {
-				var inv = new Invite("sent", invite[1], invite_system_pos, null);
-				inv.init();
-				invite_system_pos = invite_system_pos + 1;
 			}
 		}
 		if (invite[0] != curr_user['id'] && invite_system[ invite[0] ] == null && invite[2] == 'pending') {

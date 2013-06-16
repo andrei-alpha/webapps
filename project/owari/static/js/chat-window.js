@@ -70,6 +70,8 @@ ChatWindow.prototype.receive = function(id, message, read, fromId, time) {
 ChatWindow.prototype.submit = function() {
     // Send a new message
     var message = $('#chat-input-' + this.windowId).val();
+    if (message == '')
+        return;
 
     if (this.lastFromId == curr_user['id']) {
         itemId = this.windowId + '-' + this.mesId;
@@ -106,7 +108,7 @@ ChatWindow.prototype.submit = function() {
         type: 'post',
         data: data,
         success: function(id) {
-            chat_system_last[userId] = id;
+            chat_system_last[userId] = Math.max(id, chat_system_last[userId]);
         },
         error: function(html) {
             console.log('error on sending a new message');
