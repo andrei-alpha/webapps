@@ -252,7 +252,7 @@ $(document).ready(function() {
     menu_addItem('Game History', '#', function() { openGameTable(); } );
     menu_addItem('Hall of Fame', '#', function() { openHallFameTable(); } );
     menu_addItem('Tutorial', '#', null);
-    menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -1, 1, true); } );
+    //menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -1, true, null); } );
     $('#search-box').keyup(function(event) { search(event.which); } );
 
     /* Set the height for the two menu components */

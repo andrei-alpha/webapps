@@ -1,4 +1,4 @@
-var infoBox, mapWindowId = 0;
+var mapInfoBox, mapWindowId = 0;
 
 var map;
 var styleArray = [
@@ -54,8 +54,8 @@ var directionService = new google.maps.DirectionsService();
 function initialize() {
   var mapOptions = {
     zoom: 5,
-    minZoom: 4,
-    maxZoom: 7,
+    minZoom: 5,
+    maxZoom: 5,
     styles: styleArray,
     streetViewControl: false,
     zoomControl: false,
@@ -104,32 +104,32 @@ function changeMarker(type, city) {
 
 function addInformation(name, level, story, image, lat, long, neighbours) {
   city = new google.maps.LatLng(lat, long);
-  addingMap(name, city, story, image);
+  addingMap(name, city, level, story, image);
 }
 
-function addingMap(city_name, city, story, image) {
+function addingMap(city_name, city, level, story, image) {
   var marker = new google.maps.Marker(changeMarker('low', city));
 
-  infoBox = new InfoBox();
+  mapInfoBox = new InfoBox();
   google.maps.event.addListener(marker, 'click', function() {
     calculateRoutes(mapCity, city)
     var windowTemplate = $('#mapWindowTemplate').html();
-    var template = windowTemplate.format(mapWindowId, city_name, story);
+    var template = windowTemplate.format(mapWindowId, city_name + ' (level ' + level + ')', story);
 
-    infoBox.open(map, marker);
-    infoBox.setContent(template);
-    infoBox.show();
+    mapInfoBox.open(map, marker);
+    mapInfoBox.setContent(template);
+    mapInfoBox.show();
     
     var funShow = function() { showMapWindow(mapWindowId); }
     setTimeout(funShow, 100);
-    var funBind = function() { makeBindings(mapWindowId, image, city) };
+    var funBind = function() { makeBindings(mapWindowId, image, city, level) };
     setTimeout(funBind, 500);
   });
 }
 
-function makeBindings(mapWindowId, image, city) {
+function makeBindings(mapWindowId, image, city, level) {
   $('#map-window-close-' + mapWindowId).click( function(event) { closeMapWindow(mapWindowId); } );
-  $('#map-window-play-' + mapWindowId).click( function(event) { playMapWindow(mapWindowId, city); } );
+  $('#map-window-play-' + mapWindowId).click( function(event) { playMapWindow(mapWindowId, city, level); } );
   $('#map-window-pic-' + mapWindowId).css('background-image', 'url(' + image + ')');
 }
 
@@ -139,11 +139,14 @@ function showMapWindow(mapWindowId) {
 
 function closeMapWindow(mapWindowId) {
   $('#map-window-' + mapWindowId).fadeOut(500);
-  setTimeout(infoBox.close(), 1000);
+  setTimeout(mapInfoBox.close, 1000);
 }
 
-function playMapWindow(mapWindowId, city) {
-  // If success
+function playMapWindow(mapWindowId, city, level) {
+  startGame(curr_user['id'], -level, true, [mapWindowId, city]);
+}
+
+function moveMapWindow(mapWindowId, city) {
   marker.setIcon({
     path: google.maps.SymbolPath.CIRCLE,
     strokeColor: "brown",

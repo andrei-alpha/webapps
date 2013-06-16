@@ -82,7 +82,7 @@ Invite.prototype.accept = function() {
 		$('#invite-text-' + this.windowId).text(this.name + ' has accepted your invite');
 		$('#invite-text-' + this.windowId).css('color', 'green');
 		$('#invite-window-' + this.windowId).fadeOut(2000);
-		setTimeout(startGame(curr_user['id'], this.otherId, 0, false), 2000);
+		setTimeout(startGame(curr_user['id'], this.otherId, false, null), 2000);
 
 		inviteAjaxCall('/backend/invite/', 
 			{'type': 'delete_invite', 'recipient': this.otherId},

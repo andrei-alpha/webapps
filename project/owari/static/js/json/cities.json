@@ -1,0 +1,155 @@
+{"cities" :
+	[
+		{
+			"name": "Nairobi",
+			"id": 1,
+			"level": 1,
+			"story": "In this wild landscape you can still find villages of simple yet ancient people who's ways are still kept and cherrished. The masaiare proud and lively people and always welcoming to stranges.",
+			"image": "/static/img/stories/1.jpg",
+			"lat": -1.2920659,
+			"long": 36.8219462,
+			"neighbours": ["Khartoum", "N'Djamena", "Zanzibar"]
+		},
+		{
+			"name": "Yaounde",
+			"id": 2,
+			"level": 9,
+			"story": "Germans, Belgians and then French, they all tried to subdue the spirit of these proud people. But you can see in them when they play the ancient game of Owari how cunningness, determination and patience still linger inside their soul.",
+			"image": "/static/img/stories/2.jpg",
+			"lat": 3.8659673250705584,
+			"long": 11.517963409423828,
+			"neighbours": ["Burkina Faso", "Dakar"]
+		},
+		{
+			"name": "Niamey",
+			"id": 3,
+			"level": 6,
+			"story": "The Tree of Tenere that you can find it here is a monument of perseverence, strength against impossible odds and solitude, much like the people of this untammed land. They strived and prospered even when the odds were not in their favour.",
+			"image": "/static/img/stories/3.jpg",
+			"lat": 13.514499534006687,
+			"long": 2.109546661376953,
+			"neighbours": ["Casablanca", "N'Djamena"]
+		},
+		{
+			"name": "Khartoum",
+			"id": 4,
+			"level": 5,
+			"story": "In the lush and fertile land between the two Niles you can still find villages of proud people who honor the old traditions. Here the players of Owari are as numerous like the wild life that abunds here.",
+			"image": "/static/img/stories/4.jpg",
+			"lat": 15.553921752196915,
+			"long": 32.557640075683594,
+			"neighbours": ["Cairo", "Nairobi"]
+		},
+		{
+			"name": "Johannesburg",
+			"id": 5,
+			"level": 1,
+			"story": "South Africa is a land of diversity in all forms and shapes. Different ethnic groups each with an unique cultural background call this country their home. So it is only natural that in Johannesburg, the capital of this melting pot of cultures, the Owari game strategies that are devised here are as plenty as the languages spoken.",
+			"image": "/static/img/stories/5.jpg",
+			"lat": -26.207198534534058,
+			"long": 28.04363250732422,
+			"neighbours": ["Luanda"]
+		},
+		{
+			"name": "Cairo",
+			"id": 6,
+			"level": 9,
+			"story": "Some say that even the ancient Egyptians were playing the ancient game of Owari as a past time. Nobody knows if this is true, but it does resemble, in its simple rules yet complicated outcomes, the resolve with which ancient Egyptians delt with the hardships of life.",
+			"image": "/static/img/stories/6.jpg",
+			"lat": 30.11899736389511,
+			"long": 31.260910034179688,
+			"neighbours": ["Tripoli", "Casablanca", "Khartoum"]
+		},
+		{
+			"name": "Burkina Faso",
+			"id": 7,
+			"level": 3,
+			"story": "In this wild landscape you can still find villages of simple yet ancient people who's ways are still kept and cherrished. The masai are proud and lively people and always welcoming to stranges.",
+			"image": "/static/img/stories/7.jpg",
+			"lat": 12.363478139540609,
+			"long": -1.5332794189453125,
+			"neighbours": ["Yaounde", "Luanda"]
+		},
+		{
+			"name": "Zanzibar",
+			"id": 8,
+			"level": 7,
+			"story": "Germans, Belgians and then French, they all tried to subdue the spirit of these proud people. But you can see in them when they play the ancient game of Owari how cunningness, determination and patience still linger inside their soul.",
+			"image": "/static/img/stories/8.jpg",
+			"lat": -6.1639,
+			"long": 39.1979,
+			"neighbours": ["Nairobi", "Lusaka"]
+		},
+		{
+			"name": "Luanda",
+			"id": 9,
+			"level": 7,
+			"story": "The Tree of Tenere that you can find it here is a monument of perseverence, strength against impossible odds and solitude, much like the people of this untammed land. They strived and prospered even when the odds were not in their favour.",
+			"image": "/static/img/stories/9.jpg",
+			"lat": -8.838245,
+			"long": 13.234430,
+			"neighbours": ["Johannesburg", "Cape Town"]
+		},
+		{
+			"name": "Tripoli",
+			"id": 10,
+			"level": 2,
+			"story": "In the lush and fertile land between the two Niles you can still find villages of proud people who honor the old traditions. Here the players of Owari are as numerous like the wild life that abunds here.",
+			"image": "/static/img/stories/10.jpg",
+			"lat": 32.873756368374295, 
+			"long": 13.187866210355423,
+			"neighbours": ["Cairo"]
+		},
+		{
+			"name": "Casablanca",
+			"id": 11,
+			"level": 4,
+			"story": "South Africa is a land of diversity in all forms and shapes. Different ethnic groups each with an unique cultural background call this country their home. So it is only natural that in Johannesburg, the capital of this melting pot of cultures, the Owari game strategies that are devised here are as plenty as the languages spoken.",
+			"image": "/static/img/stories/11.jpg",
+			"lat": 33.5443197592281, 
+			"long": -7.59792327939067,
+			"neighbours": ["Dakar", "Niamey", "Cairo"] 
+		},
+		{
+			"name": "Dakar",
+			"id": 12,
+			"level": 8,
+			"story": "In this wild landscape you can still find villages of simple yet ancient people who's ways are still kept and cherrished. The masai are proud and lively people and always welcoming to stranges",
+			"image": "/static/img/stories/12.jpg",
+			"lat": 14.75961130683064, 
+			"long": -17.368202210054733,
+			"neighbours": ["Casablanca", "Yaounde"]
+		},
+		{
+			"name": "Lusaka",
+			"id": 13,
+			"level": 10,
+			"story": "Germans, Belgians and then French, they all tried to subdue the spirit of these proud people. But you can see in them when they play the ancient game of Owari how cunningness, determination and patience still linger inside their soul.",
+			"image": "/static/img/stories/13.jpg",
+			"lat": -15.41117227689849, 
+			"long": 28.28695297212107,
+			"neighbours": ["Burkina Faso", "Zanzibar", "Cape Town"]
+		},
+		{
+			"name": "Cape Town",
+			"id": 14,
+			"level": 2,
+			"story": "The Tree of Tenere that you can find it here is a monument of perseverence, strength against impossible odds and solitude, much like the people of this untammed land. They strived and prospered even when the odds were not in their favour.",
+			"image":  "/static/img/stories/14.jpg",
+			"lat": -33.92573110713111, 
+			"long": 18.42723846406443,
+			"neighbours": ["Luanda", "Lusaka"]
+		},
+		{
+			"name": "N'Djamena",
+			"id": 15,
+			"level": 0,
+			"story": "In this wild landscape you can still find villages of simple yet ancient people who's ways are still kept and cherrished. The masai are proud and lively people and always welcoming to stranges",
+			"image": "/static/img/stories/1.jpg",
+			"lat": 12.105683130735162, 
+			"long": 15.0417327877949,
+			"neighbours": ["Niamey", "Nairobi"]
+		}
+	]
+}
+

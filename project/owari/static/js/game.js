@@ -1,12 +1,12 @@
 var gameScore = [0, 0, 0];
 var gamePlayer = [0, 0, 0];
 var gameTurn = 0;
-var gameMode = 0;
 var gameMoves = 0;
 var gameState = false;
-var GameEnded = false;
+var GameEnded = gameWinner = false;
+var gameMapMove = null;
 
-function startGame(player1, player2, mode, register) {
+function startGame(player1, player2, register, mapMove) {
 	$('#game-window').fadeIn(500);
 	$('#game-window-close').click(function(event) { endGame(); closeGame(); cancelGraphics(); });
 
@@ -17,8 +17,8 @@ function startGame(player1, player2, mode, register) {
 	gameTurn = 1;
 	gameMoves = 0;
 	gameState = true;
-	GameEnded = false;
-	gameMode = mode;
+	GameEnded = gameWinner = false;
+	gameMapMove = mapMove;
 	
 	/* Register the game. */
 	if (register)
@@ -29,17 +29,21 @@ function startGame(player1, player2, mode, register) {
 	initGraphics();
 	$('#game-window-title-name').html('');
 	$('#game-window-title').fadeIn(1000);
+	$('#game-window-gold-label').html('Gold: ' + curr_user['gold']);
 
 	game_nextMove();
 	initCheats();
 }
 
 function closeGame() {
+	if (gameMapMove != null && gameWinner == true) 
+		moveMapWindow(gameMapMove[0], gameMapMove[1]);
+
 	gameTurn = 0;
 	closeAllCheats();
 
 	$('#game-window').fadeOut(500);
-	$('#game-window-title').fadeOut(1000);
+	$('#game-window-title').fadeOut(500);
 	if (gameState == true)
 		endGame();
 	gameState = false;
@@ -156,6 +160,8 @@ function moveStones(plate_no) {
 function game_checkWin() {
 	/* Check if this player has won */
 	if (gameScore[gameTurn] >= 24) {
+		if (gamePlayer[gameTurn] == curr_user['id'])
+			gameWinner = true;
 		gameState = false;
 		name = game_getPlayerName(gamePlayer[gameTurn]);
 		$('#game-window-title-name').html('<h1>' + name + ' won!</h1>');
@@ -183,6 +189,7 @@ function game_getMoves(data) {
 		// the game window is not opened
 		$('#game-window').fadeIn(500);
 		$('#game-window-title').fadeIn(1000);
+		$('#game-window-gold-label').html('Gold: ' + curr_user['gold']);
 		$('#game-window-close').click(function(event) { closeGame(); });
 
 		gamePlayer[0] = 0;
