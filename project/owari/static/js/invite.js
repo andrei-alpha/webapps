@@ -94,7 +94,7 @@ Invite.prototype.accept = function() {
 		inviteAjaxCall('/backend/invite/', 
 			{'type': 'accept_invite', 'sender': this.otherId},
 			'error on accept invite');
-		setTimeout(startGame(this.otherId, curr_user['id'], 0, true), 1000);
+		setTimeout(startGame(this.otherId, curr_user['id'], true, null), 1000);
 	}
 	invite_system[this.windowId] = null;
 	invite_refresh();

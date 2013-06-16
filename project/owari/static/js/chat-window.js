@@ -46,7 +46,7 @@ ChatWindow.prototype.receive = function(id, message, read, fromId, time) {
 
         this.lastLineNo = this.lastLineNo + 1;
         $('#chat-message-content-' + itemId).html(lastMessage + '<br>' + message);
-        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 25) );
+        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 23) );
     }
     else {
         this.lastLineNo = 0;
@@ -77,7 +77,7 @@ ChatWindow.prototype.submit = function() {
 
         this.lastLineNo = this.lastLineNo + 1;
         $('#chat-message-content-' + itemId).html(lastMessage + '<br>' + message);
-        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 25));
+        $('#chat-message-' + itemId).css('height', Math.max(65, 23 + this.lastLineNo * 23));
     }
     else {
         this.lastLineNo = 0;

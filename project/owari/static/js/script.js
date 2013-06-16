@@ -83,7 +83,7 @@ function generateRatingChart(dates, values) {
         labels: {
           formatter: function() {
             var str = this.value;
-            return str.split(",")[0];
+            return str.split(",")[0][1];
           },
           style: {
             color: '#fff'

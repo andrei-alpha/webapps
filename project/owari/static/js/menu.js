@@ -1,5 +1,5 @@
 var searchItemCurr = -1, searchItemId = 0, itemId = 0, contactId = 0, curr_user;
-var getUsers = 9999;
+var getUsers = 9999, searchLastText = null;
 var users = {};
 
 function menu_addItem(name, href, callback) {
@@ -168,13 +168,16 @@ function search(keypress) {
 
     searchItemCurr = -1;
     text = $('#search-box').val();
-    template = $('#searchResultTemplate').html();
-
-    $('#search-results').empty();
     if (text.length == 0) {
+        searchLastText = null;
+        $('#search-results').empty();
         $('#search-results').css('height', '0px');
         return;
     }
+
+    if (text == searchLastText)
+        return;
+    searchLastText = text;
 
     data = {};
     data['type'] = 'search_users';
@@ -185,6 +188,9 @@ function search(keypress) {
         type: 'post',
         data: data,
         success: function(json) {
+            template = $('#searchResultTemplate').html();
+            $('#search-results').empty();
+
             resultUsers = $.parseJSON(json);
             $('#search-results').css('height', (50 * resultUsers.length) + 'px');
 
@@ -212,7 +218,7 @@ function search(keypress) {
 
 function loadGraphics() {
     // Go with WebGL for now
-    if (true || Detector.webgl) {
+    if (Detector.webgl) {
         console.log('We have WebGL support');
 
         $.getScript('/static/js/three/build/three.min.js', null);
@@ -246,8 +252,8 @@ $(document).ready(function() {
     $('#top-menu').fadeIn(500);
     $('#user-list').fadeIn(500);
     $('#search-results').css('left', 390 + $('#top-menu ').width() / 5);
-    $('#info-window').css('left', (totalW - 1420) / 2 + 220);
-    $('#info-window').css('top', (totalH - 750) / 2 + 50);
+    $('#info-window').css('left', (totalW - 1120) / 2 + 220);
+    $('#info-window').css('top', (totalH - 650) / 2 + 50);
 
     /* Get all users and current user's profile. */
     user_getProfile();

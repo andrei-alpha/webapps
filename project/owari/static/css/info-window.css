@@ -1,6 +1,6 @@
 #info-window {
-    width: 1200px;
-    height: 700px;
+    width: 900px;
+    height: 600px;
     background: rgba(50, 20, 20, 0.8); 
     border-radius: 20px;
     overflow: auto;
@@ -87,14 +87,14 @@
     border-radius: 25px;
     margin: 10px;
     height: 10px;
-    width: 200px;
+    width: 140px;
     padding: 10px;
     font-size: 12px;
     float: right;
 }
 
 #details {
-    width: 400px;
+    width: 320px;
 }
 
 #country {
@@ -102,7 +102,7 @@
     margin-top: 8px;
     padding: 0px;
     height: 32px;
-    width: 226px;
+    width: 165px;
     font-size: 12px;
 }
 
@@ -129,11 +129,11 @@
 }
 
 #change-pass-button {
-    margin-left: 170px;
+    margin-left: 90px;
 }
 
 #submit-details-button {
-    margin-left: 290px;
+    margin-left: 210px;
 }
 
 #user-profile-message {
@@ -158,10 +158,10 @@
 }
 
 #rating-chart {
-    width: 680px;
+    width: 520px;
     height: 450px;
     top: 140px;
-    left: 470px;
+    left: 370px;
     position: absolute;
 }
 
@@ -176,11 +176,11 @@
 }
 
 #user-rating-label , #user-gold-label {
-    left: 504px;
+    left: 404px;
 }
 
 #user-rating-pic {
-    left: 620px;
+    left: 490px;
     width: 50px;
     height: 50px;
     border-radius: 10px;
@@ -188,7 +188,7 @@
 }
 
 #user-gold-pic {
-    left: 620px;
+    left: 490px;
     width: 50px;
     height: 50px;
     border-radius: 10px;
@@ -202,55 +202,53 @@
     border-color: 0xfff;
     margin-left: 25px;
     margin-right: 25px;
-    width: 1000px;
-    height: 500px; 
+    width: 720px;
+    height: 400px; 
 }
 
 #tutorial-img1, #tutorial-img2, #tutorial-img3, #tutorial-img4,
     #tutorial-img6-1, #tutorial-img6-2 {
-    width: 600px;
-    height: 400px;
     margin: auto;
     display: block;
 }
 
-#tutorial-img1, #tutorial-img2, #tutorial-img3, #tutorial-img4 {
+#tutorial-img1, #tutorial-img2, #tutorial-img3, #tutorial-img4, #tutorial-img5 {
     box-shadow: 10px 10px 7px #3B2727;
 }
 
 #tutorial-img1 {
-    width: 600px;
-    height: 400px;
+    width: 400px;
+    height: 300px;
 }
 
 #tutorial-img2 {
-    width: 600px;
-    height: 400px;
+    width: 400px;
+    height: 300px;
 }
 
 #tutorial-img3 {
-    width: 1000px;
-    height: 200px;
+    width: 650px;
+    height: 150px;
 }
 
-#tutorial-img4 {
-    width: 800px;
-    height: 400px;
+#tutorial-img4, #tutorial-img5 {
+    width: 650px;
+    height: 350px;
 }
 
 #tutorial-img6-1 {
-    width: 600px;
+    width: 390px;
     height: 350px;
     padding-right: 20px;
 }
 
 #tutorial-img6-2 {
-    width: 400px;
+    width: 310px;
     height: 350px;
 }
 
 #tutorial-text {
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     font-family: 'Times New Roman';
     padding: 10px;

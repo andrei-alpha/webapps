@@ -202,7 +202,7 @@ function game_getMoves(data) {
 	}
 
 	// The oponent left the game
-	if (data['status'] == 'ended') {
+	if (gameState == true && data['status'] == 'ended') {
 		gameState = false;
 		var oponent = (gamePlayer[1] != curr_user['id'] ? gamePlayer[1] : gamePlayer[2]);
 		name = game_getPlayerName(oponent);

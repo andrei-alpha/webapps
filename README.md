@@ -1,4 +1,4 @@
 webapps
 =======
 
-Terrapoly world economics simulation game. 
+Owari online multiplayer platform. 

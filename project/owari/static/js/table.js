@@ -98,8 +98,8 @@ function renderTable(type) {
 				{ "sTitle": "Moves", "sClass": "center"},
 				{ "sTitle": "Winner", "sClass": "center"}
 			],
-			"iDisplayLength": 20,
-			aLengthMenu: [20],
+			"iDisplayLength": 16,
+			aLengthMenu: [16],
 			//"bFilter": false,  //hides search bar
 			});
 		}
@@ -114,8 +114,8 @@ function renderTable(type) {
 				{ "sTitle": "Score", "sClass": "center", "bSortable": false},
 				{ "sTitle": "Moves", "sClass": "center"}
 			],
-			"iDisplayLength": 20,
-			aLengthMenu: [20],
+			"iDisplayLength": 15,
+			aLengthMenu: [15],
 			"aaSorting": [[ 2, "desc" ]]
 			//"bFilter": false,  //hides search bar
 			});
