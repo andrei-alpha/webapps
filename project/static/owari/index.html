@@ -10,7 +10,11 @@
     <link href="/static/css/style.css" rel="stylesheet">
     <link href="/static/css/chat.css" rel="stylesheet">
     <link href="/static/css/game.css" rel="stylesheet">
+<<<<<<< HEAD
     <link href="/static/css/table.css" rel="stylesheet">
+=======
+    <link href="/static/css/map.css" rel="stylesheet">
+>>>>>>> c2dda69f0d58b5d1b95241a7ab24ca281d1d7fb4
     <link href="/static/css/info-window.css" rel="stylesheet">
 
   </head>
@@ -155,6 +159,24 @@
         <div id="cheat-message-{0}" class="cheat-message"></div>
       </div>
     </script>
+    <script type="text/template" id="mapWindowTemplate">
+      <div id='map-window-{0}' class="map-window">
+        <div class='map-title'>
+          <div id='map-window-name-{0}' class='map-window-name'>
+            {1}
+          </div>
+          <img id='map-window-close-{0}' class="map-window-close" src='/static/img/cross.png' alt='X'>
+          </div>
+          <div class='map-window-content'>
+            <div id='map-window-pic-{0}' class="map-window-pic"></div>
+            <div id='map-window-text-{0}' class='map-window-text'>
+              <br>{2}
+          </div>
+          <button id='map-window-play-{0}' class="map-window-play">Play</button>
+        </div>
+      </div>
+    </script>
+
     <!-- Invite window template -->
     <script type="text/template" id="inviteWindowTemplate">
       <div id="invite-window-{0}" class="invite-window">
@@ -190,8 +212,12 @@
     <script src="/static/js/menu.js"></script>
     <script src="/static/js/game.js"></script>
     <script src="/static/js/lib/crypto.js"></script>
+<<<<<<< HEAD
     <script src="/static/js/lib/jquery.dataTables.js"></script>
     <script src="/static/js/table.js"></script>
+=======
+    <script src="/static/js/lib/gInfoBox.js"></script>
+>>>>>>> c2dda69f0d58b5d1b95241a7ab24ca281d1d7fb4
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <!-- <script src="/static/js/bootstrap.min.js"></script> -->
