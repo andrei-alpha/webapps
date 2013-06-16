@@ -226,7 +226,7 @@ function loadGraphics() {
         // Browser could not initialize WebGL. User probably needs to
         // update their drivers or get a new browser. Present a link to
         // http://get.webgl.org/troubleshooting
-        WebGl = false;  
+        WebGl = true;  
     }
 
     if (WebGl == true) {
@@ -251,7 +251,7 @@ $(document).ready(function() {
     menu_addItem('User Profile', '#', function() { openUserProfile(); } );
     menu_addItem('Game History', '#', function() { openGameTable(); } );
     menu_addItem('Hall of Fame', '#', function() { openHallFameTable(); } );
-    menu_addItem('Tutorial', '#', null);
+    menu_addItem('Tutorial', '#', function() { showTutorial(); });   
     //menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -1, true, null); } );
     $('#search-box').keyup(function(event) { search(event.which); } );
 

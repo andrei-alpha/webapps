@@ -216,6 +216,50 @@ if (!String.prototype.format) {
   };
 }
 
+function showTutorial() {
+  var windowTemplate = $('#infoWindowTemplate').html();
+  var template = windowTemplate.format('How to play');
+  $('#info-window').html(template);
+  $('#info-window').fadeIn(500);
+  $('#info-window-close').click(function(event) { closeInfoWindow(); });
+  $('#info-window-content').html( $('#tutorialTemplate').html() );
+  $('#slide1').show();
+
+  var slides = [$('#slide1'), $('#slide2'), $('#slide3'), $('#slide4'), $('#slide5'), 
+    $('#slide6')], 
+    index = 0;
+  $('#tutorial-prev').click(function() {
+    index = prev(index, slides);
+  }); 
+  $('#tutorial-next').click(function() {
+    index = next(index, slides)
+  });
+}
+
+function prev(index, slides) {
+  var old_index = index;
+  if (index > 0) {
+    index--;
+  } else {
+    index = slides.length - 1;
+  }
+  slides[old_index].hide();
+  slides[index].fadeIn(500);
+  return index; 
+}
+
+function next(index, slides) {
+  var old_index = index;
+  if (index < slides.length - 1) {
+    index++;
+  } else {
+    index = 0;
+  }
+  slides[old_index].hide();
+  slides[index].fadeIn(500);
+  return index;
+}
+
 function deleteCookie(c_name) {
   document.cookie = encodeURIComponent(c_name) + "=deleted; expires=" + new Date(0).toUTCString();
 }
