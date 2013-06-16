@@ -269,8 +269,6 @@ def user(request):
     result['rating'] = User.objects.get(id = userid).rating
     result['gold'] = User.objects.get(id = userid).gold
 
-    #result['dates'] = ['8 Oct', '12 Oct', '30 Oct', '20 Nov', '4 Dec', '15 Dec', '7 Jan', '14 Jan', '8 Mar', '10 Apr']
-    #result['values'] = [1200, 1310, 1420, 1450, 1390, 1430, 1490, 1570, 1670, 1790]
     return HttpResponse( json.dumps(result) )
 
   if data['type'] == 'change_profile':
@@ -417,4 +415,58 @@ def update_rating(player, newRa, gameid):
     user = User.objects.get(id = player)
     user.rating = newRa
     user.save()
+
+def stats(request):
+  data = request.POST
+
+  global users
+  userid = int(users[ request.COOKIES['usertoken'] ])
+  
+  if data['type'] == 'game_history':
+    query1 = Game.objects.filter(player1 = userid)
+    query2 = Game.objects.filter(player2 = userid)
+
+    res = list(chain(query1, query2))
+    res.sort(key = lambda x: x.date)
+
+    results = []
+    for game in res:
+      if game.score1 < 24 and game.score2 < 24:
+        continue
+
+      win = 'oponent'
+      if game.player1 == userid and game.score1 > 24:
+        win = 'you'
+      if game.player2 == userid and game.score2 > 24:
+        win = 'you'
+      time = game.date.strftime("%d %B, %H:%M %p")
+      results.append([time, game.player1, game.score1, game.player2, game.score2, game.moves, win])
+    
+    return HttpResponse( json.dumps(results) )
+
+  if data['type'] == 'hall_of_fame':
+    query = Game.objects.all()
+
+    res = list(query)
+    res.sort(key = lambda x: max(x.score1, x.score2), reverse=True)
+  
+    cnt = 0
+    results = []
+    for game in res:
+      if game.score1 < 24 and game.score2 < 24:
+        continue
+
+      cnt = cnt + 1
+      if cnt > 50:
+        break
+
+      time = game.date.strftime("%d %B, %H:%M %p")
+      if game.score1 > game.score2:
+        results.append([time, game.player1, game.score1, game.player2, game.score2, game.moves])
+      else:
+        results.append([time, game.player2, game.score2, game.player1, game.score1, game.moves])
+
+    return HttpResponse( json.dumps(results) )
+        
+ 
 

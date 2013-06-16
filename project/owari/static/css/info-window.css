@@ -5,6 +5,7 @@
     left: 300px;
     background: rgba(50, 20, 20, 0.8); 
     border-radius: 20px;
+    overflow: auto;
     box-shadow: 5px 5px 40px #321414;  /*For IE9/Final CSS3 spec*/
     -moz-box-shadow: 5px 5px 40px #321414;  /*For Firefox*/
     -webkit-box-shadow: 5px 5px 40px #321414;  /*For Chrome/Safari*/

@@ -122,3 +122,21 @@
 	background-image: url('../img/gold.png');
 	background-size: cover;
 }
+
+#game-window-gold-label {
+	color: #fff;
+	right: 380px;
+	font-size: 16px;
+	font-family: "Times New Roman", Times, serif;
+	position: fixed;
+}
+
+#game-window-gold-pic {
+	top: 10px;
+	right: 320px;
+	width: 50px;
+	height: 50px;
+	position: fixed;
+	background-image: url('../img/gold.png');
+	background-size: cover;
+}

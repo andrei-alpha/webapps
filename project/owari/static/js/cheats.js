@@ -114,6 +114,7 @@ Cheat.prototype.init = function() {
 
 	$('body').append(template);
 	var _this = this;
+	$('#cheat-message-' + this.id).html('');
 	$('#cheat-' + this.id).click( function() { _this.click(); } );
 }
 
@@ -154,6 +155,19 @@ Cheat.prototype.click = function() {
 	if (this.type == 3) cheat_StoneStorm();
 	if (this.type == 4) cheat_OldWine();
 	setBallsScore(gameTurn, gameScore[gameTurn]);
+
+	curr_user['gold'] -= this.gold;
+    $('#game-window-gold-label').html('Gold: ' + curr_user['gold']);
+
+    $.ajax({
+    url: '/backend/game/',
+		type: 'post',
+    	data: {'type': 'use_cheat', 'gold': this.gold, 'cheat': this.type, 
+        	'player1': gamePlayer[1], 'player2': gamePlayer[2]},
+    	error: function(html) {
+    		console.log('error on use cheat');
+		}
+	});
 
 	this.close();
 }

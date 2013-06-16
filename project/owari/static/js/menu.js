@@ -213,11 +213,11 @@ function search(keypress) {
 function loadGraphics() {
     var WebGl = true, gl = null;
 
-    /*if (!window.WebGLRenderingContext) {
+    if (!window.WebGLRenderingContext) {
         // Browser has no idea what WebGL is. Suggest they
         // get a new browser by presenting the user with link to
         // http://get.webgl.org
-        WebGl = true;
+        WebGl = false;
     }
     else
         gl = canvas.getContext("webgl");   
@@ -226,8 +226,8 @@ function loadGraphics() {
         // Browser could not initialize WebGL. User probably needs to
         // update their drivers or get a new browser. Present a link to
         // http://get.webgl.org/troubleshooting
-        WebGl = true;  
-    }*/
+        WebGl = false;  
+    }
 
     if (WebGl == true) {
         console.log('We have WebGL support');
@@ -249,10 +249,10 @@ function loadGraphics() {
 
 $(document).ready(function() {
     menu_addItem('User Profile', '#', function() { openUserProfile(); } );
-    menu_addItem('Game History', '#', null);
+    menu_addItem('Game History', '#', function() { openGameTable(); } );
+    menu_addItem('Hall of Fame', '#', function() { openHallFameTable(); } );
     menu_addItem('Tutorial', '#', null);
     menu_addItem('Play Game', '#', function() { startGame(curr_user['id'], -1, 1, true); } );
-    menu_addItem('Hall of Fame', '#', null);
     $('#search-box').keyup(function(event) { search(event.which); } );
 
     /* Set the height for the two menu components */
