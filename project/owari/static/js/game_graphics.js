@@ -210,12 +210,7 @@ function incScore(scoreBoardNo, score) {
   var scoreBoardY = scoreBoard[0].position.z;
   var curr_balls_no = curr_balls.length;
 
-  for(; curr_balls_no < score; ) {
-    if (curr_balls_no >= MAX_BALLS) {
-      console.error('Ooops cam multe bile');
-      return;
-    }
- 
+  for(; curr_balls_no < score; ) { 
     var new_pos = getBallPositionsScore(curr_balls_no+1);
     var index = 0;
     var x, y;
@@ -245,16 +240,6 @@ function incScore(scoreBoardNo, score) {
   scene.add(text[scoreBoardNo]);
 }
 
-function getBallsScore(player) {
-  if (gamePlayer[1] == curr_user['id'])
-    return scoreBoards[player == 2 ? 1 : 2][1].length;
-  else
-    return scoreBoards[player == 2 ? 2 : 1][1].length;
-}
-
 function setBallsScore(player, score) {
-  if (gamePlayer[1] == curr_user['id'])
-    incScore(player == 2 ? 2 : 1, score);
-  else
-    incScore(player == 2 ? 1 : 2, score);
+  incScore(player % 2, score);
 } 

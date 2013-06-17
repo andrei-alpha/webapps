@@ -252,7 +252,7 @@ $(document).ready(function() {
     $('#top-menu').fadeIn(500);
     $('#user-list').fadeIn(500);
     $('#search-results').css('left', 400 + $('#top-menu ').width() / 5);
-    $('#info-window').css('left', (totalW - 1120) / 2 + 220);
+    $('#info-window').css('left', (totalW - 1120) / 2 + 120);
     $('#info-window').css('top', (totalH - 650) / 2 + 50);
 
     /* Get all users and current user's profile. */
