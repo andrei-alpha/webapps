@@ -33,6 +33,8 @@ function startGame(player1, player2, register, mapMove) {
 
 	game_nextMove();
 	initCheats();
+	setBallsScore(1, gameScore[1]);
+	setBallsScore(2, gameScore[2]);
 }
 
 function closeGame() {
@@ -122,7 +124,8 @@ function moveStones(plate_no) {
 		if (getBalls(ind) == 1) {
 			removeBall(ind);
 			gameScore[gameTurn] += 2;
-			setBallsScore(gameTurn, gameScore[gameTurn]);
+			setBallsScore(1, gameScore[1]);
+			setBallsScore(2, gameScore[2]);
 		}
 		else
 			addBall(ind);

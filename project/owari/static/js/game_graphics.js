@@ -246,9 +246,15 @@ function incScore(scoreBoardNo, score) {
 }
 
 function getBallsScore(player) {
-  return  scoreBoards[player == 2 ? 0 : 1][1].length;
+  if (gamePlayer[1] == curr_user['id'])
+    return scoreBoards[player == 2 ? 1 : 2][1].length;
+  else
+    return scoreBoards[player == 2 ? 2 : 1][1].length;
 }
 
 function setBallsScore(player, score) {
-  incScore(player == 2 ? 0 : 1, score);
+  if (gamePlayer[1] == curr_user['id'])
+    incScore(player == 2 ? 2 : 1, score);
+  else
+    incScore(player == 2 ? 1 : 2, score);
 } 

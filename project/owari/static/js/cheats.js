@@ -155,6 +155,7 @@ Cheat.prototype.click = function() {
 	if (this.type == 3) cheat_StoneStorm();
 	if (this.type == 4) cheat_OldWine();
 	setBallsScore(gameTurn, gameScore[gameTurn]);
+	game_checkWin();
 
 	curr_user['gold'] -= this.gold;
     $('#game-window-gold-label').html('Gold: ' + curr_user['gold']);

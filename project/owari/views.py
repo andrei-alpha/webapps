@@ -13,7 +13,6 @@ import ai
 users = {}
 games = {}
 users['ftfn62nlrn59kp6ohphr70l6h4qujpi6'] = 1
-users['rilhkptfz25nvxy5jbzzd1habgqo32of'] = 5
 
 defaultImage = 'static/img/user-placeholder-small.png'
 
@@ -458,9 +457,16 @@ def stats(request):
     for game in res:
       if game.score1 < 24 and game.score2 < 24:
         continue
+      
+      winner = game.player1
+      if int(game.score2) >= 24:
+        winner = game.player2
+
+      if winner <= 0:
+        continue
 
       cnt = cnt + 1
-      if cnt > 50:
+      if cnt > 100:
         break
 
       time = game.date.strftime("%d %B, %H:%M %p")

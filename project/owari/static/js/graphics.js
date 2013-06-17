@@ -7,8 +7,10 @@ function initGraphics() {
 	setUpContext();
 
 	//Set the canvas to be centered
-    $('#canvas').css('left', 600);
-    $('#canvas').css('top', 200);
+    var totalH = $(window).height();
+    var totalW = $(window).width();
+    $('#canvas').css('left', (totalW - 1020) / 2 + 180);
+    $('#canvas').css('top', (totalH - 450) / 2 + 50);
     $('#canvas').css('position', 'absolute');
 
 	width = canvas.width;
@@ -18,8 +20,10 @@ function initGraphics() {
     var circleSize = Math.floor(width / noCircles);
     var radius = 50;
 
-    $('#pointer-1').css('top', 150 + firstLine);
-    $('#pointer-0').css('top', 150 + secondLine);
+    $('#pointer-0').css('left', (totalW - 1020) / 2 + 60);
+    $('#pointer-1').css('left', (totalW - 1020) / 2 + 60);
+    $('#pointer-1').css('top', (totalH - 450) / 2 + firstLine);
+    $('#pointer-0').css('top', (totalH - 450) / 2 + secondLine);
 
     circles = [];
     curCircle = null;

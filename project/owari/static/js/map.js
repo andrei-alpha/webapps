@@ -134,13 +134,13 @@ function makeBindings(mapWindowId, image, city, level) {
 }
 
 function showMapWindow(mapWindowId) {
-  $('#map-window-' + mapWindowId).fadeIn(1000);
+  $('#map-window-' + mapWindowId).fadeIn(500);
 }
 
 function closeMapWindow(mapWindowId) {
-  $('#map-window-' + mapWindowId).fadeOut(1000);
+  $('#map-window-' + mapWindowId).fadeOut(500);
   var fun = function() { mapInfoBox.close(); };
-  setTimeout(fun, 1000);
+  setTimeout(fun, 450);
 }
 
 function playMapWindow(mapWindowId, city, level) {
@@ -156,7 +156,6 @@ function moveMapWindow(mapWindowId, city) {
   
   mapCity = city;
   closeMapWindow(mapWindowId);
-  calculateRoutes(mapCity, mapCity);
   marker = new google.maps.Marker(changeMarker('big', city));
 }
 
